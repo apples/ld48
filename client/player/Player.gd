@@ -23,7 +23,7 @@ func _process(delta):
 	if Input.is_action_pressed("move_up"):
 		dir.y -= 1.0
 	
-	var move_speed = base_move_speed
+	var move_speed = 0.0 if dir.length_squared() == 0 else 1.0
 	
 	if Input.is_key_pressed(KEY_SHIFT):
 		move_speed *= 2
@@ -40,8 +40,20 @@ func _process(delta):
 	if dir.length_squared() == 0:
 		$AnimatedSprite.stop()
 	
-	move_and_slide(dir * move_speed)
+	move_and_slide(dir * move_speed * base_move_speed)
+	
+	$AnimatedSprite.speed_scale = move_speed
 	
 
 func _physics_process(delta):
 	pass
+
+func _on_AnimatedSprite_frame_changed():
+	if $AnimatedSprite.frame % 2 == 0:
+		var obs_tile = obstacle_path.get_cellv(obstacle_path.world_to_map(position))
+		
+		match obs_tile:
+			TALLGRASS_TILE:
+				$SfxGrass.play()
+			_:
+				pass
