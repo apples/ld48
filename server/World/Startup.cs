@@ -11,6 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using World.Data;
+using Microsoft.EntityFrameworkCore;
+using World.Extensions;
 
 namespace World
 {
@@ -32,6 +35,8 @@ namespace World
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "World", Version = "v1" });
             });
+
+            services.AddWorldContext(Configuration.GetConnectionString("default"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
