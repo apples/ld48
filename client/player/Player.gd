@@ -1,15 +1,19 @@
 extends KinematicBody2D
 
-var move_speed = 50.0
+export(NodePath) var obstacle_map_path = null
+onready var obstacle_path: TileMap = get_node(obstacle_map_path)
 
-var dir
+const TALLGRASS_TILE = 1
+
+var base_move_speed = 50.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	dir = Vector2(0, 0)
+	var dir = Vector2(0, 0)
 	if Input.is_action_pressed("move_left"):
 		dir.x -= 1.0
 	if Input.is_action_pressed("move_right"):
@@ -18,10 +22,26 @@ func _process(delta):
 		dir.y += 1.0
 	if Input.is_action_pressed("move_up"):
 		dir.y -= 1.0
+	
+	var move_speed = base_move_speed
+	
 	if Input.is_key_pressed(KEY_SHIFT):
-		move_and_slide(dir * move_speed * 2)
-	else:
-		move_and_slide(dir * move_speed)
+		move_speed *= 2
+	
+	var obs_tile = obstacle_path.get_cellv(obstacle_path.world_to_map(position))
+	
+	match obs_tile:
+		TALLGRASS_TILE:
+			$AnimatedSprite.play("grass")
+			move_speed *= 0.5
+		_:
+			$AnimatedSprite.play("default")
+	
+	if dir.length_squared() == 0:
+		$AnimatedSprite.stop()
+	
+	move_and_slide(dir * move_speed)
+	
 
 func _physics_process(delta):
 	pass

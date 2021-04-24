@@ -11,3 +11,4 @@ polygon = PoolVector2Array( -3.07584, -7.94107, -6.93431, 1.10878, -7.10969, 5.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
+animation = "grass"
