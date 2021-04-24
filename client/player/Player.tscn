@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://player/spriteframes.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://player/Player.gd" type="Script" id=2]
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -3.07584, -7.94107, -6.93431, 1.10878, -7.10969, 5.00232, -4.97, 5.0374, -7.00446, 7.94879, 6.95616, 7.94879, 4.99185, 5.0374, 6.92108, 4.96725, 6.99124, 1.07371, 2.95739, -8.01122 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = ExtResource( 1 )
