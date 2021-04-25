@@ -163,7 +163,10 @@ namespace World.Controllers
                 .Where(p =>
                     p.WorldID == dto.WorldID &&
                     p.ZoneID == dto.ZoneID &&
-                    p.TimeStamp > dayStart && // Only pull paths created within the last day
+                    (p.TimeStamp > WorldContext.EndDays            // Pull all paths since last day the player ended
+                        .Where(e => e.PlayerID == dto.PlayerID)
+                        .Select(e => e.TimeStamp)
+                        .Max()) &&
                     WorldContext.MatchedPlayers
                         .Where(mp => mp.PlayerID == dto.PlayerID)
                         .Any(mp => mp.OtherPlayerID == p.PlayerID)) 
@@ -189,7 +192,19 @@ namespace World.Controllers
                     t.Count))
                 .ToList();
 
-            return new DayUpdatesDTO(wornTilesDTO);
+            var endDay = new EndDayModel
+            {
+                PlayerID = dto.PlayerID,
+                Day = dto.Day,
+                TimeStamp = DateTime.Now
+            };
+
+            await WorldContext.EndDays.AddAsync(endDay);
+            await WorldContext.SaveChangesAsync();
+
+            return new DayUpdatesDTO(
+                endDay.EndDayID,
+                wornTilesDTO);
         }
 
         [Route("NewPlayer")]

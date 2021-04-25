@@ -6,5 +6,6 @@ using System.Threading.Tasks;
 namespace World.Data.TransferObjects
 {
     public record DayUpdatesDTO(
+        uint EndDayID,
         IList<PathTileWornDTO> WornTiles);
 }

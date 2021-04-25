@@ -42,7 +42,15 @@ namespace World.Data
 
             modelBuilder.Entity<EventModel>(entityBuilder =>
             {
-                entityBuilder.HasKey(eventModel => eventModel.EventID);
+                entityBuilder.HasKey(@event => @event.EventID);
+            });
+
+            modelBuilder.Entity<EndDayModel>(entityBuilder =>
+            {
+                entityBuilder.HasKey(endDay => endDay.EndDayID);
+                entityBuilder.HasOne(endDay => endDay.Player)
+                    .WithMany()
+                    .HasForeignKey(endDay => endDay.PlayerID);
             });
         }
 
@@ -51,5 +59,6 @@ namespace World.Data
         public DbSet<PlayerModel> Players { get; set; }
         public DbSet<MatchedPlayer> MatchedPlayers { get; set; }
         public DbSet<EventModel> Events { get; set; }
+        public DbSet<EndDayModel> EndDays { get; set; }
     }
 }
