@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using World.Configuration;
 using World.Data;
 using World.Data.Models;
 using World.Data.TransferObjects;
@@ -17,10 +19,12 @@ namespace World.Controllers
     public class WorldController : ControllerBase
     {
         public WorldContext WorldContext { get; }
+        public GameSettings Settings { get; }
 
-        public WorldController(WorldContext worldContext)
+        public WorldController(WorldContext worldContext, IOptions<GameSettings> settings)
         {
             WorldContext = worldContext;
+            Settings = settings.Value;
         }
 
         // POST api/<ValuesController>/AddPath
@@ -34,7 +38,7 @@ namespace World.Controllers
                 ZoneID = dto.ZoneID,
                 PlayerID = dto.PlayerID,
                 Day = dto.Day,
-                TimeStamp = DateTimeOffset.Now,
+                TimeStamp = DateTime.UtcNow,
                 Tiles = dto.Tiles.Select(pt =>
                     new PathTileModel
                     {
@@ -84,7 +88,7 @@ namespace World.Controllers
         [HttpGet]
         public async Task<ActionResult<PathGetPlayerDayDTO>> GetDay(Guid playerID, uint worldID, uint zoneID, uint day)
         {
-            var tiles = (await WorldContext.Paths
+            var tiles = await WorldContext.Paths
                 .Where(p =>
                     p.WorldID == worldID &&
                     p.ZoneID == zoneID &&
@@ -95,9 +99,8 @@ namespace World.Controllers
                     pt.TileX,
                     pt.TileY,
                     pt.TimeStamp))
-                .ToListAsync())
                 .OrderBy(pt => pt.TimeStamp)
-                .ToList();
+                .ToListAsync();
 
             var dto = new PathGetPlayerDayDTO(
                 Tiles: tiles);
@@ -110,17 +113,60 @@ namespace World.Controllers
         [HttpPost]
         public async Task<ActionResult<DayUpdatesDTO>> EndDay([FromBody] EndDayDTO dto)
         {
-            var players = new List<Guid>
+            Guid? newFriend = null;
+
+            var unfriendedPlayers = await WorldContext.MatchedPlayers
+                .Where(op =>
+                    op.OtherPlayerID == dto.PlayerID &&
+                    !WorldContext.MatchedPlayers
+                        .Where(mp => mp.PlayerID == dto.PlayerID)
+                        .Any(mp => mp.OtherPlayerID == op.PlayerID))
+                .ToListAsync();
+
+            newFriend = unfriendedPlayers.FirstOrDefault()?.PlayerID;
+
+            if (newFriend.HasValue == false)
             {
-                dto.PlayerID
-            };
+                var newPlayers = await WorldContext.Paths
+                    .Where(p =>
+                        p.PlayerID != dto.PlayerID &&
+                        !WorldContext.MatchedPlayers
+                            .Where(mp => mp.PlayerID == dto.PlayerID)
+                            .Any(mp => mp.OtherPlayerID == p.PlayerID))
+                    .GroupBy(p => p.PlayerID)
+                    .Select(g => new
+                    {
+                        PlayerID = g.Key,
+                        LatestTimeStamp = g.Max(p => p.TimeStamp)
+                    })
+                    .OrderByDescending(p => p.LatestTimeStamp)
+                    .ToListAsync();
+
+                newFriend = newPlayers.FirstOrDefault()?.PlayerID;
+            }
+
+            if (newFriend.HasValue == true)
+            {
+                WorldContext.MatchedPlayers
+                    .Add(new MatchedPlayer
+                    {
+                        PlayerID = dto.PlayerID,
+                        OtherPlayerID = newFriend.Value,
+                        TimeStamp = DateTime.UtcNow
+                    });
+                await WorldContext.SaveChangesAsync();
+            }
+
+            var dayStart = DateTime.UtcNow - Settings.DayLength;
 
             var tiles = await WorldContext.Paths
                 .Where(p =>
                     p.WorldID == dto.WorldID &&
                     p.ZoneID == dto.ZoneID &&
-                    players.Contains(p.PlayerID) &&
-                    dto.Day - p.Day < 10) // Only pull last 10 days of paths
+                    p.TimeStamp > dayStart && // Only pull paths created within the last day
+                    WorldContext.MatchedPlayers
+                        .Where(mp => mp.PlayerID == dto.PlayerID)
+                        .Any(mp => mp.OtherPlayerID == p.PlayerID)) 
                 .SelectMany(p => p.Tiles)
                 .GroupBy(pt => new { pt.TileX, pt.TileY })
                 .Select(g => new

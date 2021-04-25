@@ -8,7 +8,7 @@ namespace World.Data.Models
         public uint TileID { get; set; }
         public uint TileX { get; set; }
         public uint TileY { get; set; }
-        public DateTimeOffset TimeStamp { get; set; }
+        public DateTime TimeStamp { get; set; }
         public PathModel Path { get; set; }
     }
 }

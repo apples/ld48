@@ -11,6 +11,6 @@ namespace World.Data.TransferObjects
         uint ZoneID,
         Guid PlayerID,
         uint Day,
-        DateTimeOffset TimeStamp,
+        DateTime TimeStamp,
         IList<PathTileDTO> Tiles);
 }

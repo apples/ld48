@@ -26,9 +26,15 @@ namespace World.Data
                     .WithMany(path => path.Tiles)
                     .HasForeignKey(pathTile => pathTile.PathID);
             });
+
+            modelBuilder.Entity<MatchedPlayer>(entityBuilder =>
+            {
+                entityBuilder.HasKey(matchedPlayer => new { matchedPlayer.PlayerID, matchedPlayer.OtherPlayerID });
+            });
         }
 
         public DbSet<PathModel> Paths { get; set; }
         public DbSet<PathTileModel> PathTiles { get; set; }
+        public DbSet<MatchedPlayer> MatchedPlayers { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace World.Serializers
             reader.Read();
             var y = reader.GetUInt32();
             reader.Read();
-            var timeStamp = reader.GetDateTimeOffset();
+            var timeStamp = reader.GetDateTime();
             reader.Read();
 
             if (reader.TokenType != JsonTokenType.EndArray)
