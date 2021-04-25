@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using World.Data;
@@ -102,6 +103,47 @@ namespace World.Controllers
                 Tiles: tiles);
 
             return dto;
+        }
+
+        // POST api/<ValuesController>/EndDay
+        [Route("EndDay")]
+        [HttpPost]
+        public async Task<ActionResult<DayUpdatesDTO>> EndDay([FromBody] EndDayDTO dto)
+        {
+            var players = new List<Guid>
+            {
+                dto.PlayerID
+            };
+
+            var tiles = await WorldContext.Paths
+                .Where(p =>
+                    p.WorldID == dto.WorldID &&
+                    p.ZoneID == dto.ZoneID &&
+                    players.Contains(p.PlayerID) &&
+                    dto.Day - p.Day < 10) // Only pull last 10 days of paths
+                .SelectMany(p => p.Tiles)
+                .GroupBy(pt => new { pt.TileX, pt.TileY })
+                .Select(g => new
+                    {
+                        g.Key.TileX,
+                        g.Key.TileY,
+                        Count = g.Count()
+                    })
+                .OrderByDescending(g => g.Count)
+                .ToListAsync();
+
+            // Only select top 80% of tiles by number of hits
+            var tileHits = tiles.Sum(t => t.Count) * 0.8;
+            int runningTotal = 0;
+            var wornTilesDTO = tiles
+                .TakeWhile(t => (runningTotal += t.Count) < tileHits)
+                .Select(t => new PathTileWornDTO(
+                    t.TileX,
+                    t.TileY,
+                    t.Count))
+                .ToList();
+
+            return new DayUpdatesDTO(wornTilesDTO);
         }
     }
 }

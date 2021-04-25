@@ -11,5 +11,5 @@ namespace World.Data.TransferObjects
     public record PathTileWornDTO(
         uint X,
         uint Y,
-        byte WornLevel);
+        int WornLevel);
 }

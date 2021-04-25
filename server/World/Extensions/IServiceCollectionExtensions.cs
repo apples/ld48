@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -23,6 +24,7 @@ namespace World.Extensions
             if (string.IsNullOrEmpty(connectionString))
             {
                 var optionsBuilder = new DbContextOptionsBuilder<WorldContext>()
+                    //.LogTo(Console.WriteLine).EnableSensitiveDataLogging()
                     .UseSqlite(CreateInMemoryDatabase());
                 var worldContext = new WorldContext(optionsBuilder.Options);
                 worldContext.Database.EnsureCreated();

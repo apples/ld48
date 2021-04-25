@@ -21,9 +21,7 @@ namespace World.Data
 
             modelBuilder.Entity<PathTileModel>(entityBuilder =>
             {
-                //entityBuilder.HasKey(pathTile => new { pathTile.PathID, pathTile.TileID });
                 entityBuilder.HasKey(pathTile => pathTile.TileID);
-                //entityBuilder.Property(pathTile => pathTile.TileID).ValueGeneratedOnAdd();
                 entityBuilder.HasOne(pathTile => pathTile.Path)
                     .WithMany(path => path.Tiles)
                     .HasForeignKey(pathTile => pathTile.PathID);
