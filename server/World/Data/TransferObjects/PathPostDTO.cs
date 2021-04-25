@@ -9,5 +9,6 @@ namespace World.Data.TransferObjects
         uint WorldID,
         uint ZoneID,
         Guid PlayerID,
-        IList<PathTilePostDTO> Tiles);
+        uint Day,
+        IList<PathTileDTO> Tiles);
 }

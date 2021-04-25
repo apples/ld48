@@ -6,8 +6,8 @@ namespace World.Data.Models
     {
         public uint PathID { get; set; }
         public uint TileID { get; set; }
-        public int TileX { get; set; }
-        public int TileY { get; set; }
+        public uint TileX { get; set; }
+        public uint TileY { get; set; }
         public DateTimeOffset TimeStamp { get; set; }
         public PathModel Path { get; set; }
     }

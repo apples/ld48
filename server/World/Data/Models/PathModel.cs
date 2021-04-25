@@ -9,6 +9,7 @@ namespace World.Data.Models
         public uint WorldID { get; set; }
         public uint ZoneID { get; set; }
         public Guid PlayerID { get; set; }
+        public uint Day { get; set; }
         public DateTimeOffset TimeStamp { get; set; }
         public IList<PathTileModel> Tiles { get; set; }
     }

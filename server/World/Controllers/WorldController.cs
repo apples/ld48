@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using World.Data;
@@ -40,10 +39,10 @@ namespace World.Controllers
                 PlayerID: path.PlayerID,
                 TimeStamp: path.TimeStamp,
                 Tiles: path.Tiles.Select(pt =>
-                    new PathTileGetDTO(
-                        X: pt.TileX,
-                        Y: pt.TileY,
-                        TS: pt.TimeStamp
+                    new PathTileDTO(
+                        TileX: pt.TileX,
+                        TileY: pt.TileY,
+                        TimeStamp: pt.TimeStamp
                     )).ToList());
 
             return dto;
@@ -51,20 +50,21 @@ namespace World.Controllers
 
         // POST api/<ValuesController>
         [HttpPost]
-        public async Task<ActionResult<uint>> Post([FromBody] PathPostDTO dto)
+        public async Task<ActionResult<uint>> AddPath([FromBody] PathPostDTO dto)
         {
             var path = new PathModel
             {
                 WorldID = dto.WorldID,
                 ZoneID = dto.ZoneID,
                 PlayerID = dto.PlayerID,
+                Day = dto.Day,
                 TimeStamp = DateTimeOffset.Now,
                 Tiles = dto.Tiles.Select(pt =>
                     new PathTileModel
                     {
-                        TileX = pt.X,
-                        TileY = pt.Y,
-                        TimeStamp = pt.TS
+                        TileX = pt.TileX,
+                        TileY = pt.TileY,
+                        TimeStamp = pt.TimeStamp
                     }).ToList()
             };
 
