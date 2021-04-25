@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://player/spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://player/Player.gd" type="Script" id=2]
 [ext_resource path="res://sfx/grass.wav" type="AudioStream" id=3]
+[ext_resource path="res://music/sleep.wav" type="AudioStream" id=4]
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -12,8 +13,12 @@ polygon = PoolVector2Array( -3.07584, -7.94107, -6.95957, 0.923811, -7.10969, 5.
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
-animation = "grass"
 
 [node name="SfxGrass" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+bus = "SFX"
+
+[node name="MusicSleep" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+bus = "Music"
 [connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]

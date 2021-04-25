@@ -1,20 +1,32 @@
 extends KinematicBody2D
 
+signal on_sleep(player)
+
 export(NodePath) var obstacle_map_path = null
 onready var obstacle_map: TileMap = get_node(obstacle_map_path)
 
-#export(NodePath) var tileMap = null
-#onready var worldMap: TileMap = get_node(tileMap)
-
 const TALLGRASS_TILE = 1
 
-export(float) var base_move_speed = 50.0
+const base_move_speed = 50.0
 
 var dead = false
+
+onready var start_pos = position
 
 func be_dead():
 	dead = true
 	$AnimatedSprite.rotation_degrees = 90
+	$AnimatedSprite.stop()
+
+func go_to_sleep():
+	dead = true
+	emit_signal("on_sleep", self)
+	$MusicSleep.play()
+
+func reset():
+	dead = false
+	position = start_pos
+	$AnimatedSprite.rotation_degrees = 0
 	$AnimatedSprite.stop()
 
 # Called when the node enters the scene tree for the first time.

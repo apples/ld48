@@ -19,5 +19,18 @@ func _process(delta):
 func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:
 		"FadeOut":
+			fading_out = false
 			Globals.current_time = 0
-			get_tree().reload_current_scene()
+			$Player.reset()
+			$Player/Camera.align()
+			$AnimationPlayer.play("FadeIn")
+
+
+func _on_SleepArea_body_entered(body):
+	if body.is_in_group("player"):
+		body.go_to_sleep()
+
+
+func _on_Player_on_sleep(player):
+	fading_out = true
+	$AnimationPlayer.play("FadeOut")
