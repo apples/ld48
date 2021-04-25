@@ -20,6 +20,9 @@ var sleeping = false
 
 onready var start_pos = position
 
+enum { DIR_N, DIR_S, DIR_E, DIR_W }
+var facing = DIR_S
+
 func be_dead():
 	dead = true
 	$AnimatedSprite.rotation_degrees = 90
@@ -35,6 +38,7 @@ func go_to_sleep():
 func reset():
 	dead = false
 	sleeping = false
+	facing = DIR_S
 	position = start_pos
 	$AnimatedSprite.rotation_degrees = 0
 	$AnimatedSprite.stop()
@@ -46,7 +50,7 @@ func get_hit():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -74,6 +78,17 @@ func _process_alive(delta):
 	if Input.is_key_pressed(KEY_SHIFT):
 		move_speed *= 2
 	
+	# FACING
+	
+	if dir.x < 0:
+		facing = DIR_W
+	if dir.x > 0:
+		facing = DIR_E
+	if dir.y < 0:
+		facing = DIR_N
+	if dir.y > 0:
+		facing = DIR_S
+	
 	# OBSTACLES
 	
 	var obs_tile = obstacle_map.get_cellv(obstacle_map.world_to_map(position))
@@ -98,6 +113,16 @@ func _process_alive(delta):
 	
 	if Input.is_action_just_pressed("attack"):
 		obstacle_map.set_cellv(obstacle_map.world_to_map(position) + dir, -1)
+		match facing:
+			DIR_N:
+				$Axe.rotation_degrees = 180
+			DIR_S:
+				$Axe.rotation_degrees = 0
+			DIR_E:
+				$Axe.rotation_degrees = 180 + 90
+			DIR_W:
+				$Axe.rotation_degrees = 90
+		$Axe.swing()
 	
 	# CONSTRUCT
 	
@@ -127,3 +152,4 @@ func _on_AnimatedSprite_frame_changed():
 				$SfxGrass.play()
 			_:
 				pass
+
