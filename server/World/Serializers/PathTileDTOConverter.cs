@@ -26,7 +26,6 @@ namespace World.Serializers
             {
                 throw new JsonException($"{nameof(PathTileDTO)} JSON did not end as an array.");
             }
-            reader.Read();
 
             return new PathTileDTO(
                 TileX: x,

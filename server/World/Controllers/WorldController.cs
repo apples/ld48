@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,34 +22,8 @@ namespace World.Controllers
             WorldContext = worldContext;
         }
 
-        // GET api/<ValuesController>/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PathGetDTO>> Get(uint id)
-        {
-            var path = await WorldContext.Paths.FindAsync(id);
-
-            if (path == null)
-            {
-                return NotFound();
-            }
-
-            var dto = new PathGetDTO(
-                PathID: path.PathID,
-                WorldID: path.WorldID,
-                ZoneID: path.ZoneID,
-                PlayerID: path.PlayerID,
-                TimeStamp: path.TimeStamp,
-                Tiles: path.Tiles.Select(pt =>
-                    new PathTileDTO(
-                        TileX: pt.TileX,
-                        TileY: pt.TileY,
-                        TimeStamp: pt.TimeStamp
-                    )).ToList());
-
-            return dto;
-        }
-
-        // POST api/<ValuesController>
+        // POST api/<ValuesController>/AddPath
+        [Route("AddPath")]
         [HttpPost]
         public async Task<ActionResult<uint>> AddPath([FromBody] PathPostDTO dto)
         {
@@ -72,6 +47,61 @@ namespace World.Controllers
             await WorldContext.SaveChangesAsync();
 
             return path.PathID;
+        }
+
+        // GET api/<ValuesController>/GetPath
+        [Route("GetPath")]
+        [HttpGet]
+        public async Task<ActionResult<PathGetDTO>> GetPath(uint pathID)
+        {
+            var path = await WorldContext.Paths.FindAsync(pathID);
+
+            if (path == null)
+            {
+                return NotFound();
+            }
+
+            var dto = new PathGetDTO(
+                PathID: path.PathID,
+                WorldID: path.WorldID,
+                ZoneID: path.ZoneID,
+                PlayerID: path.PlayerID,
+                Day: path.Day,
+                TimeStamp: path.TimeStamp,
+                Tiles: path.Tiles.Select(pt =>
+                    new PathTileDTO(
+                        TileX: pt.TileX,
+                        TileY: pt.TileY,
+                        TimeStamp: pt.TimeStamp
+                    )).ToList());
+
+            return dto;
+        }
+
+        // GET api/<ValuesController>/GetDay
+        [Route("GetDay")]
+        [HttpGet]
+        public async Task<ActionResult<PathGetPlayerDayDTO>> GetDay(Guid playerID, uint worldID, uint zoneID, uint day)
+        {
+            var tiles = (await WorldContext.Paths
+                .Where(p =>
+                    p.WorldID == worldID &&
+                    p.ZoneID == zoneID &&
+                    p.PlayerID == playerID &&
+                    p.Day == day)
+                .SelectMany(p => p.Tiles)
+                .Select(pt => new PathTileDTO(
+                    pt.TileX,
+                    pt.TileY,
+                    pt.TimeStamp))
+                .ToListAsync())
+                .OrderBy(pt => pt.TimeStamp)
+                .ToList();
+
+            var dto = new PathGetPlayerDayDTO(
+                Tiles: tiles);
+
+            return dto;
         }
     }
 }
