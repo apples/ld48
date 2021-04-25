@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 signal on_sleep(player)
+signal on_death(player)
 
 export(NodePath) var obstacle_map_path = null
 onready var obstacle_map: TileMap = get_node(obstacle_map_path)
@@ -15,6 +16,7 @@ const BERRYBUSH_TILE4 = 17
 const base_move_speed = 50.0
 
 var dead = false
+var sleeping = false
 
 onready var start_pos = position
 
@@ -22,17 +24,25 @@ func be_dead():
 	dead = true
 	$AnimatedSprite.rotation_degrees = 90
 	$AnimatedSprite.stop()
+	emit_signal("on_death", self)
 
 func go_to_sleep():
 	dead = true
+	sleeping = true
 	emit_signal("on_sleep", self)
 	$MusicSleep.play()
 
 func reset():
 	dead = false
+	sleeping = false
 	position = start_pos
 	$AnimatedSprite.rotation_degrees = 0
 	$AnimatedSprite.stop()
+
+func get_hit():
+	Globals.player_health -= 1
+	if Globals.player_health <= 0:
+		be_dead()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
