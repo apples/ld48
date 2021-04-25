@@ -209,8 +209,11 @@ namespace World.Controllers
             if (dto.Name == null || dto.PlayerID < 0) return BadRequest();
             try {
                 var player = await WorldContext.Players.SingleOrDefaultAsync(p => p.PlayerID == dto.PlayerID && p.Name == dto.Name);
-                return new VerifyPlayerDTO(player != null);
+                var valid = player != null;
+                Console.WriteLine("Verification result: " + valid.ToString());
+                return new VerifyPlayerDTO(valid);
             } catch {
+                Console.WriteLine("Verification result: false");
                 return new VerifyPlayerDTO(false);
             }
         }

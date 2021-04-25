@@ -6,7 +6,6 @@ var fading_out = false
 func _ready():
 	$AnimationPlayer.play("FadeIn")
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if (not fading_out and
@@ -38,3 +37,4 @@ func _on_Player_on_sleep(player):
 func _on_Player_on_death(player):
 	fading_out = true
 	$AnimationPlayer.play("FadeOut")
+

@@ -16,12 +16,13 @@ _global_script_class_icons={
 [application]
 
 config/name="Ludum Dare 48"
-run/main_scene="res://scenes/forest/ForestScene.tscn"
+run/main_scene="res://scenes/init/Init.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Globals="*res://autoload/Globals.gd"
+StrandService="*res://autoload/StrandService.gd"
 
 [display]
 
