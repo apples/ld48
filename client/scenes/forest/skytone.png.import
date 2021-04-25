@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/skytone.png-fa2e97fdd60d0bb63d7c1b23ee0063b9.image"
+
+[deps]
+
+source_file="res://scenes/forest/skytone.png"
+dest_files=[ "res://.import/skytone.png-fa2e97fdd60d0bb63d7c1b23ee0063b9.image" ]
+
+[params]
+
