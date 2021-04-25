@@ -4,6 +4,8 @@ var current_time = 0
 var day_length = 30
 var night_killscreen = 5
 
+var player_health = 5
+
 func _ready():
 	pass # Replace with function body.
 

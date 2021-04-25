@@ -11,9 +11,7 @@ func _ready():
 func _process(delta):
 	if (not fading_out and
 		Globals.current_time > Globals.day_length + Globals.night_killscreen):
-			fading_out = true
-			$AnimationPlayer.play("FadeOut")
-			$Player.be_dead()
+			$Player.get_hit()
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
@@ -21,6 +19,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		"FadeOut":
 			fading_out = false
 			Globals.current_time = 0
+			Globals.player_health = 6 if $Player.sleeping else 5
 			$Player.reset()
 			$Player/Camera.align()
 			$AnimationPlayer.play("FadeIn")
@@ -32,5 +31,10 @@ func _on_SleepArea_body_entered(body):
 
 
 func _on_Player_on_sleep(player):
+	fading_out = true
+	$AnimationPlayer.play("FadeOut")
+
+
+func _on_Player_on_death(player):
 	fading_out = true
 	$AnimationPlayer.play("FadeOut")
