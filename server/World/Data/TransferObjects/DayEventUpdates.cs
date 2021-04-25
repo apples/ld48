@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace World.Data.TransferObjects
 {
-    public record DayUpdatesDTO(
-        uint EndDayID,
-        IList<PathTileWornDTO> WornTiles,
-        IList<DayEventUpdates> Events);
+    public record DayEventUpdates(
+        uint TileX,
+        uint TileY,
+        uint EventType,
+        int EventValue);
 }
