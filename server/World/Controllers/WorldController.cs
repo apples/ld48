@@ -214,5 +214,25 @@ namespace World.Controllers
                 return new VerifyPlayerDTO(false);
             }
         }
+
+        [Route("AddEvent")]
+        [HttpPost]
+        public async Task<ActionResult<uint>> AddEvent([FromBody]AddEventDTO dto)
+        {
+            var newEvent = new EventModel
+            {
+                PlayerID = dto.PlayerID,
+                EventType = dto.EventType,
+                EventValue = dto.EventValue,
+                TileX = dto.TileX,
+                TileY = dto.TileY,
+                TimeStamp = DateTime.UtcNow
+            };
+
+            await WorldContext.Events.AddAsync(newEvent);
+            await WorldContext.SaveChangesAsync();
+
+            return newEvent.EventID;
+        }
     }
 }

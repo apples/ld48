@@ -39,11 +39,17 @@ namespace World.Data
             {
                 entityBuilder.HasKey(matchedPlayer => new { matchedPlayer.PlayerID, matchedPlayer.OtherPlayerID });
             });
+
+            modelBuilder.Entity<EventModel>(entityBuilder =>
+            {
+                entityBuilder.HasKey(eventModel => eventModel.EventID);
+            });
         }
 
         public DbSet<PathModel> Paths { get; set; }
         public DbSet<PathTileModel> PathTiles { get; set; }
         public DbSet<PlayerModel> Players { get; set; }
         public DbSet<MatchedPlayer> MatchedPlayers { get; set; }
+        public DbSet<EventModel> Events { get; set; }
     }
 }
