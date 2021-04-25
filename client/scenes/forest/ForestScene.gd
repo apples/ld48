@@ -19,4 +19,5 @@ func _process(delta):
 func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:
 		"FadeOut":
+			Globals.current_time = 0
 			get_tree().reload_current_scene()

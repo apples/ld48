@@ -58,10 +58,11 @@ func _process_alive(delta):
 	
 	move_and_slide(dir * move_speed * base_move_speed)
 	
-	if Input.is_action_just_pressed("attack"):
-		obstacle_path.set_cellv(obstacle_path.world_to_map(position) + dir, 0)
-	
 	$AnimatedSprite.speed_scale = move_speed
+	
+	if Input.is_action_just_pressed("attack"):
+		obstacle_map.set_cellv(obstacle_map.world_to_map(position) + dir, 0)
+	
 
 func _process_dead(delta):
 	pass
