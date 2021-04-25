@@ -102,3 +102,13 @@ margin_left = 60.0
 margin_right = 68.0
 margin_bottom = 8.0
 texture = ExtResource( 2 )
+
+[node name="NameLabel" type="Label" parent="."]
+margin_left = 1.89201
+margin_top = 583.625
+margin_right = 281.892
+margin_bottom = 597.625
+text = "asdf"
+__meta__ = {
+"_edit_use_anchors_": false
+}

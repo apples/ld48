@@ -11,4 +11,4 @@ func _ready():
 
 func _process(delta):
 	current_time += delta * (5 if Input.is_key_pressed(KEY_P) else 1)
-	
+
