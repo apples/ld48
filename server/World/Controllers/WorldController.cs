@@ -82,7 +82,7 @@ namespace World.Controllers
         // GET api/<ValuesController>/GetDay
         [Route("GetDay")]
         [HttpGet]
-        public async Task<ActionResult<PathGetPlayerDayDTO>> GetDay(Guid playerID, uint worldID, uint zoneID, uint day)
+        public async Task<ActionResult<PathGetPlayerDayDTO>> GetDay(long playerID, uint worldID, uint zoneID, uint day)
         {
             var tiles = (await WorldContext.Paths
                 .Where(p =>
@@ -110,7 +110,7 @@ namespace World.Controllers
         [HttpPost]
         public async Task<ActionResult<DayUpdatesDTO>> EndDay([FromBody] EndDayDTO dto)
         {
-            var players = new List<Guid>
+            var players = new List<long>
             {
                 dto.PlayerID
             };
@@ -144,6 +144,29 @@ namespace World.Controllers
                 .ToList();
 
             return new DayUpdatesDTO(wornTilesDTO);
+        }
+
+        [Route("NewPlayer")]
+        [HttpPost]
+        public async Task<ActionResult<NewPlayerDTO>> NewPlayer(NewPlayerPostDTO dto) {
+            Console.WriteLine("New player: '" + dto.Name + "'");
+            if (dto.Name == null) return BadRequest();
+            var player = new PlayerModel{ Name = dto.Name };
+            await WorldContext.Players.AddAsync(player);
+            await WorldContext.SaveChangesAsync();
+            return new NewPlayerDTO(player.PlayerID, player.Name);
+        }
+        
+        [Route("VerifyPlayer")]
+        [HttpPost]
+        public async Task<ActionResult<VerifyPlayerDTO>> VerifyPlayer(VerifyPlayerPostDTO dto) {
+            if (dto.Name == null || dto.PlayerID < 0) return BadRequest();
+            try {
+                var player = await WorldContext.Players.SingleOrDefaultAsync(p => p.PlayerID == dto.PlayerID && p.Name == dto.Name);
+                return new VerifyPlayerDTO(player != null);
+            } catch {
+                return new VerifyPlayerDTO(false);
+            }
         }
     }
 }

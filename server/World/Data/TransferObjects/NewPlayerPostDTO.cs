@@ -5,9 +5,6 @@ using System.Threading.Tasks;
 
 namespace World.Data.TransferObjects
 {
-    public record EndDayDTO(
-        uint WorldID,
-        uint ZoneID,
-        long PlayerID,
-        uint Day);
+    public record NewPlayerPostDTO(
+        string Name);
 }

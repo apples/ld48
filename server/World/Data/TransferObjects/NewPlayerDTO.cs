@@ -5,10 +5,7 @@ using System.Threading.Tasks;
 
 namespace World.Data.TransferObjects
 {
-    public record PathPostDTO(
-        uint WorldID,
-        uint ZoneID,
+    public record NewPlayerDTO(
         long PlayerID,
-        uint Day,
-        IList<PathTileDTO> Tiles);
+        string Name);
 }

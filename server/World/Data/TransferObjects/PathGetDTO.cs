@@ -9,7 +9,7 @@ namespace World.Data.TransferObjects
         uint PathID,
         uint WorldID,
         uint ZoneID,
-        Guid PlayerID,
+        long PlayerID,
         uint Day,
         DateTimeOffset TimeStamp,
         IList<PathTileDTO> Tiles);
