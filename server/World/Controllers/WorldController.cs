@@ -202,7 +202,7 @@ namespace World.Controllers
                         .Where(mp => mp.PlayerID == dto.PlayerID)
                         .Any(mp => mp.OtherPlayerID == e.PlayerID))
                 .GroupBy(e => new { e.TileX, e.TileY, e.EventType })
-                .Select(g => new DayEventUpdates(
+                .Select(g => new DayEventUpdateDTO(
                         g.Key.TileX,
                         g.Key.TileY,
                         g.Key.EventType,

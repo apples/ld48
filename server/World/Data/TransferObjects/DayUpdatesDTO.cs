@@ -8,5 +8,5 @@ namespace World.Data.TransferObjects
     public record DayUpdatesDTO(
         uint EndDayID,
         IList<PathTileWornDTO> WornTiles,
-        IList<DayEventUpdates> Events);
+        IList<DayEventUpdateDTO> Events);
 }

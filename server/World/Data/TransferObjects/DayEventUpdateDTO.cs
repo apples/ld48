@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace World.Data.TransferObjects
 {
-    public record DayEventUpdates(
+    public record DayEventUpdateDTO(
         uint TileX,
         uint TileY,
         uint EventType,
