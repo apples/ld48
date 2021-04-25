@@ -3,6 +3,9 @@ extends KinematicBody2D
 export(NodePath) var obstacle_map_path = null
 onready var obstacle_path: TileMap = get_node(obstacle_map_path)
 
+#export(NodePath) var tileMap = null
+#onready var worldMap: TileMap = get_node(tileMap)
+
 const TALLGRASS_TILE = 1
 
 var base_move_speed = 50.0
@@ -41,6 +44,9 @@ func _process(delta):
 		$AnimatedSprite.stop()
 	
 	move_and_slide(dir * move_speed * base_move_speed)
+	
+	if Input.is_action_just_pressed("attack"):
+		obstacle_path.set_cellv(obstacle_path.world_to_map(position) + dir, 0)
 	
 	$AnimatedSprite.speed_scale = move_speed
 	
