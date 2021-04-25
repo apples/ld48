@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 
 namespace World.Data.TransferObjects
 {
-    public record PathTilePostDTO(
-        int X,
-        int Y,
-        DateTimeOffset TS);
+    public record PathGetPlayerDayDTO(
+        IList<PathTileDTO> Tiles);
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using World.Data;
@@ -22,11 +22,39 @@ namespace World.Controllers
             WorldContext = worldContext;
         }
 
-        // GET api/<ValuesController>/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PathGetDTO>> Get(uint id)
+        // POST api/<ValuesController>/AddPath
+        [Route("AddPath")]
+        [HttpPost]
+        public async Task<ActionResult<uint>> AddPath([FromBody] PathPostDTO dto)
         {
-            var path = await WorldContext.Paths.FindAsync(id);
+            var path = new PathModel
+            {
+                WorldID = dto.WorldID,
+                ZoneID = dto.ZoneID,
+                PlayerID = dto.PlayerID,
+                Day = dto.Day,
+                TimeStamp = DateTimeOffset.Now,
+                Tiles = dto.Tiles.Select(pt =>
+                    new PathTileModel
+                    {
+                        TileX = pt.TileX,
+                        TileY = pt.TileY,
+                        TimeStamp = pt.TimeStamp
+                    }).ToList()
+            };
+
+            await WorldContext.Paths.AddAsync(path);
+            await WorldContext.SaveChangesAsync();
+
+            return path.PathID;
+        }
+
+        // GET api/<ValuesController>/GetPath
+        [Route("GetPath")]
+        [HttpGet]
+        public async Task<ActionResult<PathGetDTO>> GetPath(uint pathID)
+        {
+            var path = await WorldContext.Paths.FindAsync(pathID);
 
             if (path == null)
             {
@@ -38,40 +66,42 @@ namespace World.Controllers
                 WorldID: path.WorldID,
                 ZoneID: path.ZoneID,
                 PlayerID: path.PlayerID,
+                Day: path.Day,
                 TimeStamp: path.TimeStamp,
                 Tiles: path.Tiles.Select(pt =>
-                    new PathTileGetDTO(
-                        X: pt.TileX,
-                        Y: pt.TileY,
-                        TS: pt.TimeStamp
+                    new PathTileDTO(
+                        TileX: pt.TileX,
+                        TileY: pt.TileY,
+                        TimeStamp: pt.TimeStamp
                     )).ToList());
 
             return dto;
         }
 
-        // POST api/<ValuesController>
-        [HttpPost]
-        public async Task<ActionResult<uint>> Post([FromBody] PathPostDTO dto)
+        // GET api/<ValuesController>/GetDay
+        [Route("GetDay")]
+        [HttpGet]
+        public async Task<ActionResult<PathGetPlayerDayDTO>> GetDay(Guid playerID, uint worldID, uint zoneID, uint day)
         {
-            var path = new PathModel
-            {
-                WorldID = dto.WorldID,
-                ZoneID = dto.ZoneID,
-                PlayerID = dto.PlayerID,
-                TimeStamp = DateTimeOffset.Now,
-                Tiles = dto.Tiles.Select(pt =>
-                    new PathTileModel
-                    {
-                        TileX = pt.X,
-                        TileY = pt.Y,
-                        TimeStamp = pt.TS
-                    }).ToList()
-            };
+            var tiles = (await WorldContext.Paths
+                .Where(p =>
+                    p.WorldID == worldID &&
+                    p.ZoneID == zoneID &&
+                    p.PlayerID == playerID &&
+                    p.Day == day)
+                .SelectMany(p => p.Tiles)
+                .Select(pt => new PathTileDTO(
+                    pt.TileX,
+                    pt.TileY,
+                    pt.TimeStamp))
+                .ToListAsync())
+                .OrderBy(pt => pt.TimeStamp)
+                .ToList();
 
-            await WorldContext.Paths.AddAsync(path);
-            await WorldContext.SaveChangesAsync();
+            var dto = new PathGetPlayerDayDTO(
+                Tiles: tiles);
 
-            return path.PathID;
+            return dto;
         }
     }
 }
