@@ -11,5 +11,5 @@ namespace World.Data.TransferObjects
     public record PathTileDTO(
         uint TileX,
         uint TileY,
-        DateTimeOffset TimeStamp);
+        float TimeStamp);
 }

@@ -19,7 +19,7 @@ namespace World.Serializers
             reader.Read();
             var y = reader.GetUInt32();
             reader.Read();
-            var timeStamp = reader.GetDateTimeOffset();
+            var timeStamp = (float)reader.GetDouble();
             reader.Read();
 
             if (reader.TokenType != JsonTokenType.EndArray)
@@ -38,7 +38,7 @@ namespace World.Serializers
             writer.WriteStartArray();
             writer.WriteNumberValue(value.TileX);
             writer.WriteNumberValue(value.TileY);
-            writer.WriteStringValue(value.TimeStamp);
+            writer.WriteNumberValue(value.TimeStamp);
             writer.WriteEndArray();
         }
     }

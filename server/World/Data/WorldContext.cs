@@ -34,10 +34,16 @@ namespace World.Data
             {
                 entityBuilder.HasKey(player => player.PlayerID);
             });
+            
+            modelBuilder.Entity<MatchedPlayer>(entityBuilder =>
+            {
+                entityBuilder.HasKey(matchedPlayer => new { matchedPlayer.PlayerID, matchedPlayer.OtherPlayerID });
+            });
         }
 
         public DbSet<PathModel> Paths { get; set; }
         public DbSet<PathTileModel> PathTiles { get; set; }
         public DbSet<PlayerModel> Players { get; set; }
+        public DbSet<MatchedPlayer> MatchedPlayers { get; set; }
     }
 }
