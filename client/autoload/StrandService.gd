@@ -34,6 +34,9 @@ func login():
 		if player_id == null:
 			get_tree().change_scene(login_scene_path)
 
+func is_online():
+	return player_id != null and not connecting
+
 ####################
 # Server API Methods
 ####################

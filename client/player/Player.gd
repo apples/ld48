@@ -41,10 +41,11 @@ func reset():
 	$AnimatedSprite.stop()
 
 func get_hit():
-	if Globals.player_health > 0:
+	if not dead:
 		Globals.player_health -= 1
-	if Globals.player_health <= 0:
-		be_dead()
+		assert(Globals.player_health >= 0)
+		if Globals.player_health == 0:
+			be_dead()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

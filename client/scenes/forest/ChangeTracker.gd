@@ -1,5 +1,6 @@
 extends Node
 
+signal commit_started
 signal commit_complete
 
 export(NodePath) var tilemap_node_path = null
@@ -41,10 +42,7 @@ func grow_berrybush(pos, do_commit = true):
 		_commit_event(EventType.BERRY_BUSH, pos, 1)
 
 func commit():
-	
-	# Notify server
-	
-	StrandService.AddPath(path, Globals.current_day, self, "_on_StrandService_AddPath_complete")
+	emit_signal("commit_started")
 	
 	# Update save file
 	
@@ -67,6 +65,13 @@ func commit():
 	f.set_value("world", "paths", day_paths)
 	
 	f.save(Globals.savegame_file)
+	
+	# Notify server
+	
+	if StrandService.is_online():
+		StrandService.AddPath(path, Globals.current_day, self, "_on_StrandService_AddPath_complete")
+	else:
+		emit_signal("commit_complete")
 
 func load_and_replay_all(floor_map, obstacle_map):
 	var f = ConfigFile.new()

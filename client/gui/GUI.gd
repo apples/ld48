@@ -23,14 +23,18 @@ func _ready():
 		$NameLabel.text = "Connected (" + StrandService.player_name + ":" + str(StrandService.player_id) + ")"
 	else:
 		$NameLabel.text = "Offline"
+	_update_hearts(Globals.player_health)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	for i in range(6):
-		var has_heart = Globals.player_health >= (i + 1)
-		hearts[i].visible = has_heart
+	_update_hearts(Globals.player_health)
 	$CoordLabel.text = str(tilemap.world_to_map(player.position))
+
+func _update_hearts(value):
+	for i in range(6):
+		var has_heart = value >= (i + 1)
+		hearts[i].visible = has_heart
 
 func _on_StrandService_connected(id):
 	$NameLabel.text = "Connected (" + StrandService.player_name + ":" + str(StrandService.player_id) + ")"
