@@ -39,3 +39,4 @@ stream = ExtResource( 4 )
 bus = "Music"
 [connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
 [connection signal="animation_finished" from="Axe/AxeSprite" to="Axe" method="_on_AxeSprite_animation_finished"]
+[connection signal="finished" from="MusicSleep" to="." method="_on_MusicSleep_finished"]

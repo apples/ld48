@@ -1,0 +1,14 @@
+extends Object
+class_name TileType
+
+enum {
+	NONE = TileMap.INVALID_CELL,
+	TALLGRASS = 1,
+	BERRYBUSH0 = 13,
+	BERRYBUSH1 = 14,
+	BERRYBUSH2 = 15,
+	BERRYBUSH3 = 16,
+	BERRYBUSH4 = 17,
+	PATH = 18,
+	FOOTPRINT = 19
+}
