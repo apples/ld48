@@ -9,7 +9,7 @@ namespace World.Data.TransferObjects
 {
     [JsonConverter(typeof(PathTileWornDTOConverter))]
     public record PathTileWornDTO(
-        uint X,
-        uint Y,
+        int X,
+        int Y,
         int WornLevel);
 }

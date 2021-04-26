@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 namespace World.Data.TransferObjects
 {
     public record PathPostDTO(
-        uint WorldID,
-        uint ZoneID,
+        short WorldID,
+        short ZoneID,
         long PlayerID,
-        uint Day,
+        short Day,
         IList<PathTileDTO> Tiles);
 }

@@ -9,8 +9,8 @@ namespace World.Data.TransferObjects
 {
     [JsonConverter(typeof(DayEventUpdateDTOConverter))]
     public record DayEventUpdateDTO(
-        uint TileX,
-        uint TileY,
-        uint EventType,
+        int TileX,
+        int TileY,
+        short EventType,
         int EventValue);
 }

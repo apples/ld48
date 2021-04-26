@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 namespace World.Data.TransferObjects
 {
     public record EndDayDTO(
-        uint WorldID,
-        uint ZoneID,
+        short WorldID,
+        short ZoneID,
         long PlayerID,
-        uint Day);
+        short Day);
 }

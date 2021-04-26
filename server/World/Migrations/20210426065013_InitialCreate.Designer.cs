@@ -10,7 +10,7 @@ using World.Data;
 namespace World.Migrations
 {
     [DbContext(typeof(WorldContext))]
-    [Migration("20210426040430_InitialCreate")]
+    [Migration("20210426065013_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,10 +26,10 @@ namespace World.Migrations
                     b.Property<long>("EndDayID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("Day")
-                        .HasColumnType("bigint");
+                    b.Property<short>("Day")
+                        .HasColumnType("smallint");
 
                     b.Property<long>("PlayerID")
                         .HasColumnType("bigint");
@@ -49,10 +49,10 @@ namespace World.Migrations
                     b.Property<long>("EventID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("EventType")
-                        .HasColumnType("bigint");
+                    b.Property<short>("EventType")
+                        .HasColumnType("smallint");
 
                     b.Property<int>("EventValue")
                         .HasColumnType("int");
@@ -60,11 +60,11 @@ namespace World.Migrations
                     b.Property<long>("PlayerID")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("TileX")
-                        .HasColumnType("bigint");
+                    b.Property<int>("TileX")
+                        .HasColumnType("int");
 
-                    b.Property<long>("TileY")
-                        .HasColumnType("bigint");
+                    b.Property<int>("TileY")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("TimeStamp")
                         .HasColumnType("datetime2");
@@ -95,10 +95,10 @@ namespace World.Migrations
                     b.Property<long>("PathID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("Day")
-                        .HasColumnType("bigint");
+                    b.Property<short>("Day")
+                        .HasColumnType("smallint");
 
                     b.Property<long>("PlayerID")
                         .HasColumnType("bigint");
@@ -106,11 +106,11 @@ namespace World.Migrations
                     b.Property<DateTime>("TimeStamp")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("WorldID")
-                        .HasColumnType("bigint");
+                    b.Property<short>("WorldID")
+                        .HasColumnType("smallint");
 
-                    b.Property<long>("ZoneID")
-                        .HasColumnType("bigint");
+                    b.Property<short>("ZoneID")
+                        .HasColumnType("smallint");
 
                     b.HasKey("PathID");
 
@@ -124,16 +124,16 @@ namespace World.Migrations
                     b.Property<long>("TileID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<long>("PathID")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("TileX")
-                        .HasColumnType("bigint");
+                    b.Property<int>("TileX")
+                        .HasColumnType("int");
 
-                    b.Property<long>("TileY")
-                        .HasColumnType("bigint");
+                    b.Property<int>("TileY")
+                        .HasColumnType("int");
 
                     b.Property<float>("TimeStamp")
                         .HasColumnType("real");

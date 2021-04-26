@@ -5,11 +5,11 @@ namespace World.Data.Models
 {
     public class PathModel
     {
-        public uint PathID { get; set; }
-        public uint WorldID { get; set; }
-        public uint ZoneID { get; set; }
+        public long PathID { get; set; }
+        public short WorldID { get; set; }
+        public short ZoneID { get; set; }
         public long PlayerID { get; set; }
-        public uint Day { get; set; }
+        public short Day { get; set; }
         public DateTime TimeStamp { get; set; }
         public IList<PathTileModel> Tiles { get; set; }
         public PlayerModel Player { get; set; }

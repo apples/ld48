@@ -7,8 +7,8 @@ namespace World.Data.TransferObjects
 {
     public record AddEventDTO(
         long PlayerID,
-        uint EventType,
+        short EventType,
         int EventValue,
-        uint TileX,
-        uint TileY);
+        int TileX,
+        int TileY);
 }

@@ -15,9 +15,9 @@ namespace World.Serializers
             }
             reader.Read();
 
-            var x = reader.GetUInt32();
+            var x = reader.GetInt32();
             reader.Read();
-            var y = reader.GetUInt32();
+            var y = reader.GetInt32();
             reader.Read();
             var wornLevel = reader.GetByte();
             reader.Read();

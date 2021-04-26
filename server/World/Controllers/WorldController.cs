@@ -27,7 +27,7 @@ namespace World.Controllers
         // POST api/<ValuesController>/AddPath
         [Route("AddPath")]
         [HttpPost]
-        public async Task<ActionResult<uint>> AddPath([FromBody] PathPostDTO dto)
+        public async Task<ActionResult<long>> AddPath([FromBody] PathPostDTO dto)
         {
             var path = new PathModel
             {
@@ -249,7 +249,7 @@ namespace World.Controllers
 
         [Route("AddEvent")]
         [HttpPost]
-        public async Task<ActionResult<uint>> AddEvent([FromBody]AddEventDTO dto)
+        public async Task<ActionResult<long>> AddEvent([FromBody]AddEventDTO dto)
         {
             var newEvent = new EventModel
             {

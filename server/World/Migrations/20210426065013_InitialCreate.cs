@@ -11,12 +11,13 @@ namespace World.Migrations
                 name: "Events",
                 columns: table => new
                 {
-                    EventID = table.Column<long>(type: "bigint", nullable: false),
+                    EventID = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PlayerID = table.Column<long>(type: "bigint", nullable: false),
-                    EventType = table.Column<long>(type: "bigint", nullable: false),
+                    EventType = table.Column<short>(type: "smallint", nullable: false),
                     EventValue = table.Column<int>(type: "int", nullable: false),
-                    TileX = table.Column<long>(type: "bigint", nullable: false),
-                    TileY = table.Column<long>(type: "bigint", nullable: false),
+                    TileX = table.Column<int>(type: "int", nullable: false),
+                    TileY = table.Column<int>(type: "int", nullable: false),
                     TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -54,9 +55,10 @@ namespace World.Migrations
                 name: "EndDays",
                 columns: table => new
                 {
-                    EndDayID = table.Column<long>(type: "bigint", nullable: false),
+                    EndDayID = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PlayerID = table.Column<long>(type: "bigint", nullable: false),
-                    Day = table.Column<long>(type: "bigint", nullable: false),
+                    Day = table.Column<short>(type: "smallint", nullable: false),
                     TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -74,11 +76,12 @@ namespace World.Migrations
                 name: "Paths",
                 columns: table => new
                 {
-                    PathID = table.Column<long>(type: "bigint", nullable: false),
-                    WorldID = table.Column<long>(type: "bigint", nullable: false),
-                    ZoneID = table.Column<long>(type: "bigint", nullable: false),
+                    PathID = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WorldID = table.Column<short>(type: "smallint", nullable: false),
+                    ZoneID = table.Column<short>(type: "smallint", nullable: false),
                     PlayerID = table.Column<long>(type: "bigint", nullable: false),
-                    Day = table.Column<long>(type: "bigint", nullable: false),
+                    Day = table.Column<short>(type: "smallint", nullable: false),
                     TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -96,10 +99,11 @@ namespace World.Migrations
                 name: "PathTiles",
                 columns: table => new
                 {
-                    TileID = table.Column<long>(type: "bigint", nullable: false),
+                    TileID = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PathID = table.Column<long>(type: "bigint", nullable: false),
-                    TileX = table.Column<long>(type: "bigint", nullable: false),
-                    TileY = table.Column<long>(type: "bigint", nullable: false),
+                    TileX = table.Column<int>(type: "int", nullable: false),
+                    TileY = table.Column<int>(type: "int", nullable: false),
                     TimeStamp = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
