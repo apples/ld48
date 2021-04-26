@@ -123,3 +123,20 @@ align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 985.524
+margin_top = 37.3677
+margin_right = 993.524
+margin_bottom = 536.368
+color = Color( 0.560784, 0.337255, 0.231373, 1 )
+
+[node name="PlayerPos" type="ColorRect" parent="."]
+margin_left = 980.391
+margin_top = 37.9611
+margin_right = 999.391
+margin_bottom = 54.9611
+color = Color( 0.67451, 0.196078, 0.196078, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
