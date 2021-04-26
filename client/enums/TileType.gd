@@ -4,6 +4,8 @@ class_name TileType
 enum {
 	NONE = TileMap.INVALID_CELL,
 	TALLGRASS = 1,
+	TREETRUNK = 2,
+	TREETOP = 3,
 	BERRYBUSH0 = 13,
 	BERRYBUSH1 = 14,
 	BERRYBUSH2 = 15,
@@ -12,4 +14,6 @@ enum {
 	PATH = 18,
 	FOOTPRINT = 19,
 	TORCH = 20,
+	TORCH_OUT = 21,
+	CLIFF = 22,
 }

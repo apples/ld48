@@ -57,13 +57,14 @@ func place_torch(pos, do_commit = true):
 	var did = false
 	match t:
 		TileType.NONE:
-			obstacle_tilemap.set_cellv(pos, TileType.TORCH)
+			obstacle_tilemap.set_cellv(pos, TileType.TORCH_OUT)
 			var torch = torch_scene.instance()
 			torch.position = obstacle_tilemap.map_to_world(pos) + Vector2(8, 8)
 			torchholder.add_child(torch)
 			torches[pos] = torch
 			did = true
-		TileType.TORCH:
+		TileType.TORCH_OUT, TileType.TORCH:
+			obstacle_tilemap.set_cellv(pos, TileType.TORCH)
 			torches[pos].add_fuel(1)
 			did = true
 	if did and do_commit:
