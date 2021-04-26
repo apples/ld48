@@ -2,41 +2,21 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using World.Data;
 
 namespace World.Migrations
 {
     [DbContext(typeof(WorldContext))]
-    partial class WorldContextModelSnapshot : ModelSnapshot
+    [Migration("20210425211701_AddEvent")]
+    partial class AddEvent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.5");
-
-            modelBuilder.Entity("World.Data.Models.EndDayModel", b =>
-                {
-                    b.Property<uint>("EndDayID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("Day")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("PlayerID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("EndDayID");
-
-                    b.HasIndex("PlayerID");
-
-                    b.ToTable("EndDays");
-                });
 
             modelBuilder.Entity("World.Data.Models.EventModel", b =>
                 {
@@ -148,17 +128,6 @@ namespace World.Migrations
                     b.HasKey("PlayerID");
 
                     b.ToTable("Players");
-                });
-
-            modelBuilder.Entity("World.Data.Models.EndDayModel", b =>
-                {
-                    b.HasOne("World.Data.Models.PlayerModel", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("World.Data.Models.PathModel", b =>
