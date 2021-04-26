@@ -17,6 +17,21 @@ func _ready():
 	$AnimatedSprite.play("foxRun")
 
 
+func get_hit():
+	if health > 0:
+		health -= 1
+	if health <= 0:
+		be_dead()
+
+
+func be_dead():
+	#dead = true
+	$AnimatedSprite.rotation_degrees = 90
+	$AnimatedSprite.stop()
+	#emit_signal("on_death", self)
+	queue_free()
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	dir =  (player.position - position).normalized()
