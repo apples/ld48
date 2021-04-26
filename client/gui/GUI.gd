@@ -22,7 +22,7 @@ func _ready():
 	if StrandService.player_name != null:
 		$NameLabel.text = "Connected (" + StrandService.player_name + ":" + str(StrandService.player_id) + ")"
 	else:
-		$NameLabel.text = "Disconnected"
+		$NameLabel.text = "Offline"
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -36,4 +36,4 @@ func _on_StrandService_connected(id):
 	$NameLabel.text = "Connected (" + StrandService.player_name + ":" + str(StrandService.player_id) + ")"
 
 func _on_StrandService_connect_failed(reason):
-	$NameLabel.text = "Disconnected"
+	$NameLabel.text = "Offline"

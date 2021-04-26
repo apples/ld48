@@ -32,15 +32,15 @@ margin_top = -11.6541
 margin_right = 1033.11
 margin_bottom = 614.346
 
-[node name="ConnectingLabel" type="Label" parent="."]
+[node name="ConnectingLabel" type="Label" parent="Panel"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -124.138
-margin_top = -19.7136
-margin_right = -41.1382
-margin_bottom = -5.71359
+margin_left = -120.747
+margin_top = -21.0595
+margin_right = -37.747
+margin_bottom = -7.05954
 rect_scale = Vector2( 3, 3 )
 text = "Connecting..."
 script = ExtResource( 1 )
@@ -48,22 +48,72 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ErrorLabel" type="Label" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -124.138
-margin_top = -19.7136
-margin_right = -41.1382
-margin_bottom = -5.71359
+[node name="ErrorPanel" type="Panel" parent="."]
+margin_top = -1.33484
+margin_right = 1024.0
+margin_bottom = 598.665
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ErrorPanel"]
+margin_left = 258.959
+margin_top = 113.461
+margin_right = 427.959
+margin_bottom = 127.461
+rect_scale = Vector2( 3, 3 )
+text = "Error connecting to server!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ErrorLabel" type="Label" parent="ErrorPanel"]
+margin_left = 264.298
+margin_top = 192.217
+margin_right = 429.298
+margin_bottom = 206.217
 rect_scale = Vector2( 3, 3 )
 text = "Error"
-script = ExtResource( 1 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="ErrorPanel"]
+margin_left = 424.339
+margin_top = 279.0
+margin_right = 483.339
+margin_bottom = 293.0
+rect_scale = Vector2( 3, 3 )
+text = "What do?"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RetryButton" type="Button" parent="ErrorPanel"]
+margin_left = 437.955
+margin_top = 368.045
+margin_right = 482.955
+margin_bottom = 388.045
+rect_scale = Vector2( 3, 3 )
+text = "Retry"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OfflineButton" type="Button" parent="ErrorPanel"]
+margin_left = 377.887
+margin_top = 481.507
+margin_right = 462.887
+margin_bottom = 501.507
+rect_scale = Vector2( 3, 3 )
+text = "Play Offline"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeOut = SubResource( 1 )
+[connection signal="pressed" from="ErrorPanel/RetryButton" to="." method="_on_RetryButton_pressed"]
+[connection signal="pressed" from="ErrorPanel/OfflineButton" to="." method="_on_OfflineButton_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
