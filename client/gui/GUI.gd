@@ -1,5 +1,11 @@
 extends Control
 
+export(NodePath) var player_path = null
+onready var player = get_node(player_path)
+
+export(NodePath) var tilemap_path = null
+onready var tilemap = get_node(tilemap_path)
+
 onready var hearts = [
 	$Hearts/Heart0,
 	$Hearts/Heart1,
@@ -24,6 +30,7 @@ func _process(delta):
 	for i in range(6):
 		var has_heart = Globals.player_health >= (i + 1)
 		hearts[i].visible = has_heart
+	$CoordLabel.text = str(tilemap.world_to_map(player.position))
 
 func _on_StrandService_connected(id):
 	$NameLabel.text = "Connected (" + StrandService.player_name + ":" + str(StrandService.player_id) + ")"

@@ -112,3 +112,14 @@ text = "asdf"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CoordLabel" type="Label" parent="."]
+margin_left = 740.465
+margin_top = 582.918
+margin_right = 1020.46
+margin_bottom = 596.918
+text = "asdf"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}

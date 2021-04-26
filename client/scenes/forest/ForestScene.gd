@@ -9,6 +9,9 @@ var reset_counter = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$ChangeTracker.load_and_replay_all($Navigation2D/TileMapFloor, $Navigation2D/TileMapObstacles)
+	if Globals.strand_data != null:
+		$ChangeTracker.apply_strand_data(Globals.strand_data)
+	$Player/Camera/FadeSprite.modulate = "#000000"
 	$AnimationPlayer.play("FadeIn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -64,6 +67,8 @@ func _on_ChangeTracker_commit_complete():
 
 func _on_StrandService_EndDay_complete(json):
 	print("Day ended")
+	Globals.strand_data = json
+	Globals.save_strand()
 	assert(reset_counter > 0)
 	reset_counter -= 1
 	if reset_counter == 0:
