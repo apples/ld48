@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://gui/heart.png" type="Texture" id=1]
 [ext_resource path="res://gui/extra_heart.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://gui/berrybush.png" type="Texture" id=5]
 [ext_resource path="res://tiles/torch.png" type="Texture" id=6]
 [ext_resource path="res://gui/ItemPanel.gd" type="Script" id=7]
+[ext_resource path="res://gui/ladder.png" type="Texture" id=8]
 
 [node name="GUI" type="Control"]
 anchor_right = 1.0
@@ -179,6 +180,18 @@ margin_right = 64.0
 margin_bottom = 64.0
 texture = ExtResource( 6 )
 stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LadderRect" type="TextureRect" parent="ItemPanel"]
+margin_right = 64.0
+margin_bottom = 64.0
+texture = ExtResource( 8 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AmountLabel" type="Label" parent="ItemPanel"]
 margin_left = 64.0

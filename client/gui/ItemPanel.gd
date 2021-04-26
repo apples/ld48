@@ -13,6 +13,7 @@ func _process(delta):
 func _update_selected():
 	$BerryBushRect.hide()
 	$TorchRect.hide()
+	$LadderRect.hide()
 	var sel = Globals.resource_order[Globals.selected_resource]
 	$AmountLabel.text = str(Globals.resources[sel])
 	match sel:
@@ -20,3 +21,5 @@ func _update_selected():
 			$BerryBushRect.show()
 		EventType.PLACE_TORCH:
 			$TorchRect.show()
+		EventType.PLACE_LADDER:
+			$LadderRect.show()

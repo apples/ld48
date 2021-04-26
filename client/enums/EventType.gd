@@ -5,6 +5,7 @@ enum {
 	CUT_GRASS,
 	BERRY_BUSH,
 	PLACE_TORCH,
+	PLACE_LADDER,
 }
 
 static func get_decay(type):

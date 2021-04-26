@@ -140,6 +140,8 @@ func _process_alive(delta):
 					did = changetracker.grow_berrybush(tmpos)
 				EventType.PLACE_TORCH:
 					did = changetracker.place_torch(tmpos)
+				EventType.PLACE_LADDER:
+					did = changetracker.place_ladder(tmpos + Vector2(0, 1))
 			if did:
 				Globals.resources[sel] -= 1
 	

@@ -71,6 +71,18 @@ func place_torch(pos, do_commit = true):
 		_commit_event(EventType.PLACE_TORCH, pos, 1)
 	return did
 
+func place_ladder(pos, do_commit = true):
+	print("Placing ladder at " + str(pos))
+	var t = tilemap.get_cellv(pos)
+	var did = false
+	match t:
+		TileType.CLIFF:
+			tilemap.set_cellv(pos, TileType.CLIFF_LADDER)
+			did = true
+	if did and do_commit:
+		_commit_event(EventType.PLACE_LADDER, pos, 1)
+	return did
+
 func commit():
 	emit_signal("commit_started")
 	
@@ -124,9 +136,9 @@ func load_and_replay_all(floor_map, obstacle_map):
 	
 	for pos in wear_map:
 		var obs = obstacle_tilemap.get_cellv(pos)
-		if obs == TileType.NONE:
+		var flr = tilemap.get_cellv(pos)
+		if obs == TileType.NONE and flr == TileType.GROUND:
 			var wear = wear_map[pos]
-			print(str(pos) + ": " + str(wear))
 			if wear > 3:
 				tilemap.set_cellv(pos, TileType.PATH)
 				tilemap.update_bitmask_area(pos)
@@ -190,6 +202,8 @@ func _apply_event(type, pos, do_commit = false):
 			grow_berrybush(pos, do_commit)
 		EventType.PLACE_TORCH:
 			place_torch(pos, do_commit)
+		EventType.PLACE_LADDER:
+			place_ladder(pos, do_commit)
 		_:
 			print("UNKNOWN EVENT " + str(type))
 

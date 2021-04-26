@@ -11,11 +11,13 @@ var player_health = 5
 var resource_defaults = {
 	EventType.BERRY_BUSH: 1,
 	EventType.PLACE_TORCH: 4,
+	EventType.PLACE_LADDER: 1,
 }
 var resources = {}
 var resource_order = [
 	EventType.PLACE_TORCH,
 	EventType.BERRY_BUSH,
+	EventType.PLACE_LADDER,
 ]
 var selected_resource = 0
 

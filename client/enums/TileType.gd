@@ -3,6 +3,7 @@ class_name TileType
 
 enum {
 	NONE = TileMap.INVALID_CELL,
+	GROUND = 0,
 	TALLGRASS = 1,
 	TREETRUNK = 2,
 	TREETOP = 3,
@@ -16,4 +17,6 @@ enum {
 	TORCH = 20,
 	TORCH_OUT = 21,
 	CLIFF = 22,
+	CLIFF_LADDER = 23,
+	BOULDER = 24,
 }
