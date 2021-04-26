@@ -6,7 +6,7 @@ onready var player = get_node(player_path)
 export(NodePath) var tilemap_path = null
 onready var tilemap = get_node(tilemap_path)
 
-var player_goal = 500
+var player_goal = 100
 
 onready var hearts = [
 	$Hearts/Heart0,

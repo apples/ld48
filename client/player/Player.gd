@@ -111,10 +111,22 @@ func _process_alive(delta):
 	# ATTACK
 	
 	if Input.is_action_just_pressed("attack"):
-		var target_pos = obstacle_map.world_to_map(position) + dir
-		match obstacle_map.get_cellv(target_pos):
-			TileType.TALLGRASS:
-				changetracker.cut_grass(target_pos)
+		var target_poss = [obstacle_map.world_to_map(position)]
+		match facing:
+			DIR_S:
+				target_poss.append(target_poss[0] + Vector2(0, 1))
+			DIR_N:
+				target_poss.append(target_poss[0] + Vector2(0, -1))
+			DIR_W:
+				target_poss.append(target_poss[0] + Vector2(-1, 0))
+			DIR_E:
+				target_poss.append(target_poss[0] + Vector2(1, 0))
+		for target_pos in target_poss:
+			match obstacle_map.get_cellv(target_pos):
+				TileType.TALLGRASS:
+					changetracker.cut_grass(target_pos)
+				TileType.STICKBUSH:
+					changetracker.cut_stickbush(target_pos)
 		
 		match facing:
 			DIR_N:

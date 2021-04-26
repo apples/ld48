@@ -19,4 +19,5 @@ enum {
 	CLIFF = 22,
 	CLIFF_LADDER = 23,
 	BOULDER = 24,
+	STICKBUSH = 25,
 }

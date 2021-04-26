@@ -36,6 +36,7 @@ func _unlock():
 	if lock_reset == 0:
 		print("Resetting")
 		Globals.reset_player($Player.sleeping)
+		Globals.advance_day()
 		get_tree().reload_current_scene()
 
 

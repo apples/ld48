@@ -36,6 +36,18 @@ func cut_grass(pos, do_commit = true):
 		_commit_event(EventType.CUT_GRASS, pos, 1)
 	return did
 
+func cut_stickbush(pos, do_commit = true):
+	var did = false
+	if obstacle_tilemap.get_cellv(pos) == TileType.STICKBUSH:
+		print("Cutting stickbush at " + str(pos))
+		did = true
+		obstacle_tilemap.set_cellv(pos, -1)
+		if do_commit:
+			Globals.resources[EventType.PLACE_LADDER] += 1
+	if did and do_commit:
+		_commit_event(EventType.CUT_STICKBUSH, pos, 1, false)
+	return did
+
 func grow_berrybush(pos, do_commit = true):
 	print("Growing berrybush at " + str(pos))
 	var t = obstacle_tilemap.get_cellv(pos)
@@ -184,7 +196,7 @@ func apply_strand_data(strand_data):
 func _ready():
 	rng.randomize()
 
-func _commit_event(type, pos, val):
+func _commit_event(type, pos, val, strand = true):
 	assert(int(pos.x) == pos.x)
 	assert(int(pos.y) == pos.y)
 	events.append({
@@ -192,7 +204,8 @@ func _commit_event(type, pos, val):
 		"where": pos,
 		"value": val,
 	})
-	StrandService.AddEvent(type, val, pos.x, pos.y)
+	if strand:
+		StrandService.AddEvent(type, val, pos.x, pos.y)
 
 func _apply_event(type, pos, do_commit = false):
 	match type:
@@ -204,6 +217,8 @@ func _apply_event(type, pos, do_commit = false):
 			place_torch(pos, do_commit)
 		EventType.PLACE_LADDER:
 			place_ladder(pos, do_commit)
+		EventType.CUT_STICKBUSH:
+			cut_stickbush(pos, do_commit)
 		_:
 			print("UNKNOWN EVENT " + str(type))
 

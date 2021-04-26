@@ -11,9 +11,12 @@ var player_health = 5
 var resource_defaults = {
 	EventType.BERRY_BUSH: 1,
 	EventType.PLACE_TORCH: 4,
-	EventType.PLACE_LADDER: 1,
 }
-var resources = {}
+var resources = {
+	EventType.BERRY_BUSH: 1,
+	EventType.PLACE_TORCH: 4,
+	EventType.PLACE_LADDER: 0,
+}
 var resource_order = [
 	EventType.PLACE_TORCH,
 	EventType.BERRY_BUSH,
@@ -35,6 +38,7 @@ func advance_day():
 	var f = ConfigFile.new()
 	f.load(savegame_file)
 	f.set_value("calendar", "day", current_day)
+	f.set_value("inventory", "ladders", resources[EventType.PLACE_LADDER])
 	f.save(savegame_file)
 
 func save_strand():
@@ -49,6 +53,7 @@ func _ready():
 	f.load(savegame_file)
 	current_day = f.get_value("calendar", "day", 0) + 1
 	strand_data = f.get_value("strand", "current", null)
+	resources[EventType.PLACE_LADDER] = f.get_value("inventory", "ladders", 0)
 	
 	reset_player(false)
 	print("Day " + str(current_day))
