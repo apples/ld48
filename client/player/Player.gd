@@ -150,7 +150,5 @@ func _on_AnimatedSprite_frame_changed():
 			_:
 				pass
 
-
-
 func _on_MusicSleep_finished():
 	emit_signal("on_sleep_finished", self)

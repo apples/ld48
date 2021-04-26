@@ -62,6 +62,9 @@ func commit():
 	f.set_value("world", "actions", all_actions)
 	
 	day_paths.append(path)
+	var dps = day_paths.size()
+	if dps > 10:
+		day_paths = day_paths.slice(dps - 10, dps - 1)
 	f.set_value("world", "paths", day_paths)
 	
 	f.save(Globals.savegame_file)
@@ -91,12 +94,12 @@ func load_and_replay_all(floor_map, obstacle_map):
 	for pos in wear_map:
 		var obs = obstacle_tilemap.get_cellv(pos)
 		if obs == TileType.NONE:
-			var wear = wear_map[pos] / float(max_wear)
+			var wear = wear_map[pos]
 			print(str(pos) + ": " + str(wear))
-			if wear > 0.75:
+			if wear > 3:
 				tilemap.set_cellv(pos, TileType.PATH)
 				tilemap.update_bitmask_area(pos)
-			elif wear > 0.5:
+			elif wear > 0:
 				tilemap.set_cellv(pos, TileType.FOOTPRINT)
 				
 
