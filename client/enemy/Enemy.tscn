@@ -3,7 +3,9 @@
 [ext_resource path="res://enemy/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://enemy/fox.tres" type="SpriteFrames" id=2]
 
-[node name="Enemy" type="KinematicBody2D"]
+[node name="Enemy" type="KinematicBody2D" groups=[
+"Enemy",
+]]
 position = Vector2( 56, 0 )
 script = ExtResource( 1 )
 

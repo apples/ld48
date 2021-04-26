@@ -41,9 +41,11 @@ func reset():
 	$AnimatedSprite.stop()
 
 func get_hit():
-	Globals.player_health -= 1
-	if Globals.player_health <= 0:
-		be_dead()
+	if not dead:
+		Globals.player_health -= 1
+		assert(Globals.player_health >= 0)
+		if Globals.player_health == 0:
+			be_dead()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -149,8 +151,6 @@ func _on_AnimatedSprite_frame_changed():
 				$SfxGrass.play()
 			_:
 				pass
-
-
 
 func _on_MusicSleep_finished():
 	emit_signal("on_sleep_finished", self)
