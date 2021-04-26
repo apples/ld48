@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using World.Configuration;
 using World.Data;
 using World.Data.Models;
 using World.Data.TransferObjects;
@@ -19,18 +18,16 @@ namespace World.Controllers
     public class WorldController : ControllerBase
     {
         public WorldContext WorldContext { get; }
-        public GameSettings Settings { get; }
 
-        public WorldController(WorldContext worldContext, IOptions<GameSettings> settings)
+        public WorldController(WorldContext worldContext)
         {
             WorldContext = worldContext;
-            Settings = settings.Value;
         }
 
         // POST api/<ValuesController>/AddPath
         [Route("AddPath")]
         [HttpPost]
-        public async Task<ActionResult<uint>> AddPath([FromBody] PathPostDTO dto)
+        public async Task<ActionResult<long>> AddPath([FromBody] PathPostDTO dto)
         {
             var path = new PathModel
             {
@@ -157,8 +154,6 @@ namespace World.Controllers
                 await WorldContext.SaveChangesAsync();
             }
 
-            var dayStart = DateTime.UtcNow - Settings.DayLength;
-
             var tiles = await WorldContext.Paths
                 .Where(p =>
                     p.WorldID == dto.WorldID &&
@@ -254,7 +249,7 @@ namespace World.Controllers
 
         [Route("AddEvent")]
         [HttpPost]
-        public async Task<ActionResult<uint>> AddEvent([FromBody]AddEventDTO dto)
+        public async Task<ActionResult<long>> AddEvent([FromBody]AddEventDTO dto)
         {
             var newEvent = new EventModel
             {

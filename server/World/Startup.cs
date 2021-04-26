@@ -5,8 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using World.Extensions;
-using World.Configuration;
+using World.Data;
 
 namespace World
 {
@@ -22,16 +21,15 @@ namespace World
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddOptions<GameSettings>()
-                .BindConfiguration(GameSettings.Position);
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "World", Version = "v1" });
             });
 
-            services.AddWorldContext(Configuration.GetConnectionString("default"));
+            services.AddDbContext<WorldContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("WorldContext")));
+            services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

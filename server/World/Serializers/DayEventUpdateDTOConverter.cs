@@ -18,11 +18,11 @@ namespace World.Serializers
             }
             reader.Read();
 
-            var x = reader.GetUInt32();
+            var x = reader.GetInt32();
             reader.Read();
-            var y = reader.GetUInt32();
+            var y = reader.GetInt32();
             reader.Read();
-            var type = reader.GetUInt32();
+            var type = reader.GetInt16();
             reader.Read();
             var value = reader.GetInt32();
             reader.Read();

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 namespace World.Data.TransferObjects
 {
     public record PathGetDTO(
-        uint PathID,
-        uint WorldID,
-        uint ZoneID,
+        long PathID,
+        short WorldID,
+        short ZoneID,
         long PlayerID,
-        uint Day,
+        short Day,
         DateTime TimeStamp,
         IList<PathTileDTO> Tiles);
 }

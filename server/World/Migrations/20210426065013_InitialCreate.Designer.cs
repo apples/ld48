@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using World.Data;
@@ -9,29 +10,32 @@ using World.Data;
 namespace World.Migrations
 {
     [DbContext(typeof(WorldContext))]
-    [Migration("20210425220647_AddEndDay")]
-    partial class AddEndDay
+    [Migration("20210426065013_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.5");
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.5")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("World.Data.Models.EndDayModel", b =>
                 {
-                    b.Property<uint>("EndDayID")
+                    b.Property<long>("EndDayID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<uint>("Day")
-                        .HasColumnType("INTEGER");
+                    b.Property<short>("Day")
+                        .HasColumnType("smallint");
 
                     b.Property<long>("PlayerID")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("EndDayID");
 
@@ -42,27 +46,28 @@ namespace World.Migrations
 
             modelBuilder.Entity("World.Data.Models.EventModel", b =>
                 {
-                    b.Property<uint>("EventID")
+                    b.Property<long>("EventID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<uint>("EventType")
-                        .HasColumnType("INTEGER");
+                    b.Property<short>("EventType")
+                        .HasColumnType("smallint");
 
                     b.Property<int>("EventValue")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<long>("PlayerID")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
-                    b.Property<uint>("TileX")
-                        .HasColumnType("INTEGER");
+                    b.Property<int>("TileX")
+                        .HasColumnType("int");
 
-                    b.Property<uint>("TileY")
-                        .HasColumnType("INTEGER");
+                    b.Property<int>("TileY")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("EventID");
 
@@ -72,13 +77,13 @@ namespace World.Migrations
             modelBuilder.Entity("World.Data.Models.MatchedPlayer", b =>
                 {
                     b.Property<long>("PlayerID")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<long>("OtherPlayerID")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("PlayerID", "OtherPlayerID");
 
@@ -87,24 +92,25 @@ namespace World.Migrations
 
             modelBuilder.Entity("World.Data.Models.PathModel", b =>
                 {
-                    b.Property<uint>("PathID")
+                    b.Property<long>("PathID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<uint>("Day")
-                        .HasColumnType("INTEGER");
+                    b.Property<short>("Day")
+                        .HasColumnType("smallint");
 
                     b.Property<long>("PlayerID")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
-                    b.Property<uint>("WorldID")
-                        .HasColumnType("INTEGER");
+                    b.Property<short>("WorldID")
+                        .HasColumnType("smallint");
 
-                    b.Property<uint>("ZoneID")
-                        .HasColumnType("INTEGER");
+                    b.Property<short>("ZoneID")
+                        .HasColumnType("smallint");
 
                     b.HasKey("PathID");
 
@@ -115,21 +121,22 @@ namespace World.Migrations
 
             modelBuilder.Entity("World.Data.Models.PathTileModel", b =>
                 {
-                    b.Property<uint>("TileID")
+                    b.Property<long>("TileID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<uint>("PathID")
-                        .HasColumnType("INTEGER");
+                    b.Property<long>("PathID")
+                        .HasColumnType("bigint");
 
-                    b.Property<uint>("TileX")
-                        .HasColumnType("INTEGER");
+                    b.Property<int>("TileX")
+                        .HasColumnType("int");
 
-                    b.Property<uint>("TileY")
-                        .HasColumnType("INTEGER");
+                    b.Property<int>("TileY")
+                        .HasColumnType("int");
 
                     b.Property<float>("TimeStamp")
-                        .HasColumnType("REAL");
+                        .HasColumnType("real");
 
                     b.HasKey("TileID");
 
@@ -142,10 +149,11 @@ namespace World.Migrations
                 {
                     b.Property<long>("PlayerID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PlayerID");
 

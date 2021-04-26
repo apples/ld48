@@ -9,7 +9,7 @@ namespace World.Data.TransferObjects
 {
     [JsonConverter(typeof(PathTileDTOConverter))]
     public record PathTileDTO(
-        uint TileX,
-        uint TileY,
+        int TileX,
+        int TileY,
         float TimeStamp);
 }
