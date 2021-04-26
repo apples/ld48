@@ -1,13 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://gui/heart.png" type="Texture" id=1]
 [ext_resource path="res://gui/extra_heart.png" type="Texture" id=2]
 [ext_resource path="res://gui/GUI.gd" type="Script" id=3]
 [ext_resource path="res://gui/black_heart.png" type="Texture" id=4]
+[ext_resource path="res://gui/berrybush.png" type="Texture" id=5]
+[ext_resource path="res://tiles/torch.png" type="Texture" id=6]
+[ext_resource path="res://gui/ItemPanel.gd" type="Script" id=7]
 
 [node name="GUI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = 0.187294
+margin_bottom = 0.187317
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -137,6 +142,50 @@ margin_top = 37.9611
 margin_right = 999.391
 margin_bottom = 54.9611
 color = Color( 0.67451, 0.196078, 0.196078, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemPanel" type="Panel" parent="."]
+margin_left = 8.0
+margin_top = 48.7545
+margin_right = 72.0
+margin_bottom = 112.755
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ItemPanel"]
+margin_left = 64.0
+margin_right = 104.0
+margin_bottom = 14.0
+text = "C to swap"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BerryBushRect" type="TextureRect" parent="ItemPanel"]
+margin_right = 64.0
+margin_bottom = 64.0
+texture = ExtResource( 5 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TorchRect" type="TextureRect" parent="ItemPanel"]
+margin_right = 64.0
+margin_bottom = 64.0
+texture = ExtResource( 6 )
+stretch_mode = 1
+
+[node name="AmountLabel" type="Label" parent="ItemPanel"]
+margin_left = 64.0
+margin_top = 50.0
+margin_right = 80.0
+margin_bottom = 64.0
+text = "42"
 __meta__ = {
 "_edit_use_anchors_": false
 }

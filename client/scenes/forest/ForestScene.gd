@@ -35,8 +35,7 @@ func _unlock():
 	print("lock " + str(lock_reset))
 	if lock_reset == 0:
 		print("Resetting")
-		Globals.current_time = 0
-		Globals.player_health = 6 if $Player.sleeping else 5
+		Globals.reset_player($Player.sleeping)
 		get_tree().reload_current_scene()
 
 

@@ -131,10 +131,22 @@ func _process_alive(delta):
 	
 	if Input.is_action_just_pressed("construct"):
 		var tmpos = obstacle_map.world_to_map(position)
-		var t = obstacle_map.get_cellv(tmpos)
-		match t:
-			TileType.NONE, TileType.BERRYBUSH0, TileType.BERRYBUSH1, TileType.BERRYBUSH2, TileType.BERRYBUSH3:
-				changetracker.grow_berrybush(tmpos)
+		var sel = Globals.resource_order[Globals.selected_resource]
+		var amt = Globals.resources[sel]
+		if amt > 0:
+			var did = false
+			match sel:
+				EventType.BERRY_BUSH:
+					did = changetracker.grow_berrybush(tmpos)
+				EventType.PLACE_TORCH:
+					did = changetracker.place_torch(tmpos)
+			if did:
+				Globals.resources[sel] -= 1
+	
+	# SELECT
+	
+	if Input.is_action_just_pressed("switch_action"):
+		Globals.selected_resource = (Globals.selected_resource + 1) % Globals.resource_order.size()
 
 func _process_dead(delta):
 	pass

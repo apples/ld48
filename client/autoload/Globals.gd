@@ -8,8 +8,25 @@ var day_length = 30
 var night_killscreen = 5
 
 var player_health = 5
+var resource_defaults = {
+	EventType.BERRY_BUSH: 1,
+	EventType.PLACE_TORCH: 4,
+}
+var resources = {}
+var resource_order = [
+	EventType.PLACE_TORCH,
+	EventType.BERRY_BUSH,
+]
+var selected_resource = 0
 
 var strand_data = null
+
+func reset_player(sleeping):
+	current_time = 0
+	player_health = 6 if sleeping else 5
+	for k in resource_defaults:
+		resources[k] = resource_defaults[k]
+	selected_resource = 0
 
 func advance_day():
 	current_day += 1
@@ -31,6 +48,7 @@ func _ready():
 	current_day = f.get_value("calendar", "day", 0) + 1
 	strand_data = f.get_value("strand", "current", null)
 	
+	reset_player(false)
 	print("Day " + str(current_day))
 
 func _process(delta):

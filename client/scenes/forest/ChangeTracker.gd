@@ -20,12 +20,21 @@ var day_paths = []
 
 var rng = RandomNumberGenerator.new()
 
+export(NodePath) var torchholder_path = null
+onready var torchholder = get_node(torchholder_path)
+
+var torch_scene = preload("res://light/TorchLight.tscn")
+var torches = {}
+
 func cut_grass(pos, do_commit = true):
+	var did = false
 	if obstacle_tilemap.get_cellv(pos) == TileType.TALLGRASS:
 		print("Cutting grass at " + str(pos))
+		did = true
 		obstacle_tilemap.set_cellv(pos, -1)
-	if do_commit:
+	if did and do_commit:
 		_commit_event(EventType.CUT_GRASS, pos, 1)
+	return did
 
 func grow_berrybush(pos, do_commit = true):
 	print("Growing berrybush at " + str(pos))
@@ -38,8 +47,28 @@ func grow_berrybush(pos, do_commit = true):
 		TileType.BERRYBUSH0, TileType.BERRYBUSH1, TileType.BERRYBUSH2, TileType.BERRYBUSH3:
 			obstacle_tilemap.set_cellv(pos, t + 1)
 			did = true
-	if do_commit:
+	if did and do_commit:
 		_commit_event(EventType.BERRY_BUSH, pos, 1)
+	return did
+
+func place_torch(pos, do_commit = true):
+	print("Placing torch at " + str(pos))
+	var t = obstacle_tilemap.get_cellv(pos)
+	var did = false
+	match t:
+		TileType.NONE:
+			obstacle_tilemap.set_cellv(pos, TileType.TORCH)
+			var torch = torch_scene.instance()
+			torch.position = obstacle_tilemap.map_to_world(pos) + Vector2(8, 8)
+			torchholder.add_child(torch)
+			torches[pos] = torch
+			did = true
+		TileType.TORCH:
+			torches[pos].add_fuel(1)
+			did = true
+	if did and do_commit:
+		_commit_event(EventType.PLACE_TORCH, pos, 1)
+	return did
 
 func commit():
 	emit_signal("commit_started")
@@ -152,12 +181,14 @@ func _commit_event(type, pos, val):
 	})
 	StrandService.AddEvent(type, val, pos.x, pos.y)
 
-func _apply_event(type, pos):
+func _apply_event(type, pos, do_commit = false):
 	match type:
 		EventType.CUT_GRASS:
-			cut_grass(pos, false)
+			cut_grass(pos, do_commit)
 		EventType.BERRY_BUSH:
-			grow_berrybush(pos, false)
+			grow_berrybush(pos, do_commit)
+		EventType.PLACE_TORCH:
+			place_torch(pos, do_commit)
 		_:
 			print("UNKNOWN EVENT " + str(type))
 
