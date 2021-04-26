@@ -119,8 +119,25 @@ func apply_strand_data(strand_data):
 		else:
 			print("Aaaah! apply_strand_data REEEEEEEE")
 	
-	#for tile in strand_wornTiles:
-	
+	for tile in strand_wornTiles:
+		var pos = Vector2(tile[0], tile[1])
+		var wear = int(tile[2])
+		var obs = obstacle_tilemap.get_cellv(pos)
+		var flr = tilemap.get_cellv(pos)
+		if obs == TileType.NONE:
+			match flr:
+				TileType.FOOTPRINT:
+					if wear > 1:
+						tilemap.set_cellv(pos, TileType.PATH)
+						tilemap.update_bitmask_area(pos)
+				TileType.PATH:
+					pass
+				_:
+					if wear > 3:
+						tilemap.set_cellv(pos, TileType.PATH)
+						tilemap.update_bitmask_area(pos)
+					elif wear > 0:
+						tilemap.set_cellv(pos, TileType.FOOTPRINT)
 
 func _ready():
 	rng.randomize()
