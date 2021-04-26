@@ -84,7 +84,7 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="FadeSprite" type="Sprite" parent="Player/Camera"]
-modulate = Color( 0, 0, 0, 1 )
+modulate = Color( 0, 0, 0, 0 )
 position = Vector2( -196.239, -142.234 )
 scale = Vector2( 402.566, 293.898 )
 z_index = 4096
