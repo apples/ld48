@@ -37,7 +37,10 @@ bus = "SFX"
 [node name="MusicSleep" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 bus = "Music"
+
+[node name="InvulnTimer" type="Timer" parent="."]
 [connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
 [connection signal="body_entered" from="Axe" to="Axe" method="_on_Axe_body_entered"]
 [connection signal="animation_finished" from="Axe/AxeSprite" to="Axe" method="_on_AxeSprite_animation_finished"]
 [connection signal="finished" from="MusicSleep" to="." method="_on_MusicSleep_finished"]
+[connection signal="timeout" from="InvulnTimer" to="." method="_on_InvulnTimer_timeout"]

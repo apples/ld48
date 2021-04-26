@@ -12,6 +12,7 @@ onready var changetracker: Node = get_node(changetracker_path)
 
 const base_move_speed = 50.0
 
+var invuln = false
 var dead = false
 var sleeping = false
 
@@ -41,11 +42,14 @@ func reset():
 	$AnimatedSprite.stop()
 
 func get_hit():
-	if not dead:
+	if not dead and not invuln:
 		Globals.player_health -= 1
 		assert(Globals.player_health >= 0)
 		if Globals.player_health == 0:
 			be_dead()
+		else:
+			invuln = true
+			$InvulnTimer.start()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -180,3 +184,7 @@ func _on_AnimatedSprite_frame_changed():
 
 func _on_MusicSleep_finished():
 	emit_signal("on_sleep_finished", self)
+
+
+func _on_InvulnTimer_timeout():
+	invuln = false

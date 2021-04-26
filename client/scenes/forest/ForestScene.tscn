@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/forest/SkytoneEffect.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://gui/GUI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/forest/ChangeTracker.gd" type="Script" id=7]
 [ext_resource path="res://light/TorchLight.tscn" type="PackedScene" id=8]
+[ext_resource path="res://enemy/EnemySpawner.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -90,7 +91,7 @@ fuel = 1
 [node name="Player" parent="." groups=[
 "player",
 ] instance=ExtResource( 1 )]
-position = Vector2( 512, 135.883 )
+position = Vector2( 504, 124 )
 obstacle_map_path = NodePath("../Navigation2D/TileMapObstacles")
 changetracker_path = NodePath("../ChangeTracker")
 
@@ -146,6 +147,1006 @@ torchholder_path = NodePath("..")
 
 [node name="Timer" type="Timer" parent="ChangeTracker"]
 autostart = true
+
+[node name="FoxSpawners" type="Node" parent="."]
+
+[node name="EnemySpawner" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 340.0
+margin_top = 671.0
+margin_right = 459.0
+margin_bottom = 769.0
+
+[node name="EnemySpawner6" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 36.3239
+margin_top = 666.995
+margin_right = 155.324
+margin_bottom = 764.995
+
+[node name="EnemySpawner7" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 189.0
+margin_top = 786.0
+margin_right = 291.0
+margin_bottom = 843.0
+
+[node name="EnemySpawner8" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 88.9333
+margin_top = 1177.02
+margin_right = 190.933
+margin_bottom = 1234.02
+
+[node name="EnemySpawner9" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 406.0
+margin_top = 1202.0
+margin_right = 526.0
+margin_bottom = 1246.0
+
+[node name="EnemySpawner16" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 435.184
+margin_top = 1060.57
+margin_right = 555.184
+margin_bottom = 1104.57
+
+[node name="EnemySpawner17" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 820.189
+margin_top = 1006.69
+margin_right = 940.189
+margin_bottom = 1050.69
+
+[node name="EnemySpawner18" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 134.364
+margin_top = 1023.53
+margin_right = 254.364
+margin_bottom = 1067.53
+
+[node name="EnemySpawner19" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 419.055
+margin_top = 516.473
+margin_right = 539.055
+margin_bottom = 560.473
+
+[node name="EnemySpawner10" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 800.539
+margin_top = 1141.82
+margin_right = 920.539
+margin_bottom = 1185.82
+
+[node name="EnemySpawner11" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 857.561
+margin_top = 1377.75
+margin_right = 977.561
+margin_bottom = 1421.75
+
+[node name="EnemySpawner12" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 721.0
+margin_top = 1363.0
+margin_right = 779.0
+margin_bottom = 1410.0
+
+[node name="EnemySpawner13" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 896.747
+margin_top = 1304.14
+margin_right = 954.747
+margin_bottom = 1351.14
+
+[node name="EnemySpawner14" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 423.323
+margin_top = 1385.7
+margin_right = 481.323
+margin_bottom = 1432.7
+
+[node name="EnemySpawner15" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 271.961
+margin_top = 1393.27
+margin_right = 329.961
+margin_bottom = 1440.27
+
+[node name="EnemySpawner20" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 249.961
+margin_top = 1321.27
+margin_right = 307.961
+margin_bottom = 1368.27
+
+[node name="EnemySpawner2" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 564.0
+margin_top = 647.0
+margin_right = 704.0
+margin_bottom = 736.0
+
+[node name="EnemySpawner4" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 846.319
+margin_top = 646.333
+margin_right = 986.319
+margin_bottom = 735.333
+
+[node name="EnemySpawner5" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 678.796
+margin_top = 771.807
+margin_right = 818.796
+margin_bottom = 860.807
+
+[node name="EnemySpawner3" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 442.617
+margin_top = 886.789
+margin_right = 516.617
+margin_bottom = 933.789
+
+[node name="EnemySpawner21" parent="FoxSpawners" instance=ExtResource( 9 )]
+margin_left = 442.617
+margin_top = 886.789
+margin_right = 516.617
+margin_bottom = 933.789
+
+[node name="WolfSpawners" type="Node" parent="."]
+
+[node name="Early" type="Node" parent="WolfSpawners"]
+
+[node name="WolfSpawner" parent="WolfSpawners/Early" instance=ExtResource( 9 )]
+margin_left = 182.261
+margin_top = 1495.95
+margin_right = 302.261
+margin_bottom = 1539.95
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+time_threshold = 60.0
+
+[node name="WolfSpawner2" parent="WolfSpawners/Early" instance=ExtResource( 9 )]
+margin_left = 688.749
+margin_top = 1498.47
+margin_right = 808.749
+margin_bottom = 1542.47
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+time_threshold = 60.0
+
+[node name="WolfSpawner3" parent="WolfSpawners/Early" instance=ExtResource( 9 )]
+margin_left = 36.1102
+margin_top = 908.831
+margin_right = 156.11
+margin_bottom = 952.831
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+time_threshold = 60.0
+
+[node name="WolfSpawner4" parent="WolfSpawners/Early" instance=ExtResource( 9 )]
+margin_left = 792.755
+margin_top = 920.817
+margin_right = 912.755
+margin_bottom = 964.817
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+time_threshold = 60.0
+
+[node name="WolfSpawner5" parent="WolfSpawners/Early" instance=ExtResource( 9 )]
+margin_left = 19.6288
+margin_top = 402.403
+margin_right = 139.629
+margin_bottom = 446.403
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+time_threshold = 60.0
+
+[node name="WolfSpawner6" parent="WolfSpawners/Early" instance=ExtResource( 9 )]
+margin_left = 848.193
+margin_top = 459.339
+margin_right = 968.193
+margin_bottom = 503.339
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+time_threshold = 60.0
+
+[node name="Later" type="Node" parent="WolfSpawners"]
+
+[node name="WolfSpawner" parent="WolfSpawners/Later" instance=ExtResource( 9 )]
+margin_left = 787.023
+margin_top = 1228.85
+margin_right = 907.023
+margin_bottom = 1272.85
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 75.0
+
+[node name="WolfSpawner7" parent="WolfSpawners/Later" instance=ExtResource( 9 )]
+margin_left = 144.463
+margin_top = 1201.13
+margin_right = 264.463
+margin_bottom = 1245.13
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 75.0
+
+[node name="WolfSpawner8" parent="WolfSpawners/Later" instance=ExtResource( 9 )]
+margin_left = 419.126
+margin_top = 896.232
+margin_right = 539.126
+margin_bottom = 940.232
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 75.0
+
+[node name="WolfSpawner9" parent="WolfSpawners/Later" instance=ExtResource( 9 )]
+margin_left = 202.42
+margin_top = 689.605
+margin_right = 322.42
+margin_bottom = 733.605
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 75.0
+
+[node name="WolfSpawner10" parent="WolfSpawners/Later" instance=ExtResource( 9 )]
+margin_left = 673.63
+margin_top = 770.24
+margin_right = 793.63
+margin_bottom = 814.24
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 75.0
+
+[node name="WolfSpawner2" parent="WolfSpawners/Later" instance=ExtResource( 9 )]
+margin_left = 492.201
+margin_top = 1206.17
+margin_right = 612.202
+margin_bottom = 1250.17
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 75.0
+
+[node name="WolfSpawner3" parent="WolfSpawners/Later" instance=ExtResource( 9 )]
+margin_left = 293.134
+margin_top = 523.295
+margin_right = 413.134
+margin_bottom = 567.295
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 75.0
+
+[node name="WolfSpawner4" parent="WolfSpawners/Later" instance=ExtResource( 9 )]
+margin_left = 631.485
+margin_top = 520.162
+margin_right = 751.485
+margin_bottom = 564.162
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 75.0
+
+[node name="WolfSpawner5" parent="WolfSpawners/Later" instance=ExtResource( 9 )]
+margin_left = 153.18
+margin_top = 170.578
+margin_right = 273.18
+margin_bottom = 214.578
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 75.0
+
+[node name="WolfSpawner6" parent="WolfSpawners/Later" instance=ExtResource( 9 )]
+margin_left = 737.32
+margin_top = 172.077
+margin_right = 857.32
+margin_bottom = 216.077
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 75.0
+
+[node name="Killscreen" type="Node" parent="WolfSpawners"]
+
+[node name="WolfSpawner" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 787.023
+margin_top = 1228.85
+margin_right = 907.023
+margin_bottom = 1272.85
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner11" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 441.805
+margin_top = 1060.02
+margin_right = 561.805
+margin_bottom = 1104.02
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner12" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 623.233
+margin_top = 656.846
+margin_right = 743.233
+margin_bottom = 700.846
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner13" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 446.845
+margin_top = 538.414
+margin_right = 566.845
+margin_bottom = 582.414
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner14" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 426.686
+margin_top = 372.104
+margin_right = 546.686
+margin_bottom = 416.104
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner15" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 199.9
+margin_top = 288.949
+margin_right = 319.9
+margin_bottom = 332.949
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner16" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 429.206
+margin_top = 220.914
+margin_right = 549.206
+margin_bottom = 264.914
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner17" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 575.357
+margin_top = 178.076
+margin_right = 695.357
+margin_bottom = 222.076
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner18" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 318.333
+margin_top = 165.477
+margin_right = 438.333
+margin_bottom = 209.477
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner47" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 280.024
+margin_top = 232.295
+margin_right = 400.024
+margin_bottom = 276.295
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner48" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 580.702
+margin_top = 234.522
+margin_right = 700.702
+margin_bottom = 278.522
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner49" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 359.759
+margin_top = 37.1878
+margin_right = 479.759
+margin_bottom = 81.1878
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner50" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 534.375
+margin_top = 38.9696
+margin_right = 654.375
+margin_bottom = 82.9696
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner51" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 645.292
+margin_top = 183.741
+margin_right = 765.292
+margin_bottom = 227.741
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner52" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 328.132
+margin_top = 197.995
+margin_right = 448.132
+margin_bottom = 241.995
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner53" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 262.206
+margin_top = 118.705
+margin_right = 382.206
+margin_bottom = 162.705
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner54" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 412.322
+margin_top = 261.694
+margin_right = 532.322
+margin_bottom = 305.694
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner55" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 548.184
+margin_top = 256.349
+margin_right = 668.184
+margin_bottom = 300.349
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner56" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 690.283
+margin_top = 218.486
+margin_right = 810.283
+margin_bottom = 262.486
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner57" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 677.81
+margin_top = 115.141
+margin_right = 797.81
+margin_bottom = 159.141
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner58" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 462.142
+margin_top = 324.445
+margin_right = 582.142
+margin_bottom = 368.445
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner59" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 558.309
+margin_top = 390.206
+margin_right = 678.309
+margin_bottom = 434.206
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner60" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 54.0602
+margin_top = 285.971
+margin_right = 174.06
+margin_bottom = 329.971
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner61" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 366.766
+margin_top = 586.204
+margin_right = 486.766
+margin_bottom = 630.204
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner62" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 535.146
+margin_top = 796.456
+margin_right = 655.146
+margin_bottom = 840.456
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner63" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 313.312
+margin_top = 787.547
+margin_right = 433.312
+margin_bottom = 831.547
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner64" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 51.3875
+margin_top = 810.71
+margin_right = 171.388
+margin_bottom = 854.71
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner65" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 571.672
+margin_top = 892.673
+margin_right = 691.672
+margin_bottom = 936.673
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner66" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 571.672
+margin_top = 1064.62
+margin_right = 691.672
+margin_bottom = 1108.62
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner67" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 555.636
+margin_top = 1136.78
+margin_right = 675.636
+margin_bottom = 1180.78
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner68" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 721.343
+margin_top = 1366.63
+margin_right = 841.343
+margin_bottom = 1410.63
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner69" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 879.032
+margin_top = 1074.42
+margin_right = 999.032
+margin_bottom = 1118.42
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner70" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 383.693
+margin_top = 1147.47
+margin_right = 503.693
+margin_bottom = 1191.47
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner71" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 413.983
+margin_top = 991.563
+margin_right = 533.983
+margin_bottom = 1035.56
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner19" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 711.428
+margin_top = 263.751
+margin_right = 831.428
+margin_bottom = 307.751
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner20" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 756.785
+margin_top = 374.624
+margin_right = 876.785
+margin_bottom = 418.624
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner21" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 237.698
+margin_top = 886.152
+margin_right = 357.698
+margin_bottom = 930.152
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner22" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 474.563
+margin_top = 1299.41
+margin_right = 594.563
+margin_bottom = 1343.41
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner23" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 474.563
+margin_top = 1372.48
+margin_right = 594.563
+margin_bottom = 1416.48
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner24" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 199.9
+margin_top = 1327.12
+margin_right = 319.9
+margin_bottom = 1371.12
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner25" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 207.459
+margin_top = 1390.12
+margin_right = 327.459
+margin_bottom = 1434.12
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner26" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 441.805
+margin_top = 1060.02
+margin_right = 561.805
+margin_bottom = 1104.02
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner27" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 184.781
+margin_top = 1100.34
+margin_right = 304.781
+margin_bottom = 1144.34
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner28" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 131.864
+margin_top = 1027.26
+margin_right = 251.864
+margin_bottom = 1071.26
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner29" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 187.301
+margin_top = 792.918
+margin_right = 307.301
+margin_bottom = 836.918
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner30" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 41.1498
+margin_top = 694.644
+margin_right = 161.15
+margin_bottom = 738.644
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner31" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 855.059
+margin_top = 666.926
+margin_right = 975.059
+margin_bottom = 710.926
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner32" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 812.222
+margin_top = 1009.62
+margin_right = 932.222
+margin_bottom = 1053.62
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner33" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 779.464
+margin_top = 1145.7
+margin_right = 899.464
+margin_bottom = 1189.7
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner34" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 61.3087
+margin_top = 583.771
+margin_right = 181.309
+margin_bottom = 627.771
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner35" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 167.142
+margin_top = 495.576
+margin_right = 287.142
+margin_bottom = 539.576
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner36" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 325.892
+margin_top = 336.826
+margin_right = 445.892
+margin_bottom = 380.826
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner37" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 729.067
+margin_top = 263.75
+margin_right = 849.067
+margin_bottom = 307.75
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner38" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 272.975
+margin_top = 77.2822
+margin_right = 392.975
+margin_bottom = 121.282
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner39" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 603.075
+margin_top = 97.4409
+margin_right = 723.075
+margin_bottom = 141.441
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner40" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 330.932
+margin_top = 707.243
+margin_right = 450.932
+margin_bottom = 751.243
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner41" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 152.023
+margin_top = 1478.31
+margin_right = 272.023
+margin_bottom = 1522.31
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner42" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 741.666
+margin_top = 1485.87
+margin_right = 861.666
+margin_bottom = 1529.87
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner43" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 839.94
+margin_top = 1375.0
+margin_right = 959.94
+margin_bottom = 1419.0
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner44" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 839.94
+margin_top = 1304.45
+margin_right = 959.94
+margin_bottom = 1348.45
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner45" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 837.42
+margin_top = 530.854
+margin_right = 957.42
+margin_bottom = 574.854
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner46" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 837.42
+margin_top = 815.596
+margin_right = 957.42
+margin_bottom = 859.596
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner7" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 144.463
+margin_top = 1201.13
+margin_right = 264.463
+margin_bottom = 1245.13
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner8" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 419.126
+margin_top = 896.232
+margin_right = 539.126
+margin_bottom = 940.232
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner9" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 202.42
+margin_top = 689.605
+margin_right = 322.42
+margin_bottom = 733.605
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner10" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 673.63
+margin_top = 770.24
+margin_right = 793.63
+margin_bottom = 814.24
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner2" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 492.201
+margin_top = 1206.17
+margin_right = 612.202
+margin_bottom = 1250.17
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner3" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 293.134
+margin_top = 523.295
+margin_right = 413.134
+margin_bottom = 567.295
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner4" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 631.485
+margin_top = 520.162
+margin_right = 751.485
+margin_bottom = 564.162
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner5" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 148.685
+margin_top = 211.781
+margin_right = 268.685
+margin_bottom = 255.781
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
+
+[node name="WolfSpawner6" parent="WolfSpawners/Killscreen" instance=ExtResource( 9 )]
+margin_left = 737.32
+margin_top = 172.077
+margin_right = 857.32
+margin_bottom = 216.077
+color = Color( 0.0313726, 0, 1, 0.223529 )
+type = 1
+holder_path = NodePath("../../Later")
+time_threshold = 90.0
 [connection signal="body_entered" from="SleepArea" to="." method="_on_SleepArea_body_entered"]
 [connection signal="on_death" from="Player" to="." method="_on_Player_on_death"]
 [connection signal="on_sleep" from="Player" to="." method="_on_Player_on_sleep"]

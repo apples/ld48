@@ -4,8 +4,7 @@ var savegame_file = "user://saved_game.cfg"
 
 var current_day = 0
 var current_time = 0
-var day_length = 30
-var night_killscreen = 5
+var day_length = 60
 
 var player_health = 5
 var resource_defaults = {
