@@ -41,7 +41,8 @@ func reset():
 	$AnimatedSprite.stop()
 
 func get_hit():
-	Globals.player_health -= 1
+	if Globals.player_health > 0:
+		Globals.player_health -= 1
 	if Globals.player_health <= 0:
 		be_dead()
 
