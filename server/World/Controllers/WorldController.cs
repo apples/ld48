@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using World.Configuration;
 using World.Data;
 using World.Data.Models;
 using World.Data.TransferObjects;
@@ -19,12 +18,10 @@ namespace World.Controllers
     public class WorldController : ControllerBase
     {
         public WorldContext WorldContext { get; }
-        public GameSettings Settings { get; }
 
-        public WorldController(WorldContext worldContext, IOptions<GameSettings> settings)
+        public WorldController(WorldContext worldContext)
         {
             WorldContext = worldContext;
-            Settings = settings.Value;
         }
 
         // POST api/<ValuesController>/AddPath
@@ -156,8 +153,6 @@ namespace World.Controllers
                     });
                 await WorldContext.SaveChangesAsync();
             }
-
-            var dayStart = DateTime.UtcNow - Settings.DayLength;
 
             var tiles = await WorldContext.Paths
                 .Where(p =>
