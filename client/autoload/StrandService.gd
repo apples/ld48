@@ -99,6 +99,26 @@ func _on_AddPath_completed(error_reason, json, extra):
 		extra[0].call(extra[1], null)
 		emit_signal("connect_failed", error_reason)
 
+func AddEvent(eventType, eventValue, tileX, tileY):
+	if player_id == null:
+		return
+	var data = {
+		"playerID": player_id,
+		"eventType": eventType,
+		"eventValue": eventValue,
+		"tileX": tileX,
+		"tileY": tileY,
+	}
+	var err = _post_json("/World/AddEvent", data, self, "_on_AddEvent_completed")
+	if err != OK:
+		emit_signal("connect_failed", "Request error: " + str(err))
+
+func _on_AddEvent_completed(error_reason, json):
+	if error_reason == null:
+		pass
+	else:
+		emit_signal("connect_failed", error_reason)
+
 func EndDay(day, obj, cb):
 	if player_id == null:
 		return

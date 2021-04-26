@@ -11,15 +11,10 @@ onready var obstacle_tilemap = get_node(obstacle_tilemap_node_path)
 export(NodePath) var player_node_path = null
 onready var player = get_node(player_node_path)
 
-enum Action {
-	CUT_GRASS,
-	BERRY_BUSH
-}
-
 var path = []
-var actions = []
+var events = []
 
-var all_actions = []
+var all_events = []
 var day_paths = []
 
 var rng = RandomNumberGenerator.new()
@@ -29,26 +24,21 @@ func cut_grass(pos, do_commit = true):
 		print("Cutting grass at " + str(pos))
 		obstacle_tilemap.set_cellv(pos, -1)
 	if do_commit:
-		actions.append({
-			"type": Action.CUT_GRASS,
-			"where": pos,
-			"decay": 0.25,
-		})
+		_commit_event(EventType.CUT_GRASS, pos, 1)
 
 func grow_berrybush(pos, do_commit = true):
 	print("Growing berrybush at " + str(pos))
 	var t = obstacle_tilemap.get_cellv(pos)
+	var did = false
 	match t:
 		TileType.NONE:
 			obstacle_tilemap.set_cellv(pos, TileType.BERRYBUSH0)
+			did = true
 		TileType.BERRYBUSH0, TileType.BERRYBUSH1, TileType.BERRYBUSH2, TileType.BERRYBUSH3:
 			obstacle_tilemap.set_cellv(pos, t + 1)
+			did = true
 	if do_commit:
-		actions.append({
-			"type": Action.BERRY_BUSH,
-			"where": pos,
-			"decay": 0,
-		})
+		_commit_event(EventType.BERRY_BUSH, pos, 1)
 
 func commit():
 	
@@ -61,14 +51,14 @@ func commit():
 	var f = ConfigFile.new()
 	f.load(Globals.savegame_file)
 	
-	all_actions += actions
+	all_events += events
 	
 	var new_all = []
-	for act in all_actions:
-		if rng.randf() >= act["decay"]:
+	for act in all_events:
+		if rng.randf() >= EventType.get_decay(act["type"]):
 			new_all.append(act)
-	all_actions = new_all
-	f.set_value("world", "actions", all_actions)
+	all_events = new_all
+	f.set_value("world", "events", all_events)
 	
 	day_paths.append(path)
 	var dps = day_paths.size()
@@ -81,14 +71,14 @@ func commit():
 func load_and_replay_all(floor_map, obstacle_map):
 	var f = ConfigFile.new()
 	f.load(Globals.savegame_file)
-	all_actions = f.get_value("world", "actions", [])
+	all_events = f.get_value("world", "events", [])
 	day_paths = f.get_value("world", "paths", [])
 	
-	for act in all_actions:
+	for act in all_events:
 		match act["type"]:
-			Action.CUT_GRASS:
+			EventType.CUT_GRASS:
 				cut_grass(act["where"], false)
-			Action.BERRY_BUSH:
+			EventType.BERRY_BUSH:
 				grow_berrybush(act["where"], false)
 	
 	var wear_map = {}
@@ -111,10 +101,19 @@ func load_and_replay_all(floor_map, obstacle_map):
 				tilemap.update_bitmask_area(pos)
 			elif wear > 0:
 				tilemap.set_cellv(pos, TileType.FOOTPRINT)
-				
 
 func _ready():
 	rng.randomize()
+
+func _commit_event(type, pos, val):
+	assert(int(pos.x) == pos.x)
+	assert(int(pos.y) == pos.y)
+	events.append({
+		"type": type,
+		"where": pos,
+		"value": val,
+	})
+	StrandService.AddEvent(type, val, pos.x, pos.y)
 
 func _on_Timer_timeout():
 	var pathpos = tilemap.world_to_map(player.position)
