@@ -73,8 +73,53 @@ func _on_VerifyPlayer_completed(error_reason, json):
 	else:
 		emit_signal("connect_failed", error_reason)
 
-func AddPath():
-	pass
+func AddPath(path, day, obj, cb):
+	if player_id == null:
+		return
+	var tiles = []
+	for step in path:
+		var pos = step["pos"]
+		tiles.append([pos.x, pos.y, step["timestamp"]])
+	var data = {
+		"worldID": world_id,
+		"zoneID": zone_id,
+		"playerID": player_id,
+		"day": day,
+		"tiles": tiles,
+	}
+	var err = _post_json("/World/AddPath", data, self, "_on_AddPath_completed", [obj, cb])
+	if err != OK:
+		emit_signal("connect_failed", "Request error: " + str(err))
+
+func _on_AddPath_completed(error_reason, json, extra):
+	if error_reason == null:
+		print(json)
+		extra[0].call(extra[1], json)
+	else:
+		extra[0].call(extra[1], null)
+		emit_signal("connect_failed", error_reason)
+
+func EndDay(day, obj, cb):
+	if player_id == null:
+		return
+	var data = {
+		"worldID": world_id,
+		"zoneID": zone_id,
+		"playerID": player_id,
+		"day": day,
+	}
+	var err = _post_json("/World/EndDay", data, self, "_on_EndDay_completed", [obj, cb])
+	if err != OK:
+		emit_signal("connect_failed", "Request error: " + str(err))
+
+func _on_EndDay_completed(error_reason, json, extra):
+	if error_reason == null:
+		print("EndDay!!!")
+		print(json)
+		extra[0].call(extra[1], json)
+	else:
+		extra[0].call(extra[1], null)
+		emit_signal("connect_failed", error_reason)
 
 #################
 # Private Methods
@@ -83,16 +128,17 @@ func AddPath():
 func _ready():
 	pass
 
-func _make_request(obj, cb):
+func _make_request(obj, cb, path, extra):
 	var http_request = HTTPRequest.new()
 	add_child(http_request)
-	http_request.connect("request_completed", self, "on_http_request_completed", [http_request, obj, cb])
+	http_request.connect("request_completed", self, "on_http_request_completed", [http_request, obj, cb, path, extra])
 	return http_request
 
-func _post_json(path, data, obj, cb):
+func _post_json(path, data, obj, cb, extra = null):
 	var body = JSON.print(data)
+	print(path + " << " + body)
 	var headers = ["Content-Type: application/json"]
-	var req = _make_request(obj, cb)
+	var req = _make_request(obj, cb, path, extra)
 	var err = req.request(server_url + path, headers, validate_domain, HTTPClient.METHOD_POST, body)
 	if err != OK:
 		req.queue_free()
@@ -104,17 +150,27 @@ func _save_id():
 	conf.set_value("player", "name", player_name)
 	conf.save(config_file)
 
-func on_http_request_completed(result, response_code, headers, body, http_request, obj, cb):
+func on_http_request_completed(result, response_code, headers, body, http_request, obj, cb, path, extra):
 	http_request.queue_free()
+	var error = null
+	var data = null
 	if result == HTTPRequest.RESULT_SUCCESS:
 		match response_code:
 			200, 201:
-				var json = JSON.parse(body.get_string_from_utf8())
+				var bodystr = body.get_string_from_utf8()
+				print(path + " >> " + bodystr)
+				var json = JSON.parse(bodystr)
 				if json.error == OK:
-					obj.call(cb, null, json.result)
+					data = json.result
 				else:
-					obj.call(cb, "Bad JSON", null)
+					error = "Bad JSON"
 			_:
-				obj.call(cb, "Reponse code " + str(response_code), null)
+				print(path + " >> ERROR " + str(response_code))
+				error = "Reponse code " + str(response_code)
 	else:
-		obj.call(cb, "Request failed (" + str(result) + ")", null)
+		error = "Request failed (" + str(result) + ")"
+	
+	if extra != null:
+		obj.call(cb, error, data, extra)
+	else:
+		obj.call(cb, error, data)

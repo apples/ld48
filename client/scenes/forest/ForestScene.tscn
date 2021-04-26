@@ -124,4 +124,5 @@ autostart = true
 [connection signal="on_sleep" from="Player" to="." method="_on_Player_on_sleep"]
 [connection signal="on_sleep_finished" from="Player" to="." method="_on_Player_on_sleep_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="commit_complete" from="ChangeTracker" to="." method="_on_ChangeTracker_commit_complete"]
 [connection signal="timeout" from="ChangeTracker/Timer" to="ChangeTracker" method="_on_Timer_timeout"]

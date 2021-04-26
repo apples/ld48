@@ -1,5 +1,7 @@
 extends Node
 
+signal commit_complete
+
 export(NodePath) var tilemap_node_path = null
 onready var tilemap = get_node(tilemap_node_path)
 
@@ -49,6 +51,13 @@ func grow_berrybush(pos, do_commit = true):
 		})
 
 func commit():
+	
+	# Notify server
+	
+	StrandService.AddPath(path, Globals.current_day, self, "_on_StrandService_AddPath_complete")
+	
+	# Update save file
+	
 	var f = ConfigFile.new()
 	f.load(Globals.savegame_file)
 	
@@ -87,9 +96,10 @@ func load_and_replay_all(floor_map, obstacle_map):
 	
 	for p in day_paths:
 		for step in p:
-			var c = wear_map.get(step, 0) + 1
+			var pos = step["pos"]
+			var c = wear_map.get(pos, 0) + 1
 			max_wear = max(max_wear, c)
-			wear_map[step] = c
+			wear_map[pos] = c
 	
 	for pos in wear_map:
 		var obs = obstacle_tilemap.get_cellv(pos)
@@ -108,4 +118,7 @@ func _ready():
 
 func _on_Timer_timeout():
 	var pathpos = tilemap.world_to_map(player.position)
-	path.append(pathpos)
+	path.append({ "pos": pathpos, "timestamp": Globals.current_time })
+
+func _on_StrandService_AddPath_complete(json):
+	emit_signal("commit_complete")

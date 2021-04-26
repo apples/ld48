@@ -22,6 +22,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			fading_out = false
 			Globals.current_time = 0
 			Globals.player_health = 6 if $Player.sleeping else 5
+			assert(reset_counter > 0)
 			reset_counter -= 1
 			if reset_counter == 0:
 				get_tree().reload_current_scene()
@@ -35,7 +36,7 @@ func _on_SleepArea_body_entered(body):
 func _on_Player_on_sleep(player):
 	fading_out = true
 	$AnimationPlayer.play("FadeOut")
-	reset_counter = 2
+	reset_counter = 3
 	$ChangeTracker.commit()
 
 
@@ -46,6 +47,18 @@ func _on_Player_on_death(player):
 
 
 func _on_Player_on_sleep_finished(player):
+	assert(reset_counter > 0)
+	reset_counter -= 1
+	if reset_counter == 0:
+		get_tree().reload_current_scene()
+
+
+func _on_ChangeTracker_commit_complete():
+	StrandService.EndDay(Globals.current_day, self, "_on_StrandService_EndDay_complete")
+
+func _on_StrandService_EndDay_complete(json):
+	print("Day ended")
+	assert(reset_counter > 0)
 	reset_counter -= 1
 	if reset_counter == 0:
 		get_tree().reload_current_scene()
