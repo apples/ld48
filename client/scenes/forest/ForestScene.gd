@@ -1,5 +1,7 @@
 extends Node2D
 
+var enemy_scene = preload("res://Enemy/Enemy.tscn")
+
 var fading_out = false
 
 var reset_counter = 0
@@ -12,8 +14,12 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if (not fading_out and
-		Globals.current_time > Globals.day_length + Globals.night_killscreen):
-			$Player.get_hit()
+		Globals.current_time > Globals.day_length + Globals.night_killscreen && fmod(Globals.current_time, 10) < .1):
+			#$Player.get_hit()
+			var enemy = enemy_scene.instance()
+			enemy.position.x = 100#rng.randf_range(spawn_start_x, spawn_start_x + spawn_range_x)
+			enemy.position.y = 100#rng.randf_range(spawn_start_y, spawn_start_y + spawn_range_y)
+			add_child(enemy)
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
