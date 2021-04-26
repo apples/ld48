@@ -8,7 +8,7 @@
 [ext_resource path="res://player/Axe.gd" type="Script" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8.69604, 4.51623 )
+extents = Vector2( 8, 8 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -23,7 +23,7 @@ frames = ExtResource( 1 )
 script = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Axe"]
-position = Vector2( 0, 12.7136 )
+position = Vector2( 0, 16 )
 shape = SubResource( 1 )
 
 [node name="AxeSprite" type="AnimatedSprite" parent="Axe"]
@@ -38,5 +38,6 @@ bus = "SFX"
 stream = ExtResource( 4 )
 bus = "Music"
 [connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
+[connection signal="body_entered" from="Axe" to="Axe" method="_on_Axe_body_entered"]
 [connection signal="animation_finished" from="Axe/AxeSprite" to="Axe" method="_on_AxeSprite_animation_finished"]
 [connection signal="finished" from="MusicSleep" to="." method="_on_MusicSleep_finished"]
