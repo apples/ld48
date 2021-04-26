@@ -1,17 +1,14 @@
 extends KinematicBody2D
 
 signal on_sleep(player)
+signal on_sleep_finished(player)
 signal on_death(player)
 
 export(NodePath) var obstacle_map_path = null
 onready var obstacle_map: TileMap = get_node(obstacle_map_path)
 
-const TALLGRASS_TILE = 1
-const BERRYBUSH_TILE0 = 13
-const BERRYBUSH_TILE1 = 14
-const BERRYBUSH_TILE2 = 15
-const BERRYBUSH_TILE3 = 16
-const BERRYBUSH_TILE4 = 17
+export(NodePath) var changetracker_path = null
+onready var changetracker: Node = get_node(changetracker_path)
 
 const base_move_speed = 50.0
 
@@ -94,7 +91,7 @@ func _process_alive(delta):
 	var obs_tile = obstacle_map.get_cellv(obstacle_map.world_to_map(position))
 	
 	match obs_tile:
-		TALLGRASS_TILE:
+		TileType.TALLGRASS:
 			$AnimatedSprite.play("grass")
 			move_speed *= 0.5
 		_:
@@ -112,7 +109,11 @@ func _process_alive(delta):
 	# ATTACK
 	
 	if Input.is_action_just_pressed("attack"):
-		obstacle_map.set_cellv(obstacle_map.world_to_map(position) + dir, -1)
+		var target_pos = obstacle_map.world_to_map(position) + dir
+		match obstacle_map.get_cellv(target_pos):
+			TileType.TALLGRASS:
+				changetracker.cut_grass(target_pos)
+		
 		match facing:
 			DIR_N:
 				$Axe.rotation_degrees = 180
@@ -130,12 +131,8 @@ func _process_alive(delta):
 		var tmpos = obstacle_map.world_to_map(position)
 		var t = obstacle_map.get_cellv(tmpos)
 		match t:
-			TileMap.INVALID_CELL:
-				obstacle_map.set_cellv(tmpos, BERRYBUSH_TILE0)
-			BERRYBUSH_TILE0, BERRYBUSH_TILE1, BERRYBUSH_TILE2, BERRYBUSH_TILE3:
-				obstacle_map.set_cellv(tmpos, t + 1)
-			BERRYBUSH_TILE4:
-				obstacle_map.set_cellv(tmpos, t - 1)
+			TileType.NONE, TileType.BERRYBUSH0, TileType.BERRYBUSH1, TileType.BERRYBUSH2, TileType.BERRYBUSH3:
+				changetracker.grow_berrybush(tmpos)
 
 func _process_dead(delta):
 	pass
@@ -148,8 +145,12 @@ func _on_AnimatedSprite_frame_changed():
 		var obs_tile = obstacle_map.get_cellv(obstacle_map.world_to_map(position))
 		
 		match obs_tile:
-			TALLGRASS_TILE:
+			TileType.TALLGRASS:
 				$SfxGrass.play()
 			_:
 				pass
 
+
+
+func _on_MusicSleep_finished():
+	emit_signal("on_sleep_finished", self)

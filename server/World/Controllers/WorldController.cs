@@ -192,6 +192,24 @@ namespace World.Controllers
                     t.Count))
                 .ToList();
 
+            var events = WorldContext.Events
+                .Where(e =>
+                    (e.TimeStamp > WorldContext.EndDays            // Pull all events since last day the player ended
+                        .Where(e => e.PlayerID == dto.PlayerID)
+                        .Select(e => e.TimeStamp)
+                        .Max()) &&
+                    WorldContext.MatchedPlayers
+                        .Where(mp => mp.PlayerID == dto.PlayerID)
+                        .Any(mp => mp.OtherPlayerID == e.PlayerID))
+                .GroupBy(e => new { e.TileX, e.TileY, e.EventType })
+                .Select(g => new DayEventUpdateDTO(
+                        g.Key.TileX,
+                        g.Key.TileY,
+                        g.Key.EventType,
+                        g.Sum(e => e.EventValue)
+                    ))
+                .ToList();
+
             var endDay = new EndDayModel
             {
                 PlayerID = dto.PlayerID,
@@ -204,7 +222,8 @@ namespace World.Controllers
 
             return new DayUpdatesDTO(
                 endDay.EndDayID,
-                wornTilesDTO);
+                wornTilesDTO,
+                events);
         }
 
         [Route("NewPlayer")]
