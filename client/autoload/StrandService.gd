@@ -4,7 +4,7 @@ signal connected(id)
 signal connect_failed(reason)
 
 var config_file = "user://strand.cfg"
-var server_url = "https://localhost:5001/api"
+var server_url = "https://littlered.azurewebsites.net/api"
 
 const login_scene_path = "res://scenes/login/LoginScreen.tscn"
 
