@@ -5,9 +5,11 @@ extends KinematicBody2D
 # var a = 2
 # var b = "text"
 var player = null
+
 var move_speed = 50
 var dir = Vector2(0, 0)
 var facing_right = false
+var health = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,5 +33,5 @@ func _process(delta):
 	
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
-		if(collision.collider.name == "Enemy"):
+		if(collision.collider.name == "Player"):
 			player.get_hit()
