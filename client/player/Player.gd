@@ -42,8 +42,8 @@ func reset():
 
 func get_hit():
 	Globals.player_health -= 1
-	if Globals.player_health <= 0:
-		be_dead()
+#	if Globals.player_health <= 0:
+#		be_dead()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
