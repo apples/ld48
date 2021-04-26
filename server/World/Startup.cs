@@ -29,6 +29,7 @@ namespace World
 
             services.AddDbContext<WorldContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("WorldContext")));
+            services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
