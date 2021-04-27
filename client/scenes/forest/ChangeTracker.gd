@@ -23,7 +23,7 @@ var rng = RandomNumberGenerator.new()
 export(NodePath) var torchholder_path = null
 onready var torchholder = get_node(torchholder_path)
 
-var torch_scene = preload("res://light/TorchLight.tscn")
+var torch_scene = load("res://light/TorchLight.tscn")
 var torches = {}
 
 func cut_grass(pos, do_commit = true):
@@ -186,7 +186,7 @@ func apply_strand_data(strand_data):
 						tilemap.update_bitmask_area(pos)
 				TileType.PATH:
 					pass
-				_:
+				TileType.GROUND:
 					if wear > 3:
 						tilemap.set_cellv(pos, TileType.PATH)
 						tilemap.update_bitmask_area(pos)
