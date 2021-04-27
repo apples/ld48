@@ -1,5 +1,7 @@
 # Import cache
 .import/
+.export/*
+!.export/zip_all.cmd
 
 # Binaries
 bin/
