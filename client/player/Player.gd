@@ -97,16 +97,12 @@ func _process_alive(delta):
 	match facing:
 		DIR_S:
 			$AnimatedSprite.play("walk_S")
-			$AnimatedSprite.flip_h = false
 		DIR_N:
 			$AnimatedSprite.play("walk_N")
-			$AnimatedSprite.flip_h = false
 		DIR_E:
 			$AnimatedSprite.play("walk_E")
-			$AnimatedSprite.flip_h = false
 		DIR_W:
 			$AnimatedSprite.play("walk_W")
-			$AnimatedSprite.flip_h = true
 	
 	# OBSTACLES
 	
@@ -121,6 +117,7 @@ func _process_alive(delta):
 			$AnimatedSpriteGrass.visible = false
 	
 	if dir.length_squared() == 0:
+		$AnimatedSprite.play("default")
 		$AnimatedSprite.stop()
 		$AnimatedSpriteGrass.stop()
 	

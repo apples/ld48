@@ -155,126 +155,189 @@ margin_left = 340.0
 margin_top = 671.0
 margin_right = 459.0
 margin_bottom = 769.0
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner6" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 36.3239
 margin_top = 666.995
 margin_right = 155.324
 margin_bottom = 764.995
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner7" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 189.0
 margin_top = 786.0
 margin_right = 291.0
 margin_bottom = 843.0
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner8" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 88.9333
 margin_top = 1177.02
 margin_right = 190.933
 margin_bottom = 1234.02
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner9" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 406.0
 margin_top = 1202.0
 margin_right = 526.0
 margin_bottom = 1246.0
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner16" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 435.184
 margin_top = 1060.57
 margin_right = 555.184
 margin_bottom = 1104.57
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner17" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 820.189
 margin_top = 1006.69
 margin_right = 940.189
 margin_bottom = 1050.69
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner18" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 134.364
 margin_top = 1023.53
 margin_right = 254.364
 margin_bottom = 1067.53
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner19" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 419.055
 margin_top = 516.473
 margin_right = 539.055
 margin_bottom = 560.473
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner10" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 800.539
 margin_top = 1141.82
 margin_right = 920.539
 margin_bottom = 1185.82
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner11" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 857.561
 margin_top = 1377.75
 margin_right = 977.561
 margin_bottom = 1421.75
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner12" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 721.0
 margin_top = 1363.0
 margin_right = 779.0
 margin_bottom = 1410.0
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner13" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 896.747
 margin_top = 1304.14
 margin_right = 954.747
 margin_bottom = 1351.14
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner14" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 423.323
 margin_top = 1385.7
 margin_right = 481.323
 margin_bottom = 1432.7
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner15" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 271.961
 margin_top = 1393.27
 margin_right = 329.961
 margin_bottom = 1440.27
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner20" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 249.961
 margin_top = 1321.27
 margin_right = 307.961
 margin_bottom = 1368.27
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner2" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 564.0
 margin_top = 647.0
 margin_right = 704.0
 margin_bottom = 736.0
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner4" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 846.319
 margin_top = 646.333
 margin_right = 986.319
 margin_bottom = 735.333
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner5" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 678.796
 margin_top = 771.807
 margin_right = 818.796
 margin_bottom = 860.807
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner3" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 442.617
 margin_top = 886.789
 margin_right = 516.617
 margin_bottom = 933.789
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="EnemySpawner21" parent="FoxSpawners" instance=ExtResource( 9 )]
 margin_left = 442.617
 margin_top = 886.789
 margin_right = 516.617
 margin_bottom = 933.789
+type = 0
+holder_path = NodePath("..")
+time_threshold = 0.0
 
 [node name="WolfSpawners" type="Node" parent="."]
 
@@ -287,6 +350,7 @@ margin_right = 302.261
 margin_bottom = 1539.95
 color = Color( 0.0313726, 0, 1, 0.223529 )
 type = 1
+holder_path = NodePath("..")
 time_threshold = 60.0
 
 [node name="WolfSpawner2" parent="WolfSpawners/Early" instance=ExtResource( 9 )]
@@ -296,6 +360,7 @@ margin_right = 808.749
 margin_bottom = 1542.47
 color = Color( 0.0313726, 0, 1, 0.223529 )
 type = 1
+holder_path = NodePath("..")
 time_threshold = 60.0
 
 [node name="WolfSpawner3" parent="WolfSpawners/Early" instance=ExtResource( 9 )]
@@ -305,6 +370,7 @@ margin_right = 156.11
 margin_bottom = 952.831
 color = Color( 0.0313726, 0, 1, 0.223529 )
 type = 1
+holder_path = NodePath("..")
 time_threshold = 60.0
 
 [node name="WolfSpawner4" parent="WolfSpawners/Early" instance=ExtResource( 9 )]
@@ -314,6 +380,7 @@ margin_right = 912.755
 margin_bottom = 964.817
 color = Color( 0.0313726, 0, 1, 0.223529 )
 type = 1
+holder_path = NodePath("..")
 time_threshold = 60.0
 
 [node name="WolfSpawner5" parent="WolfSpawners/Early" instance=ExtResource( 9 )]
@@ -323,6 +390,7 @@ margin_right = 139.629
 margin_bottom = 446.403
 color = Color( 0.0313726, 0, 1, 0.223529 )
 type = 1
+holder_path = NodePath("..")
 time_threshold = 60.0
 
 [node name="WolfSpawner6" parent="WolfSpawners/Early" instance=ExtResource( 9 )]
@@ -332,6 +400,7 @@ margin_right = 968.193
 margin_bottom = 503.339
 color = Color( 0.0313726, 0, 1, 0.223529 )
 type = 1
+holder_path = NodePath("..")
 time_threshold = 60.0
 
 [node name="Later" type="Node" parent="WolfSpawners"]
