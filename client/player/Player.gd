@@ -53,7 +53,7 @@ func get_hit():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	$AnimatedSpriteGrass.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -92,19 +92,37 @@ func _process_alive(delta):
 	if dir.y > 0:
 		facing = DIR_S
 	
+	# SPRITE
+	
+	match facing:
+		DIR_S:
+			$AnimatedSprite.play("walk_S")
+			$AnimatedSprite.flip_h = false
+		DIR_N:
+			$AnimatedSprite.play("walk_N")
+			$AnimatedSprite.flip_h = false
+		DIR_E:
+			$AnimatedSprite.play("walk_E")
+			$AnimatedSprite.flip_h = false
+		DIR_W:
+			$AnimatedSprite.play("walk_W")
+			$AnimatedSprite.flip_h = true
+	
 	# OBSTACLES
 	
 	var obs_tile = obstacle_map.get_cellv(obstacle_map.world_to_map(position))
 	
 	match obs_tile:
 		TileType.TALLGRASS:
-			$AnimatedSprite.play("grass")
+			$AnimatedSpriteGrass.visible = true
+			$AnimatedSpriteGrass.play()
 			move_speed *= 0.5
 		_:
-			$AnimatedSprite.play("default")
+			$AnimatedSpriteGrass.visible = false
 	
 	if dir.length_squared() == 0:
 		$AnimatedSprite.stop()
+		$AnimatedSpriteGrass.stop()
 	
 	# MOVE
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://player/spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://player/Player.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://music/sleep.wav" type="AudioStream" id=4]
 [ext_resource path="res://player/axeframes.tres" type="SpriteFrames" id=5]
 [ext_resource path="res://player/Axe.gd" type="Script" id=6]
+[ext_resource path="res://player/grass.tres" type="SpriteFrames" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -18,6 +19,9 @@ polygon = PoolVector2Array( -3, -7, -7, 1, -7, 5, -6, 7, 6, 7, 7, 5, 7, 1, 3, -7
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
+
+[node name="AnimatedSpriteGrass" type="AnimatedSprite" parent="."]
+frames = ExtResource( 7 )
 
 [node name="Axe" type="Area2D" parent="."]
 script = ExtResource( 6 )
