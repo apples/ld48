@@ -110,6 +110,16 @@ namespace World.Controllers
         [HttpPost]
         public async Task<ActionResult<DayUpdatesDTO>> EndDay([FromBody] EndDayDTO dto)
         {
+            var endDay = new EndDayModel
+            {
+                PlayerID = dto.PlayerID,
+                Day = dto.Day,
+                TimeStamp = DateTime.Now
+            };
+
+            await WorldContext.EndDays.AddAsync(endDay);
+            await WorldContext.SaveChangesAsync();
+
             long? newFriend = null;
 
             var unfriendedPlayers = await WorldContext.MatchedPlayers
@@ -173,8 +183,7 @@ namespace World.Controllers
                 .Select(e => new
                 {
                     e.PlayerID,
-                    EarliestDay = (e.LatestDay - days) > 0 ? e.LatestDay - days : 1,
-                    TimeStamp = DateTime.MinValue
+                    EarliestDay = (e.LatestDay - days) > 0 ? e.LatestDay - days : 1
                 });
 
             var tiles = new List<TileCount>();
@@ -215,8 +224,13 @@ namespace World.Controllers
                 var timeStamp = (await WorldContext.EndDays
                     .Where(e => e.PlayerID == otherPlayer.PlayerID &&
                         e.Day == otherPlayer.EarliestDay)
-                    .SingleAsync())
-                    .TimeStamp;
+                    .SingleOrDefaultAsync())
+                    ?.TimeStamp;
+
+                if (timeStamp == null)
+                {
+                    continue;
+                }
 
                 events.AddRange(await WorldContext.Events
                     .Where(e =>
@@ -231,16 +245,6 @@ namespace World.Controllers
                         ))
                     .ToListAsync());
             }
-
-            var endDay = new EndDayModel
-            {
-                PlayerID = dto.PlayerID,
-                Day = dto.Day,
-                TimeStamp = DateTime.Now
-            };
-
-            await WorldContext.EndDays.AddAsync(endDay);
-            await WorldContext.SaveChangesAsync();
 
             return new DayUpdatesDTO(
                 endDay.EndDayID,
