@@ -2,12 +2,15 @@ extends Area2D
 
 var cooldown = 0
 
+var swinging = false
+
 func swing():
-	if cooldown == 0:
+	if cooldown == 0 and not swinging:
+		$SfxAxe.play()
 		show()
 		$CollisionShape2D.disabled = false
 		$AxeSprite.play()
-		cooldown = .5
+		swinging = true
 
 
 # Called when the node enters the scene tree for the first time.
@@ -23,6 +26,7 @@ func _on_AxeSprite_animation_finished():
 	$CollisionShape2D.disabled = true
 	$AxeSprite.stop()
 	cooldown = .5
+	swinging = false
 
 
 func _on_Axe_body_entered(body):
