@@ -37,12 +37,12 @@ __meta__ = {
 }
 
 [node name="NameLabel" type="Label" parent="."]
-margin_left = 397.281
-margin_top = 195.141
-margin_right = 474.281
-margin_bottom = 209.141
+margin_top = 195.0
+margin_right = 341.0
+margin_bottom = 209.0
 rect_scale = Vector2( 3, 3 )
 text = "Enter name:"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -67,7 +67,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="OfflineButton" type="Button" parent="."]
+margin_left = 410.205
+margin_top = 471.763
+margin_right = 615.205
+margin_bottom = 524.763
+text = "Play Offline"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeOut = SubResource( 1 )
 [connection signal="pressed" from="LoginButton" to="." method="_on_LoginButton_pressed"]
+[connection signal="pressed" from="OfflineButton" to="." method="_on_OfflineButton_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

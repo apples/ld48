@@ -22,3 +22,7 @@ func _on_StrandService_connect_failed(reason):
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	get_tree().change_scene("res://scenes/forest/ForestScene.tscn")
+
+
+func _on_OfflineButton_pressed():
+	$AnimationPlayer.play("FadeOut")
