@@ -47,9 +47,11 @@ func get_hit():
 		assert(Globals.player_health >= 0)
 		if Globals.player_health == 0:
 			be_dead()
+			$SfxLose.play()
 		else:
 			invuln = true
 			$InvulnTimer.start()
+			$SfxHurt.play()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -132,7 +134,7 @@ func _process_alive(delta):
 	
 	# ATTACK
 	
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") and not $Axe.swinging and $Axe.cooldown <= 0:
 		var target_poss = [obstacle_map.world_to_map(position)]
 		match facing:
 			DIR_S:
