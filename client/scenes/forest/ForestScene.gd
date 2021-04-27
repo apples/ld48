@@ -1,6 +1,6 @@
 extends Node2D
 
-var enemy_scene = preload("res://Enemy/Enemy.tscn")
+var enemy_scene = load("res://Enemy/Enemy.tscn")
 
 var fading_out = false
 
@@ -47,11 +47,13 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 
 func _on_SleepArea_body_entered(body):
+	print("Sleep trigger")
 	if body.is_in_group("player"):
 		body.go_to_sleep()
 
 
 func _on_Player_on_sleep(player):
+	print("Player sleeping")
 	fading_out = true
 	$AnimationPlayer.play("FadeOut")
 	$ChangeTracker.commit()

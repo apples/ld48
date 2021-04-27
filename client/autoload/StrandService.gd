@@ -153,7 +153,7 @@ func _ready():
 
 func _make_request(obj, cb, path, extra):
 	var http_request = HTTPRequest.new()
-	http_request.timeout = 5
+	http_request.timeout = 15
 	add_child(http_request)
 	http_request.connect("request_completed", self, "on_http_request_completed", [http_request, obj, cb, path, extra])
 	return http_request

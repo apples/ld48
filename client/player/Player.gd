@@ -182,6 +182,13 @@ func _process_alive(delta):
 	
 	if Input.is_action_just_pressed("switch_action"):
 		Globals.selected_resource = (Globals.selected_resource + 1) % Globals.resource_order.size()
+	
+	# BERRY BUSH
+	
+	if obstacle_map.get_cellv(obstacle_map.world_to_map(position)) == TileType.BERRYBUSH4:
+		if Globals.player_health < 5:
+			Globals.player_health += 1
+			obstacle_map.set_cellv(obstacle_map.world_to_map(position), TileType.BERRYBUSH3)
 
 func _process_dead(delta):
 	pass

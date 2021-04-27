@@ -9,7 +9,7 @@ onready var holder = get_node(holder_path)
 
 export(float) var time_threshold = 0
 
-var enemy_scene = preload("res://enemy/Enemy.tscn")
+var enemy_scene = load("res://enemy/Enemy.tscn")
 
 var rng = RandomNumberGenerator.new()
 
