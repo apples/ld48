@@ -154,27 +154,49 @@ namespace World.Controllers
                 await WorldContext.SaveChangesAsync();
             }
 
-            var tiles = await WorldContext.Paths
-                .Where(p =>
-                    p.WorldID == dto.WorldID &&
-                    p.ZoneID == dto.ZoneID &&
-                    (p.TimeStamp > WorldContext.EndDays            // Pull all paths since last day the player ended
-                        .Where(e => e.PlayerID == dto.PlayerID)
-                        .Select(e => e.TimeStamp)
-                        .Max()) &&
-                    WorldContext.MatchedPlayers
-                        .Where(mp => mp.PlayerID == dto.PlayerID)
-                        .Any(mp => mp.OtherPlayerID == p.PlayerID)) 
-                .SelectMany(p => p.Tiles)
-                .GroupBy(pt => new { pt.TileX, pt.TileY })
+            var days = (dto.Day > 10) ? 10 : dto.Day;
+
+            var otherPlayers = await WorldContext.MatchedPlayers
+                .Where(mp => mp.PlayerID == dto.PlayerID)
+                .Select(mp => mp.OtherPlayerID)
+                .ToListAsync();
+
+            var otherPlayerEarliestDay = (await WorldContext.EndDays
+                .Where(e => otherPlayers.Contains(e.PlayerID))
+                .GroupBy(e => e.PlayerID)
                 .Select(g => new
+                {
+                    PlayerID = g.Key,
+                    LatestDay = g.Max(e => e.Day)
+                })
+                .ToListAsync())
+                .Select(e => new
+                {
+                    e.PlayerID,
+                    EarliestDay = (e.LatestDay - days) > 0 ? e.LatestDay - days : 1,
+                    TimeStamp = DateTime.MinValue
+                });
+
+            var tiles = new List<TileCount>();
+            foreach (var otherPlayer in otherPlayerEarliestDay)
+            {
+                tiles.AddRange(await WorldContext.Paths
+                    .Where(p =>
+                        p.WorldID == dto.WorldID &&
+                        p.ZoneID == dto.ZoneID &&
+                        p.PlayerID == otherPlayer.PlayerID &&
+                        p.Day >= otherPlayer.EarliestDay)
+                    .SelectMany(p => p.Tiles)
+                    .GroupBy(pt => new { pt.TileX, pt.TileY })
+                    .Select(g => new TileCount
                     {
-                        g.Key.TileX,
-                        g.Key.TileY,
+                        TileX = g.Key.TileX,
+                        TileY = g.Key.TileY,
                         Count = g.Count()
                     })
-                .OrderByDescending(g => g.Count)
-                .ToListAsync();
+                    .OrderByDescending(g => g.Count)
+                    .ToListAsync());
+            }
 
             // Only select top 80% of tiles by number of hits
             var tileHits = tiles.Sum(t => t.Count) * 0.8;
@@ -187,23 +209,28 @@ namespace World.Controllers
                     t.Count))
                 .ToList();
 
-            var events = WorldContext.Events
-                .Where(e =>
-                    (e.TimeStamp > WorldContext.EndDays            // Pull all events since last day the player ended
-                        .Where(e => e.PlayerID == dto.PlayerID)
-                        .Select(e => e.TimeStamp)
-                        .Max()) &&
-                    WorldContext.MatchedPlayers
-                        .Where(mp => mp.PlayerID == dto.PlayerID)
-                        .Any(mp => mp.OtherPlayerID == e.PlayerID))
-                .GroupBy(e => new { e.TileX, e.TileY, e.EventType })
-                .Select(g => new DayEventUpdateDTO(
-                        g.Key.TileX,
-                        g.Key.TileY,
-                        g.Key.EventType,
-                        g.Sum(e => e.EventValue)
-                    ))
-                .ToList();
+            var events = new List<DayEventUpdateDTO>();
+            foreach (var otherPlayer in otherPlayerEarliestDay)
+            {
+                var timeStamp = (await WorldContext.EndDays
+                    .Where(e => e.PlayerID == otherPlayer.PlayerID &&
+                        e.Day == otherPlayer.EarliestDay)
+                    .SingleAsync())
+                    .TimeStamp;
+
+                events.AddRange(await WorldContext.Events
+                    .Where(e =>
+                        e.PlayerID == otherPlayer.PlayerID &&
+                        e.TimeStamp > timeStamp)
+                    .GroupBy(e => new { e.TileX, e.TileY, e.EventType })
+                    .Select(g => new DayEventUpdateDTO(
+                            g.Key.TileX,
+                            g.Key.TileY,
+                            g.Key.EventType,
+                            g.Sum(e => e.EventValue)
+                        ))
+                    .ToListAsync());
+            }
 
             var endDay = new EndDayModel
             {
@@ -265,6 +292,13 @@ namespace World.Controllers
             await WorldContext.SaveChangesAsync();
 
             return newEvent.EventID;
+        }
+
+        private class TileCount
+        {
+            public int TileX { get; set; }
+            public int TileY { get; set; }
+            public int Count { get; set; }
         }
     }
 }
