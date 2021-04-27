@@ -34,6 +34,7 @@ config/icon="res://icon.png"
 
 Globals="*res://autoload/Globals.gd"
 StrandService="*res://autoload/StrandService.gd"
+BGM="*res://autoload/BGM.tscn"
 
 [display]
 
