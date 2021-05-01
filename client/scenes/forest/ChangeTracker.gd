@@ -90,6 +90,7 @@ func place_ladder(pos, do_commit = true):
 	match t:
 		TileType.CLIFF:
 			tilemap.set_cellv(pos, TileType.CLIFF_LADDER)
+			tilemap.update_bitmask_area(pos)
 			did = true
 	if did and do_commit:
 		_commit_event(EventType.PLACE_LADDER, pos, 1)

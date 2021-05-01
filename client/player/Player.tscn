@@ -18,16 +18,18 @@ extents = Vector2( 8, 8 )
 script = ExtResource( 2 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -3, -7, -7, 1, -7, 5, -6, 7, 6, 7, 7, 5, 7, 1, 3, -7 )
+polygon = PoolVector2Array( -3, -7, -5, -5, -5, 5, -3, 7, 3, 7, 5, 5, 5, -5, 3, -7 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
 animation = "walk_W"
 
 [node name="AnimatedSpriteGrass" type="AnimatedSprite" parent="."]
+visible = false
 frames = ExtResource( 7 )
 
 [node name="Axe" type="Area2D" parent="."]
+visible = false
 script = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Axe"]
@@ -59,6 +61,7 @@ bus = "SFX"
 [node name="SfxLose" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
 bus = "SFX"
+
 [connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
 [connection signal="body_entered" from="Axe" to="Axe" method="_on_Axe_body_entered"]
 [connection signal="animation_finished" from="Axe/AxeSprite" to="Axe" method="_on_AxeSprite_animation_finished"]

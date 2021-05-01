@@ -93,3 +93,4 @@ func _run():
 	for pos in obst.get_used_cells_by_id(TileType.TREETRUNK):
 		canopy.set_cellv(pos + Vector2(0, -1), TileType.TREETOP)
 	
+	flr.update_bitmask_region()

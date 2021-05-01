@@ -70,4 +70,4 @@ func _run():
 	for pos in canopy.get_used_cells_by_id(TileType.TREETOP):
 		canopy.set_cellv(pos, TileType.NONE)
 	
-	
+	flr.update_bitmask_region()
