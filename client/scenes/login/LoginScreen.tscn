@@ -28,19 +28,21 @@ __meta__ = {
 }
 
 [node name="Background" type="Panel" parent="."]
-margin_left = -5.29736
-margin_top = -7.41626
-margin_right = 1028.7
-margin_bottom = 605.584
+margin_right = 1024.0
+margin_bottom = 600.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="NameLabel" type="Label" parent="."]
-margin_top = 195.0
-margin_right = 341.0
-margin_bottom = 209.0
-rect_scale = Vector2( 3, 3 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -170.5
+margin_top = -179.884
+margin_right = 170.5
+margin_bottom = -118.884
 text = "Enter name:"
 align = 1
 __meta__ = {
@@ -48,30 +50,41 @@ __meta__ = {
 }
 
 [node name="Name" type="LineEdit" parent="."]
-margin_left = 300.935
-margin_top = 240.319
-margin_right = 441.935
-margin_bottom = 264.319
-rect_scale = Vector2( 3, 3 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -89.0
+margin_top = -93.7705
+margin_right = 89.0
+margin_bottom = -22.7705
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="LoginButton" type="Button" parent="."]
-margin_left = 410.205
-margin_top = 371.87
-margin_right = 615.205
-margin_bottom = 424.87
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -110.941
+margin_top = 35.3652
+margin_right = 113.059
+margin_bottom = 102.365
 text = "Create Player"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="OfflineButton" type="Button" parent="."]
-margin_left = 410.205
-margin_top = 471.763
-margin_right = 615.205
-margin_bottom = 524.763
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -102.5
+margin_top = 154.025
+margin_right = 102.5
+margin_bottom = 221.025
 text = "Play Offline"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -79,6 +92,7 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeOut = SubResource( 1 )
+
 [connection signal="pressed" from="LoginButton" to="." method="_on_LoginButton_pressed"]
 [connection signal="pressed" from="OfflineButton" to="." method="_on_OfflineButton_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

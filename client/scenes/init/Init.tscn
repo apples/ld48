@@ -26,22 +26,58 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="."]
-margin_left = -15.892
-margin_top = -11.6541
-margin_right = 1033.11
-margin_bottom = 614.346
+[node name="IntroPanel" type="Panel" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="ConnectingLabel" type="Label" parent="Panel"]
+[node name="LoginButton" type="Button" parent="IntroPanel"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -120.747
-margin_top = -21.0595
-margin_right = -37.747
-margin_bottom = -7.05954
-rect_scale = Vector2( 3, 3 )
+margin_left = -118.0
+margin_top = -81.5
+margin_right = 118.0
+margin_bottom = -14.5
+text = "Connect Online"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OfflineButton" type="Button" parent="IntroPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -98.0
+margin_top = 18.5
+margin_right = 98.0
+margin_bottom = 85.5
+text = "Play Offline"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConnectingPanel" type="Panel" parent="."]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConnectingLabel" type="Label" parent="ConnectingPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -105.0
+margin_top = -30.5
+margin_right = 105.0
+margin_bottom = 30.5
 text = "Connecting..."
 script = ExtResource( 1 )
 __meta__ = {
@@ -49,30 +85,36 @@ __meta__ = {
 }
 
 [node name="ErrorPanel" type="Panel" parent="."]
-margin_top = -1.33484
+visible = false
 margin_right = 1024.0
-margin_bottom = 598.665
+margin_bottom = 600.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="ErrorPanel"]
-margin_left = 258.959
-margin_top = 113.461
-margin_right = 427.959
-margin_bottom = 127.461
-rect_scale = Vector2( 3, 3 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -220.0
+margin_top = -200.025
+margin_right = 220.0
+margin_bottom = -139.025
 text = "Error connecting to server!"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ErrorLabel" type="Label" parent="ErrorPanel"]
-margin_left = 264.298
-margin_top = 192.217
-margin_right = 429.298
-margin_bottom = 206.217
-rect_scale = Vector2( 3, 3 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -82.5
+margin_top = -139.025
+margin_right = 82.5
+margin_bottom = -78.0246
 text = "Error"
 align = 1
 __meta__ = {
@@ -80,33 +122,42 @@ __meta__ = {
 }
 
 [node name="Label2" type="Label" parent="ErrorPanel"]
-margin_left = 424.339
-margin_top = 279.0
-margin_right = 483.339
-margin_bottom = 293.0
-rect_scale = Vector2( 3, 3 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -66.5
+margin_top = -78.0246
+margin_right = 66.5
+margin_bottom = -17.0246
 text = "What do?"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="RetryButton" type="Button" parent="ErrorPanel"]
-margin_left = 437.955
-margin_top = 368.045
-margin_right = 482.955
-margin_bottom = 388.045
-rect_scale = Vector2( 3, 3 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -10.8077
+margin_right = 48.5
+margin_bottom = 56.1923
 text = "Retry"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="OfflineButton" type="Button" parent="ErrorPanel"]
-margin_left = 377.887
-margin_top = 481.507
-margin_right = 462.887
-margin_bottom = 501.507
-rect_scale = Vector2( 3, 3 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -98.0
+margin_top = 81.2961
+margin_right = 98.0
+margin_bottom = 148.296
 text = "Play Offline"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -115,6 +166,8 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeOut = SubResource( 1 )
 
+[connection signal="pressed" from="IntroPanel/LoginButton" to="." method="_on_LoginButton_pressed"]
+[connection signal="pressed" from="IntroPanel/OfflineButton" to="." method="_on_OfflineButton_pressed"]
 [connection signal="pressed" from="ErrorPanel/RetryButton" to="." method="_on_RetryButton_pressed"]
 [connection signal="pressed" from="ErrorPanel/OfflineButton" to="." method="_on_OfflineButton_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
