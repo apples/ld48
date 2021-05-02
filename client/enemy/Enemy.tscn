@@ -17,4 +17,5 @@ animation = "run"
 
 [node name="DeadTimer" type="Timer" parent="."]
 wait_time = 5.0
+
 [connection signal="timeout" from="DeadTimer" to="." method="_on_DeadTimer_timeout"]

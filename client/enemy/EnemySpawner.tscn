@@ -2,11 +2,7 @@
 
 [ext_resource path="res://enemy/EnemySpawner.gd" type="Script" id=1]
 
-[node name="EnemySpawner" type="ColorRect"]
-margin_right = 40.0
-margin_bottom = 40.0
-color = Color( 1, 0, 0, 0.223529 )
+[node name="EnemySpawner" type="Node2D"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Sprite" type="Sprite" parent="."]

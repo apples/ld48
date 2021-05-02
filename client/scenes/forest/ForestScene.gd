@@ -6,14 +6,26 @@ var fading_out = false
 
 var lock_reset = 0
 
+onready var changetracker = $ChangeTracker
+
+onready var animationplayer = $AnimationPlayer
+
+onready var player = $YSort/Player
+onready var camera = $YSort/Player/Camera
+onready var fadesprite = $FadeSprite
+
+onready var tilemap_floor = $TileMapFloor
+onready var tilemap_obstacles = $YSort/TileMapObstacles
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_lock()
-	$ChangeTracker.load_and_replay_all($Navigation2D/TileMapFloor, $Navigation2D/TileMapObstacles)
+	changetracker.load_and_replay_all(tilemap_floor, tilemap_obstacles)
 	if Globals.strand_data != null:
-		$ChangeTracker.apply_strand_data(Globals.strand_data)
-	$Player/Camera/FadeSprite.modulate = "#000000"
-	$AnimationPlayer.play("FadeIn")
+		changetracker.apply_strand_data(Globals.strand_data)
+	
+	_adjust_fadesprite()
+	animationplayer.play("FadeIn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -29,10 +41,16 @@ func _unlock():
 	print("lock " + str(lock_reset))
 	if lock_reset == 0:
 		print("Resetting")
-		Globals.reset_player($Player.sleeping)
+		Globals.reset_player(player.sleeping)
 		Globals.advance_day()
 		get_tree().reload_current_scene()
 
+func _adjust_fadesprite():
+	var cameraPos = camera.get_camera_screen_center()
+	var cameraExtents = get_viewport_rect().size * camera.zoom
+	fadesprite.position = cameraPos - cameraExtents * 0.5
+	fadesprite.scale = cameraExtents
+	fadesprite.modulate = "#000000"
 
 func _on_AnimationPlayer_animation_started(anim_name):
 	match anim_name:
@@ -55,14 +73,16 @@ func _on_SleepArea_body_entered(body):
 func _on_Player_on_sleep(player):
 	print("Player sleeping")
 	fading_out = true
-	$AnimationPlayer.play("FadeOut")
-	$ChangeTracker.commit()
+	_adjust_fadesprite()
+	animationplayer.play("FadeOut")
+	changetracker.commit()
 
 
 func _on_Player_on_death(player):
 	fading_out = true
-	$AnimationPlayer.play("FadeOut")
-	$ChangeTracker.commit()
+	_adjust_fadesprite()
+	animationplayer.play("FadeOut")
+	changetracker.commit()
 	_unlock()
 
 

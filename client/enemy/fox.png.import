@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fox1.png-8260a2339f7578b9a0d3deef36bf6c50.stex"
+path="res://.import/fox.png-591ec053d91accdb6cc8e0f09eb54908.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://enemy/fox1.png"
-dest_files=[ "res://.import/fox1.png-8260a2339f7578b9a0d3deef36bf6c50.stex" ]
+source_file="res://enemy/fox.png"
+dest_files=[ "res://.import/fox.png-591ec053d91accdb6cc8e0f09eb54908.stex" ]
 
 [params]
 
