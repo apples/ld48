@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BetterTileMap.svg-b68ea19a8852e32d808e3c95a2839ac4.stex"
+path="res://.import/TileMapPlus.svg-b1472123291751439273440dbb0b5135.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/TileMapPlus/BetterTileMap.svg"
-dest_files=[ "res://.import/BetterTileMap.svg-b68ea19a8852e32d808e3c95a2839ac4.stex" ]
+source_file="res://addons/TileMapPlus/TileMapPlus.svg"
+dest_files=[ "res://.import/TileMapPlus.svg-b1472123291751439273440dbb0b5135.stex" ]
 
 [params]
 
