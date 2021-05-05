@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://player/spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://player/Player.gd" type="Script" id=2]
@@ -10,9 +10,37 @@
 [ext_resource path="res://player/hurt.wav" type="AudioStream" id=8]
 [ext_resource path="res://player/lose.wav" type="AudioStream" id=9]
 [ext_resource path="res://player/axe.wav" type="AudioStream" id=10]
+[ext_resource path="res://player/CanopyMask.gd" type="Script" id=11]
+[ext_resource path="res://light/canopy_mask/light_trans.tres" type="Texture" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Hide"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("CanopyMask:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.01, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Reveal"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("CanopyMask:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -43,6 +71,16 @@ frames = ExtResource( 5 )
 [node name="SfxAxe" type="AudioStreamPlayer" parent="Axe"]
 stream = ExtResource( 10 )
 bus = "SFX"
+
+[node name="CanopyMask" type="Light2D" parent="."]
+texture = ExtResource( 12 )
+mode = 3
+range_item_cull_mask = 2
+script = ExtResource( 11 )
+
+[node name="CanopyMaskAnimation" type="AnimationPlayer" parent="."]
+anims/Hide = SubResource( 2 )
+anims/Reveal = SubResource( 3 )
 
 [node name="InvulnTimer" type="Timer" parent="."]
 

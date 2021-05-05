@@ -53,6 +53,12 @@ func get_hit():
 			$InvulnTimer.start()
 			$SfxHurt.play()
 
+func enable_canopy_mask():
+	$CanopyMaskAnimation.play("Reveal", -1, 2.0)
+
+func disable_canopy_mask():
+	$CanopyMaskAnimation.play("Hide", -1, 2.0)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSpriteGrass.visible = false
@@ -212,3 +218,4 @@ func _on_MusicSleep_finished():
 
 func _on_InvulnTimer_timeout():
 	invuln = false
+

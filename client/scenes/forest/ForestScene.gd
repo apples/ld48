@@ -105,4 +105,3 @@ func _on_StrandService_EndDay_complete(json):
 	Globals.save_strand()
 	_unlock()
 
-
