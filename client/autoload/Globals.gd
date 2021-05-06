@@ -58,5 +58,5 @@ func _ready():
 	print("Day " + str(current_day))
 
 func _process(delta):
-	current_time += delta * (5 if Input.is_key_pressed(KEY_P) else 1)
+	current_time += delta * (15 if Input.is_key_pressed(KEY_P) else 1)
 

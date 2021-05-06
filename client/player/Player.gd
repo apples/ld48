@@ -54,14 +54,15 @@ func get_hit():
 			$SfxHurt.play()
 
 func enable_canopy_mask():
-	$CanopyMaskAnimation.play("Reveal", -1, 2.0)
+	$CanopyMask.show()
 
 func disable_canopy_mask():
-	$CanopyMaskAnimation.play("Hide", -1, 2.0)
+	$CanopyMask.hide()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSpriteGrass.visible = false
+	$CanopyMask.hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -219,3 +220,7 @@ func _on_MusicSleep_finished():
 func _on_InvulnTimer_timeout():
 	invuln = false
 
+
+
+func _on_SkytoneEffect_skytone_color(color):
+	$CanopyMask.color = color

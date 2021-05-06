@@ -12,7 +12,9 @@ onready var animationplayer = $AnimationPlayer
 
 onready var player = $YSort/Player
 onready var camera = $YSort/Player/Camera
-onready var fadesprite = $FadeSprite
+onready var fadesprite = $ScreenEffects/FadeSprite
+onready var skytone = $ScreenEffects/SkytoneEffect
+onready var gui = $CanvasLayer/GUI
 
 onready var tilemap_floor = $TileMapFloor
 onready var tilemap_obstacles = $YSort/TileMapObstacles
@@ -26,10 +28,8 @@ func _ready():
 	
 	_adjust_fadesprite()
 	animationplayer.play("FadeIn")
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	
+	gui.show()
 
 func _lock():
 	lock_reset += 1
@@ -46,11 +46,8 @@ func _unlock():
 		get_tree().reload_current_scene()
 
 func _adjust_fadesprite():
-	var cameraPos = camera.get_camera_screen_center()
-	var cameraExtents = get_viewport_rect().size * camera.zoom
-	fadesprite.position = cameraPos - cameraExtents * 0.5
-	fadesprite.scale = cameraExtents
 	fadesprite.modulate = "#000000"
+	fadesprite.show()
 
 func _on_AnimationPlayer_animation_started(anim_name):
 	match anim_name:
@@ -62,6 +59,8 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		"FadeOut":
 			fading_out = false
 			_unlock()
+		"FadeIn":
+			fadesprite.hide()
 
 
 func _on_SleepArea_body_entered(body):

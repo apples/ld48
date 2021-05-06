@@ -2,6 +2,8 @@ extends CanvasModulate
 
 var skytone: Image = load("res://scenes/forest/skytone.png")
 
+signal skytone_color(color)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -14,3 +16,4 @@ func _process(delta):
 	var tone = skytone.get_pixel(clamp(t * w, 0, w - 1), 0)
 	skytone.unlock()
 	color = tone
+	emit_signal("skytone_color", color)
