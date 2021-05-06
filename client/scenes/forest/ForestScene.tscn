@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/forest/SkytoneEffect.gd" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://scenes/forest/SwampMazeArea.gd" type="Script" id=11]
 [ext_resource path="res://enemy/EnemySpawner.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/forest/EnemyHolder.gd" type="Script" id=13]
+[ext_resource path="res://frog/EnemyFrog.tscn" type="PackedScene" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -75,10 +76,8 @@ script = ExtResource( 9 )
 
 [node name="YSort" type="YSort" parent="."]
 
-[node name="Player" parent="YSort" groups=[
-"player",
-] instance=ExtResource( 1 )]
-position = Vector2( 510.388, 127.69 )
+[node name="Player" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 423.294, 1259.68 )
 obstacle_map_path = NodePath("../TileMapObstacles")
 changetracker_path = NodePath("../../ChangeTracker")
 
@@ -104,6 +103,7 @@ tile_data = PoolIntArray( 0, 26, 1, 1, 26, 2, 2, 26, 2, 3, 26, 2, 4, 26, 2, 5, 2
 script = ExtResource( 9 )
 
 [node name="TileMapCanopy" type="TileMap" parent="."]
+visible = false
 light_mask = 2
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 16, 16 )
@@ -548,15 +548,129 @@ spawn_chance = 0.5
 spawn_radius = 40.0
 min_spawn_radius = 8.0
 
-[node name="EnemyHolderForest2" type="Node2D" parent="."]
+[node name="EnemyHolderSwamp" type="Node2D" parent="."]
 script = ExtResource( 13 )
 obstacle_tilemap_path = NodePath("../YSort/TileMapObstacles")
 
-[node name="EnemySpawner" parent="EnemyHolderForest2" instance=ExtResource( 12 )]
-position = Vector2( 423.461, 230.452 )
-spawn_chance = 0.5
-spawn_radius = 40.0
-min_spawn_radius = 8.0
+[node name="EnemyFrog" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 185.796, 1244.17 )
+
+[node name="EnemyFrog2" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 53, 1338.5 )
+
+[node name="EnemyFrog3" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 146, 1416 )
+
+[node name="EnemyFrog4" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 393, 1554 )
+
+[node name="EnemyFrog5" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 346.5, 1261.5 )
+
+[node name="EnemyFrog6" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 617, 1213 )
+
+[node name="EnemyFrog7" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 619.5, 1366 )
+
+[node name="EnemyFrog8" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 809.5, 1389.5 )
+
+[node name="EnemyFrog25" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 954.087, 1702.65 )
+
+[node name="EnemyFrog26" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 800.51, 1676.43 )
+
+[node name="EnemyFrog27" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 873.178, 1536.33 )
+
+[node name="EnemyFrog28" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 759.307, 1519.1 )
+
+[node name="EnemyFrog10" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 583, 1615 )
+
+[node name="EnemyFrog29" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 702.38, 1887.17 )
+
+[node name="EnemyFrog31" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 693.542, 1991.47 )
+
+[node name="EnemyFrog32" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 799.608, 1969.19 )
+
+[node name="EnemyFrog36" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 975.728, 2093.14 )
+
+[node name="EnemyFrog37" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 969.842, 2014.93 )
+
+[node name="EnemyFrog38" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 922.331, 2178.07 )
+
+[node name="EnemyFrog33" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 927.17, 2079.73 )
+
+[node name="EnemyFrog34" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 798.901, 1840.5 )
+
+[node name="EnemyFrog35" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 836.377, 1775.8 )
+
+[node name="EnemyFrog30" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 697.431, 1776.51 )
+
+[node name="EnemyFrog11" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 684.5, 1599 )
+
+[node name="EnemyFrog12" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 537.038, 1910 )
+
+[node name="EnemyFrog15" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 467.113, 1969.22 )
+
+[node name="EnemyFrog16" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 436.743, 2097.03 )
+
+[node name="EnemyFrog39" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 572.814, 2129.79 )
+
+[node name="EnemyFrog40" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 758.023, 2158.14 )
+
+[node name="EnemyFrog17" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 324.363, 2097.03 )
+
+[node name="EnemyFrog18" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 215.673, 2136.67 )
+
+[node name="EnemyFrog19" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 90.0563, 2148.7 )
+
+[node name="EnemyFrog20" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 120.347, 1948.25 )
+
+[node name="EnemyFrog21" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 324.808, 1904.15 )
+
+[node name="EnemyFrog23" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 313.249, 1963.79 )
+
+[node name="EnemyFrog24" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 346.987, 1480.14 )
+
+[node name="EnemyFrog22" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 137.934, 1674.4 )
+
+[node name="EnemyFrog13" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 473.892, 1812.94 )
+
+[node name="EnemyFrog14" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 534.61, 1808.7 )
+
+[node name="EnemyFrog9" parent="EnemyHolderSwamp" instance=ExtResource( 14 )]
+position = Vector2( 791, 1229 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeIn = SubResource( 2 )

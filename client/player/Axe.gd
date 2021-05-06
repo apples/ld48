@@ -30,7 +30,7 @@ func _on_AxeSprite_animation_finished():
 
 
 func _on_Axe_body_entered(body):
-	if(body.is_in_group("Enemy")):#body.name == "Enemy"):#change to group check
+	if body.is_in_group("enemy"):
 		print("hit: " + body.name)
 		body.get_hit()
 

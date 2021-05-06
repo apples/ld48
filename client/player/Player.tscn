@@ -16,7 +16,9 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"player",
+]]
 script = ExtResource( 2 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
@@ -30,7 +32,9 @@ animation = "walk_W"
 visible = false
 frames = ExtResource( 7 )
 
-[node name="Axe" type="Area2D" parent="."]
+[node name="Axe" type="Area2D" parent="." groups=[
+"player_weapon",
+]]
 visible = false
 script = ExtResource( 6 )
 
