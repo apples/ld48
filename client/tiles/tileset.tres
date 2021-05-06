@@ -930,7 +930,7 @@ points = PoolVector2Array( 10.0696, 16, 0, 16, 0, 0, 10.0696, 0 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 30/z_index = 0
-31/name = "swamp_water.png 31"
+31/name = "swamp_water"
 31/texture = ExtResource( 11 )
 31/tex_offset = Vector2( 0, 0 )
 31/modulate = Color( 1, 1, 1, 1 )

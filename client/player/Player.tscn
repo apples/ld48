@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://player/spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://player/Player.gd" type="Script" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://music/sleep.wav" type="AudioStream" id=4]
 [ext_resource path="res://player/axeframes.tres" type="SpriteFrames" id=5]
 [ext_resource path="res://player/Axe.gd" type="Script" id=6]
-[ext_resource path="res://player/grass.tres" type="SpriteFrames" id=7]
 [ext_resource path="res://player/hurt.wav" type="AudioStream" id=8]
 [ext_resource path="res://player/lose.wav" type="AudioStream" id=9]
 [ext_resource path="res://player/axe.wav" type="AudioStream" id=10]
@@ -15,6 +14,220 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "default" ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "drowning"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "drowning" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "walk_E"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "walk_E" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "walk_N"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "walk_N" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "walk_S"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "walk_S" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "walk_W"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "walk_W" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=10]
+animation = "drowning"
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "default"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "walk_E"
+
+[sub_resource type="AnimationNodeAnimation" id=13]
+animation = "walk_N"
+
+[sub_resource type="AnimationNodeAnimation" id=14]
+animation = "walk_S"
+
+[sub_resource type="AnimationNodeAnimation" id=15]
+animation = "walk_W"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=16]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=20]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=21]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=22]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+
+[sub_resource type="AnimationNodeStateMachine" id=24]
+states/default/node = SubResource( 11 )
+states/default/position = Vector2( 455, 244 )
+states/walk_E/node = SubResource( 12 )
+states/walk_E/position = Vector2( 615, 244 )
+states/walk_N/node = SubResource( 13 )
+states/walk_N/position = Vector2( 455, 146 )
+states/walk_S/node = SubResource( 14 )
+states/walk_S/position = Vector2( 455, 335 )
+states/walk_W/node = SubResource( 15 )
+states/walk_W/position = Vector2( 291, 244 )
+transitions = [ "default", "walk_W", SubResource( 16 ), "default", "walk_N", SubResource( 17 ), "default", "walk_E", SubResource( 18 ), "default", "walk_S", SubResource( 19 ), "walk_S", "default", SubResource( 20 ), "walk_E", "default", SubResource( 21 ), "walk_N", "default", SubResource( 22 ), "walk_W", "default", SubResource( 23 ) ]
+graph_offset = Vector2( -12, 104 )
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=26]
+
+[sub_resource type="AnimationNodeStateMachine" id=8]
+states/drowning/node = SubResource( 10 )
+states/drowning/position = Vector2( 276, 223 )
+states/normal/node = SubResource( 24 )
+states/normal/position = Vector2( 31, 223 )
+transitions = [ "normal", "drowning", SubResource( 25 ), "drowning", "normal", SubResource( 26 ) ]
+graph_offset = Vector2( -383, 92 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=9]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=27]
 
 [node name="Player" type="KinematicBody2D" groups=[
 "player",
@@ -26,11 +239,10 @@ polygon = PoolVector2Array( -3, -7, -5, -5, -5, 5, -3, 7, 3, 7, 5, 5, 5, -5, 3, 
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
-animation = "walk_W"
+playing = true
 
-[node name="AnimatedSpriteGrass" type="AnimatedSprite" parent="."]
-visible = false
-frames = ExtResource( 7 )
+[node name="TerrainSplash" type="AnimatedSprite" parent="."]
+playing = true
 
 [node name="Axe" type="Area2D" parent="." groups=[
 "player_weapon",
@@ -58,6 +270,8 @@ script = ExtResource( 11 )
 
 [node name="InvulnTimer" type="Timer" parent="."]
 
+[node name="DotTimer" type="Timer" parent="."]
+
 [node name="SfxGrass" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 bus = "SFX"
@@ -73,6 +287,21 @@ bus = "SFX"
 [node name="SfxLose" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
 bus = "SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/default = SubResource( 2 )
+anims/drowning = SubResource( 3 )
+anims/walk_E = SubResource( 4 )
+anims/walk_N = SubResource( 5 )
+anims/walk_S = SubResource( 6 )
+anims/walk_W = SubResource( 7 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 8 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 9 )
+parameters/normal/playback = SubResource( 27 )
 
 [connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
 [connection signal="body_entered" from="Axe" to="Axe" method="_on_Axe_body_entered"]

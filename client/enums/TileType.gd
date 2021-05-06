@@ -20,4 +20,5 @@ enum {
 	CLIFF_LADDER = 28,
 	TREETOP = 29,
 	TREETRUNK = 30,
+	SWAMP_WATER = 31,
 }

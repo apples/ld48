@@ -1,4 +1,4 @@
-extends Node2D
+extends YSort
 
 export(NodePath) var obstacle_tilemap_path = null
 onready var obstacle_tilemap = get_node(obstacle_tilemap_path)

@@ -4,6 +4,9 @@ signal on_sleep(player)
 signal on_sleep_finished(player)
 signal on_death(player)
 
+export(NodePath) var floor_map_path = null
+onready var floor_map: TileMap = get_node(floor_map_path)
+
 export(NodePath) var obstacle_map_path = null
 onready var obstacle_map: TileMap = get_node(obstacle_map_path)
 
@@ -21,10 +24,25 @@ onready var start_pos = position
 enum { DIR_N, DIR_S, DIR_E, DIR_W }
 var facing = DIR_S
 
+var terrain_splash_grass = load("res://player/grass.tres")
+var terrain_splash_water = load("res://player/waistwater_spriteframes.tres")
+
+enum Terrain { NONE, TALLGRASS, SWAMP }
+var current_terrain = Terrain.NONE
+var time_in_terrain = 0.0
+
+enum DOT { NONE, DROWNING }
+var dot_effect = DOT.NONE
+
+onready var anim_tree = $AnimationTree
+onready var anim_tree_playback = anim_tree["parameters/playback"]
+onready var anim_tree_normal_playback = anim_tree["parameters/normal/playback"]
+
 func be_dead():
 	dead = true
 	$AnimatedSprite.rotation_degrees = 90
-	$AnimatedSprite.stop()
+	anim_tree_playback.travel("normal")
+	anim_tree_normal_playback.travel("default")
 	emit_signal("on_death", self)
 
 func go_to_sleep():
@@ -32,14 +50,6 @@ func go_to_sleep():
 	sleeping = true
 	emit_signal("on_sleep", self)
 	$MusicSleep.play()
-
-func reset():
-	dead = false
-	sleeping = false
-	facing = DIR_S
-	position = start_pos
-	$AnimatedSprite.rotation_degrees = 0
-	$AnimatedSprite.stop()
 
 func get_hit():
 	if not dead and not invuln:
@@ -59,10 +69,42 @@ func enable_canopy_mask():
 func disable_canopy_mask():
 	$CanopyMask.hide()
 
+func apply_dot(dot: int):
+	dot_effect = dot
+
+func clear_dot():
+	dot_effect = DOT.NONE
+
+func _update_terrain(terrain: int, delta: float):
+	if terrain != current_terrain:
+		current_terrain = terrain
+		time_in_terrain = 0.0
+		
+		match terrain:
+			Terrain.TALLGRASS:
+				$TerrainSplash.frames = terrain_splash_grass
+				$TerrainSplash.show()
+			Terrain.SWAMP:
+				$TerrainSplash.frames = terrain_splash_water
+				$TerrainSplash.show()
+			_:
+				$TerrainSplash.hide()
+	else:
+		time_in_terrain += delta
+	
+	if dot_effect != DOT.DROWNING and current_terrain == Terrain.SWAMP && time_in_terrain > 3:
+		apply_dot(DOT.DROWNING)
+		anim_tree_playback.travel("drowning")
+	elif dot_effect == DOT.DROWNING and current_terrain != Terrain.SWAMP:
+		clear_dot()
+		anim_tree_playback.travel("normal")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$AnimatedSpriteGrass.visible = false
+	$TerrainSplash.hide()
 	$CanopyMask.hide()
+	anim_tree_playback.start("normal")
+	anim_tree_normal_playback.start("default")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -105,32 +147,34 @@ func _process_alive(delta):
 	
 	match facing:
 		DIR_S:
-			$AnimatedSprite.play("walk_S")
+			anim_tree_normal_playback.travel("walk_S")
 		DIR_N:
-			$AnimatedSprite.play("walk_N")
+			anim_tree_normal_playback.travel("walk_N")
 		DIR_E:
-			$AnimatedSprite.play("walk_E")
+			anim_tree_normal_playback.travel("walk_E")
 		DIR_W:
-			$AnimatedSprite.play("walk_W")
+			anim_tree_normal_playback.travel("walk_W")
 	
-	# OBSTACLES
+	# TERRAIN
 	
+	var floor_tile = floor_map.get_cellv(floor_map.world_to_map(position))
 	var obs_tile = obstacle_map.get_cellv(obstacle_map.world_to_map(position))
 	
-	match obs_tile:
-		TileType.TALLGRASS:
-			$AnimatedSpriteGrass.visible = true
-			$AnimatedSpriteGrass.play()
-			move_speed *= 0.5
-		_:
-			$AnimatedSpriteGrass.visible = false
+	if obs_tile == TileType.TALLGRASS:
+		_update_terrain(Terrain.TALLGRASS, delta)
+	elif floor_tile == TileType.SWAMP_WATER:
+		_update_terrain(Terrain.SWAMP, delta)
+	else:
+		_update_terrain(Terrain.NONE, delta)
 	
 	if dir.length_squared() == 0:
-		$AnimatedSprite.play("default")
-		$AnimatedSprite.stop()
-		$AnimatedSpriteGrass.stop()
+		anim_tree_normal_playback.travel("default")
 	
 	# MOVE
+	
+	match current_terrain:
+		Terrain.TALLGRASS, Terrain.SWAMP:
+			move_speed *= 0.5
 	
 	move_and_slide(dir * move_speed * base_move_speed)
 	
