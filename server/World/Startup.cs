@@ -27,6 +27,9 @@ namespace World
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "World", Version = "v1" });
             });
 
+            services.AddHealthChecks()
+                .AddDbContextCheck<WorldContext>();
+
             services.AddDbContext<WorldContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("WorldContext")));
             services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
@@ -50,6 +53,7 @@ namespace World
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/health");
                 endpoints.MapControllers();
             });
         }
