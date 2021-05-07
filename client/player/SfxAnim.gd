@@ -1,6 +1,7 @@
 tool
 extends AudioStreamPlayer
 
+var footstep = load("res://sfx/grass.wav")
 
 var bloops = [
 	load("res://sfx/bloop1.wav"),
@@ -14,6 +15,9 @@ func _ready():
 	rng.randomize()
 
 func play_random_bloop():
-	print("hi")
 	stream = bloops[rng.randi_range(0, 2)]
+	play()
+
+func play_footstep():
+	stream = footstep
 	play()
