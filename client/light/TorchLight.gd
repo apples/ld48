@@ -16,8 +16,6 @@ func set_fuel(value: int):
 	fuel = value
 	enabled = fuel != 0
 	$CanopyLight.enabled = enable_canopy and enabled
-	print("Fueled: " + str(fuel))
-	print("Enabled: " + str(enabled))
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

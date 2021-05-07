@@ -1,11 +1,12 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=42 format=2]
 
-[ext_resource path="res://player/spriteframes.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://player/ridingHood.png" type="Texture" id=1]
 [ext_resource path="res://player/Player.gd" type="Script" id=2]
 [ext_resource path="res://sfx/grass.wav" type="AudioStream" id=3]
 [ext_resource path="res://music/sleep.wav" type="AudioStream" id=4]
 [ext_resource path="res://player/axeframes.tres" type="SpriteFrames" id=5]
 [ext_resource path="res://player/Axe.gd" type="Script" id=6]
+[ext_resource path="res://player/SfxAnim.gd" type="Script" id=7]
 [ext_resource path="res://player/hurt.wav" type="AudioStream" id=8]
 [ext_resource path="res://player/lose.wav" type="AudioStream" id=9]
 [ext_resource path="res://player/axe.wav" type="AudioStream" id=10]
@@ -18,7 +19,7 @@ extents = Vector2( 8, 8 )
 [sub_resource type="Animation" id=2]
 resource_name = "default"
 tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/path = NodePath("Sprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -26,26 +27,28 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "default" ]
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=3]
 resource_name = "drowning"
+length = 0.5
+loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/path = NodePath("Sprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ "drowning" ]
+"values": [ Vector2( 0, 5 ), Vector2( 1, 5 ), Vector2( 2, 5 ), Vector2( 3, 5 ), Vector2( 4, 5 ) ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("AnimatedSprite:playing")
+tracks/1/type = "method"
+tracks/1/path = NodePath("SfxAnim")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -53,135 +56,157 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"values": [ {
+"args": [  ],
+"method": "play_random_bloop"
+} ]
 }
 
 [sub_resource type="Animation" id=4]
 resource_name = "walk_E"
+length = 0.4
+loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/path = NodePath("Sprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ "walk_E" ]
+"values": [ Vector2( 0, 3 ), Vector2( 1, 3 ) ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("AnimatedSprite:playing")
+tracks/1/type = "audio"
+tracks/1/path = NodePath("SfxAnim")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=5]
 resource_name = "walk_N"
+length = 0.4
+loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/path = NodePath("Sprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ "walk_N" ]
+"values": [ Vector2( 0, 1 ), Vector2( 1, 1 ) ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("AnimatedSprite:playing")
+tracks/1/type = "audio"
+tracks/1/path = NodePath("SfxAnim")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=6]
 resource_name = "walk_S"
+length = 0.4
+loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/path = NodePath("Sprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ "walk_S" ]
+"values": [ Vector2( 0, 2 ), Vector2( 1, 2 ) ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("AnimatedSprite:playing")
+tracks/1/type = "audio"
+tracks/1/path = NodePath("SfxAnim")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=7]
 resource_name = "walk_W"
+length = 0.4
+loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/path = NodePath("Sprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ "walk_W" ]
+"values": [ Vector2( 0, 4 ), Vector2( 1, 4 ) ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("AnimatedSprite:playing")
+tracks/1/type = "audio"
+tracks/1/path = NodePath("SfxAnim")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
-[sub_resource type="AnimationNodeAnimation" id=10]
+[sub_resource type="AnimationNodeAnimation" id=8]
 animation = "drowning"
 
-[sub_resource type="AnimationNodeAnimation" id=11]
+[sub_resource type="AnimationNodeTimeScale" id=9]
+
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "default"
 
-[sub_resource type="AnimationNodeAnimation" id=12]
+[sub_resource type="AnimationNodeAnimation" id=11]
 animation = "walk_E"
 
-[sub_resource type="AnimationNodeAnimation" id=13]
+[sub_resource type="AnimationNodeAnimation" id=12]
 animation = "walk_N"
 
-[sub_resource type="AnimationNodeAnimation" id=14]
+[sub_resource type="AnimationNodeAnimation" id=13]
 animation = "walk_S"
 
-[sub_resource type="AnimationNodeAnimation" id=15]
+[sub_resource type="AnimationNodeAnimation" id=14]
 animation = "walk_W"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=16]
 
@@ -197,37 +222,44 @@ animation = "walk_W"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=22]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=23]
-
-[sub_resource type="AnimationNodeStateMachine" id=24]
-states/default/node = SubResource( 11 )
+[sub_resource type="AnimationNodeStateMachine" id=23]
+states/default/node = SubResource( 10 )
 states/default/position = Vector2( 455, 244 )
-states/walk_E/node = SubResource( 12 )
+states/walk_E/node = SubResource( 11 )
 states/walk_E/position = Vector2( 615, 244 )
-states/walk_N/node = SubResource( 13 )
+states/walk_N/node = SubResource( 12 )
 states/walk_N/position = Vector2( 455, 146 )
-states/walk_S/node = SubResource( 14 )
+states/walk_S/node = SubResource( 13 )
 states/walk_S/position = Vector2( 455, 335 )
-states/walk_W/node = SubResource( 15 )
+states/walk_W/node = SubResource( 14 )
 states/walk_W/position = Vector2( 291, 244 )
-transitions = [ "default", "walk_W", SubResource( 16 ), "default", "walk_N", SubResource( 17 ), "default", "walk_E", SubResource( 18 ), "default", "walk_S", SubResource( 19 ), "walk_S", "default", SubResource( 20 ), "walk_E", "default", SubResource( 21 ), "walk_N", "default", SubResource( 22 ), "walk_W", "default", SubResource( 23 ) ]
-graph_offset = Vector2( -12, 104 )
+transitions = [ "default", "walk_W", SubResource( 15 ), "default", "walk_N", SubResource( 16 ), "default", "walk_E", SubResource( 17 ), "default", "walk_S", SubResource( 18 ), "walk_S", "default", SubResource( 19 ), "walk_E", "default", SubResource( 20 ), "walk_N", "default", SubResource( 21 ), "walk_W", "default", SubResource( 22 ) ]
+graph_offset = Vector2( -4, 30 )
+
+[sub_resource type="AnimationNodeBlendTree" id=24]
+graph_offset = Vector2( -121, -8 )
+nodes/output/position = Vector2( 540, 100 )
+nodes/playback_speed/node = SubResource( 9 )
+nodes/playback_speed/position = Vector2( 340, 100 )
+nodes/state_machine/node = SubResource( 23 )
+nodes/state_machine/position = Vector2( 120, 100 )
+node_connections = [ "output", 0, "playback_speed", "playback_speed", 0, "state_machine" ]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=25]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=26]
 
-[sub_resource type="AnimationNodeStateMachine" id=8]
-states/drowning/node = SubResource( 10 )
-states/drowning/position = Vector2( 276, 223 )
+[sub_resource type="AnimationNodeStateMachine" id=27]
+states/drowning/node = SubResource( 8 )
+states/drowning/position = Vector2( 337, 283 )
 states/normal/node = SubResource( 24 )
-states/normal/position = Vector2( 31, 223 )
+states/normal/position = Vector2( 85, 283 )
 transitions = [ "normal", "drowning", SubResource( 25 ), "drowning", "normal", SubResource( 26 ) ]
-graph_offset = Vector2( -383, 92 )
+graph_offset = Vector2( -296, 125 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=9]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=28]
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=27]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=29]
 
 [node name="Player" type="KinematicBody2D" groups=[
 "player",
@@ -237,9 +269,11 @@ script = ExtResource( 2 )
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -3, -7, -5, -5, -5, 5, -3, 7, 3, 7, 5, 5, 5, -5, 3, -7 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = ExtResource( 1 )
-playing = true
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 5
+vframes = 6
+frame = 26
 
 [node name="TerrainSplash" type="AnimatedSprite" parent="."]
 playing = true
@@ -272,9 +306,10 @@ script = ExtResource( 11 )
 
 [node name="DotTimer" type="Timer" parent="."]
 
-[node name="SfxGrass" type="AudioStreamPlayer" parent="."]
+[node name="SfxAnim" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 bus = "SFX"
+script = ExtResource( 7 )
 
 [node name="MusicSleep" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
@@ -297,13 +332,13 @@ anims/walk_S = SubResource( 6 )
 anims/walk_W = SubResource( 7 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 8 )
+tree_root = SubResource( 27 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 9 )
-parameters/normal/playback = SubResource( 27 )
+parameters/playback = SubResource( 28 )
+parameters/normal/playback_speed/scale = 1.0
+parameters/normal/state_machine/playback = SubResource( 29 )
 
-[connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
 [connection signal="body_entered" from="Axe" to="Axe" method="_on_Axe_body_entered"]
 [connection signal="animation_finished" from="Axe/AxeSprite" to="Axe" method="_on_AxeSprite_animation_finished"]
 [connection signal="timeout" from="InvulnTimer" to="." method="_on_InvulnTimer_timeout"]

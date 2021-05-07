@@ -36,7 +36,10 @@ var dot_effect = DOT.NONE
 
 onready var anim_tree = $AnimationTree
 onready var anim_tree_playback = anim_tree["parameters/playback"]
-onready var anim_tree_normal_playback = anim_tree["parameters/normal/playback"]
+onready var anim_tree_normal_playback = anim_tree["parameters/normal/state_machine/playback"]
+
+func set_anim_tree_normal_playback_speed(value: float):
+	 anim_tree["parameters/normal/playback_speed/scale"] = value
 
 func be_dead():
 	dead = true
@@ -178,7 +181,7 @@ func _process_alive(delta):
 	
 	move_and_slide(dir * move_speed * base_move_speed)
 	
-	$AnimatedSprite.speed_scale = move_speed
+	set_anim_tree_normal_playback_speed(move_speed)
 	
 	# ATTACK
 	
@@ -246,16 +249,6 @@ func _process_dead(delta):
 
 func _physics_process(delta):
 	pass
-
-func _on_AnimatedSprite_frame_changed():
-	if $AnimatedSprite.frame % 2 == 0:
-		var obs_tile = obstacle_map.get_cellv(obstacle_map.world_to_map(position))
-		
-		match obs_tile:
-			TileType.TALLGRASS:
-				$SfxGrass.play()
-			_:
-				pass
 
 func _on_MusicSleep_finished():
 	emit_signal("on_sleep_finished", self)

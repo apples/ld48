@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bloop2.wav-076bb9e43a1c6b1cf4068bfb7c2412cd.sample"
+
+[deps]
+
+source_file="res://sfx/bloop2.wav"
+dest_files=[ "res://.import/bloop2.wav-076bb9e43a1c6b1cf4068bfb7c2412cd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
