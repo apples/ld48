@@ -19,6 +19,10 @@ var invuln = false
 var dead = false
 var sleeping = false
 
+var max_stamina = 100
+var stamina = max_stamina
+var sprinting = false
+
 onready var start_pos = position
 
 enum { DIR_N, DIR_S, DIR_E, DIR_W }
@@ -116,6 +120,12 @@ func _process(delta):
 	else:
 		_process_alive(delta)
 
+func _input(event):
+	if event.is_action_pressed("sprint") && stamina >= 5:
+		sprinting = true
+	elif event.is_action_released("sprint"):
+		sprinting = false
+
 func _process_alive(delta):
 	
 	# INPUT - MOVE
@@ -132,8 +142,18 @@ func _process_alive(delta):
 	
 	var move_speed = 0.0 if dir.length_squared() == 0 else 1.0
 	
-	if Input.is_key_pressed(KEY_SHIFT):
+#	if Input.is_action_just_pressed("sprint") && stamina >= 5:
+#		sprinting = true
+#	elif Input.is_action_released("sprint"):
+#		sprinting = false
+		
+	if sprinting && stamina > 0:
+		stamina -= 1
 		move_speed *= 2
+	else:
+		sprinting = false
+		if stamina <= max_stamina:
+			stamina += .5
 	
 	# FACING
 	
