@@ -6,7 +6,7 @@ onready var player = get_node(player_path)
 export(NodePath) var tilemap_path = null
 onready var tilemap = get_node(tilemap_path)
 
-var player_goal = 100
+#var player_goal = 100
 
 onready var hearts = [
 	$Hearts/Heart0,
@@ -32,9 +32,9 @@ func _ready():
 func _process(delta):
 	_update_hearts(Globals.player_health)
 	
-	var ppos = tilemap.world_to_map(player.position)
-	$CoordLabel.text = str(ppos)
-	$PlayerPos.margin_top = (ppos.y / player_goal) * (520 - 34) + 34
+	var stamina = player.stamina
+	$CoordLabel.text = str(stamina)
+	$PlayerPos.margin_top = 520 - (stamina / player.max_stamina) * (520 - 34)
 	$PlayerPos.margin_bottom = $PlayerPos.margin_top + 20
 
 func _update_hearts(value):
