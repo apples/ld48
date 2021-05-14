@@ -1,31 +1,308 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://frog/EnemyFrog.gd" type="Script" id=1]
-[ext_resource path="res://frog/frog_spriteframes.tres" type="SpriteFrames" id=2]
-
-[sub_resource type="CircleShape2D" id=2]
-radius = 3.25805
+[ext_resource path="res://frog/frog.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
+radius = 3.25805
+
+[sub_resource type="CircleShape2D" id=2]
 radius = 80.0
+
+[sub_resource type="CircleShape2D" id=34]
+radius = 20.1117
+
+[sub_resource type="CircleShape2D" id=35]
+radius = 128.0
+
+[sub_resource type="Animation" id=23]
+resource_name = "begin_charge"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 1 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("ChargeTimer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ -1 ],
+"method": "start"
+} ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "begin_wait"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 1, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("WaitTimer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ -1.0 ],
+"method": "start"
+} ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "rise"
+} ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "charge"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 1 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "hide"
+tracks/0/type = "method"
+tracks/0/path = NodePath("WaitTimer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "stop"
+} ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("ChargeTimer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "stop"
+} ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "dive"
+} ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "shoot"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 2 ), Vector2( 1, 2 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "spawn_projectile"
+} ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "wait"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 1, 0 ) ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=25]
+animation = "begin_charge"
+
+[sub_resource type="AnimationNodeAnimation" id=26]
+animation = "begin_wait"
+
+[sub_resource type="AnimationNodeAnimation" id=10]
+animation = "charge"
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "hide"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "shoot"
+
+[sub_resource type="AnimationNodeAnimation" id=14]
+animation = "wait"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=20]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=27]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=28]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=29]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=31]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=32]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=33]
+
+[sub_resource type="AnimationNodeStateMachine" id=8]
+states/begin_charge/node = SubResource( 25 )
+states/begin_charge/position = Vector2( 787, 121 )
+states/begin_wait/node = SubResource( 26 )
+states/begin_wait/position = Vector2( 345, 225 )
+states/charge/node = SubResource( 10 )
+states/charge/position = Vector2( 787, 225 )
+states/hide/node = SubResource( 11 )
+states/hide/position = Vector2( 566, 225 )
+states/shoot/node = SubResource( 12 )
+states/shoot/position = Vector2( 787, 322 )
+states/wait/node = SubResource( 14 )
+states/wait/position = Vector2( 345, 121 )
+transitions = [ "charge", "shoot", SubResource( 17 ), "shoot", "hide", SubResource( 18 ), "charge", "hide", SubResource( 19 ), "wait", "hide", SubResource( 20 ), "shoot", "begin_wait", SubResource( 27 ), "begin_wait", "wait", SubResource( 28 ), "wait", "begin_charge", SubResource( 29 ), "begin_charge", "charge", SubResource( 30 ), "begin_wait", "hide", SubResource( 31 ), "begin_charge", "hide", SubResource( 32 ), "hide", "begin_wait", SubResource( 33 ) ]
+graph_offset = Vector2( 65.5098, 84 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=9]
 
 [node name="EnemyFrog" type="Area2D" groups=[
 "enemy",
 ]]
 script = ExtResource( 1 )
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+hframes = 2
+vframes = 3
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = ExtResource( 2 )
-frame = 1
-playing = true
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
 
 [node name="SensorBox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SensorBox"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
+
+[node name="ComfortZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ComfortZone"]
+shape = SubResource( 34 )
+
+[node name="TrackingZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrackingZone"]
+shape = SubResource( 35 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/begin_charge = SubResource( 23 )
+anims/begin_wait = SubResource( 24 )
+anims/charge = SubResource( 3 )
+anims/hide = SubResource( 4 )
+anims/shoot = SubResource( 5 )
+anims/wait = SubResource( 7 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 8 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 9 )
 
 [node name="WaitTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -34,8 +311,9 @@ one_shot = true
 [node name="ChargeTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="body_entered" from="SensorBox" to="." method="_on_SensorBox_body_entered"]
-[connection signal="body_exited" from="SensorBox" to="." method="_on_SensorBox_body_exited"]
+[connection signal="body_entered" from="ComfortZone" to="." method="_on_ComfortZone_body_entered"]
+[connection signal="body_exited" from="ComfortZone" to="." method="_on_ComfortZone_body_exited"]
+[connection signal="body_exited" from="TrackingZone" to="." method="_on_TrackingZone_body_exited"]
 [connection signal="timeout" from="WaitTimer" to="." method="_on_WaitTimer_timeout"]
 [connection signal="timeout" from="ChargeTimer" to="." method="_on_ChargeTimer_timeout"]

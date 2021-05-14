@@ -4,9 +4,9 @@ var savegame_file = "user://saved_game.cfg"
 
 var current_day = 0
 var current_time = 0
-var day_length = 60
+var day_length = 180
 
-var player_health = 5
+var player_health = 50
 var resource_defaults = {
 	EventType.BERRY_BUSH: 1,
 	EventType.PLACE_TORCH: 4,
