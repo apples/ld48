@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Object",
+"class": "AutomataSystem",
+"language": "GDScript",
+"path": "res://utility/automata_system.gd"
+}, {
+"base": "Object",
+"class": "Dir",
+"language": "GDScript",
+"path": "res://enums/Dir.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Enemy",
 "language": "GDScript",
@@ -20,13 +30,21 @@ _global_script_classes=[ {
 "path": "res://enums/EventType.gd"
 }, {
 "base": "Object",
+"class": "RandomChoice",
+"language": "GDScript",
+"path": "res://utility/random_choice.gd"
+}, {
+"base": "Object",
 "class": "TileType",
 "language": "GDScript",
 "path": "res://enums/TileType.gd"
 } ]
 _global_script_class_icons={
+"AutomataSystem": "",
+"Dir": "",
 "Enemy": "",
 "EventType": "",
+"RandomChoice": "",
 "TileType": ""
 }
 
@@ -49,7 +67,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PoolStringArray( "res://addons/TileMapPlus/plugin.cfg" )
 
 [gdnative]
 
@@ -142,8 +160,8 @@ sprint={
 [rendering]
 
 quality/driver/driver_name="GLES2"
-quality/2d/use_pixel_snap=true
+2d/snapping/use_gpu_pixel_snap=true
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"
-2d/snapping/use_gpu_pixel_snap=true
+quality/2d/use_pixel_snap=true
