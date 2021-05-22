@@ -1,14 +1,19 @@
 tool
 extends EditorScript
 
-var start = Vector2(1, 75)
-var end = Vector2(127, 126)
-
-# inner rect sizes
-var rect_size_min = Vector2(5, 3)
-var rect_size_max = Vector2(10, 10)
-
-var max_attempts = 40
+func _run():
+	_generate_woods(
+		Vector2(1, 65), Vector2(127, 74),
+		Vector2(12, 10), Vector2(15, 15),
+		40)
+	_generate_woods(
+		Vector2(1, 75), Vector2(127, 100),
+		Vector2(8, 5), Vector2(15, 15),
+		40)
+	_generate_woods(
+		Vector2(1, 101), Vector2(127, 126),
+		Vector2(5, 3), Vector2(10, 10),
+		40)
 
 enum { N, S, E, W, NE, SE, NW, SW }
 
@@ -89,12 +94,35 @@ var on_corner = Req.AND([
 	]),
 ])
 
+var part_of_big_boulder = Req.OR([
+	DirectionalReq.new({
+		N: TileType.BOULDER,
+		NE: TileType.BOULDER,
+		E: TileType.BOULDER,
+	}),
+	DirectionalReq.new({
+		N: TileType.BOULDER,
+		NW: TileType.BOULDER,
+		W: TileType.BOULDER,
+	}),
+	DirectionalReq.new({
+		S: TileType.BOULDER,
+		SE: TileType.BOULDER,
+		E: TileType.BOULDER,
+	}),
+	DirectionalReq.new({
+		S: TileType.BOULDER,
+		SW: TileType.BOULDER,
+		W: TileType.BOULDER,
+	}),
+])
+
 var automata_rules = {
 	TileType.NONE: [
 		# Random trees in clearings
 		
 		Rule.new(TileType.TREETRUNK, 1, none_adjacent),
-		Rule.new(TileType.NONE, 5, none_adjacent),
+		Rule.new(TileType.NONE, 10, none_adjacent),
 		
 		# Random grass on edges
 		
@@ -143,18 +171,67 @@ var cleanup_rules = {
 	TileType.CLIFF: [
 		# Replace weird cliffs
 		
-		Rule.new(TileType.TREETRUNK, 1, Req.OR([
-			DirectionalReq.new({ N: TileType.TREETRUNK }),
-			DirectionalReq.new({ S: TileType.TREETRUNK }),
-		])),
 		Rule.new(TileType.BOULDER, 1, Req.OR([
 			DirectionalReq.new({ N: TileType.BOULDER }),
 			DirectionalReq.new({ S: TileType.BOULDER }),
 		])),
 	],
+	TileType.BOULDER: [
+		# Replace weird boulders
+		
+		Rule.new(TileType.TREETRUNK, 1, Req.AND([
+			Req.OR([
+				DirectionalReq.new({ N: TileType.BOULDER }),
+				DirectionalReq.new({ S: TileType.BOULDER }),
+			]),
+			Req.OR([
+				DirectionalReq.new({ E: TileType.CLIFF }),
+				DirectionalReq.new({ W: TileType.CLIFF }),
+			]),
+		])),
+		
+		# Replace random small boulders with trees
+		
+		Rule.new(TileType.TREETRUNK, 1, Req.NOT(part_of_big_boulder)),
+		Rule.new(TileType.BOULDER, 3, Req.NOT(part_of_big_boulder)),
+	],
+	TileType.NONE: [
+		# Pad out tree lines
+		
+		Rule.new(TileType.TREETRUNK, 1, DirectionalReq.new({
+			SW: TileType.TREETRUNK,
+			S: TileType.TREETRUNK,
+		})),
+		Rule.new(TileType.TREETRUNK, 1, DirectionalReq.new({
+			S: TileType.TREETRUNK,
+			SE: TileType.TREETRUNK,
+		})),
+	],
+	TileType.TREETRUNK: [
+		# Thin out tree lines against walls
+		
+		Rule.new(TileType.TREETRUNK, 1, Req.AND([
+			DirectionalReq.new({
+				W: TileType.TREETRUNK,
+				E: TileType.TREETRUNK,
+			}),
+			Req.NOT(DirectionalReq.new({
+				N: TileType.NONE,
+			})),
+		])),
+		Rule.new(TileType.NONE, 1, Req.AND([
+			DirectionalReq.new({
+				W: TileType.TREETRUNK,
+				E: TileType.TREETRUNK,
+			}),
+			Req.NOT(DirectionalReq.new({
+				N: TileType.NONE,
+			})),
+		])),
+	],
 }
 
-func _run():
+func _generate_woods(start: Vector2, end: Vector2, rect_size_min: Vector2, rect_size_max: Vector2, max_attempts: int):
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	

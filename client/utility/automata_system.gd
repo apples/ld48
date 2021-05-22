@@ -124,8 +124,8 @@ class DirectionalReq extends Req:
 		nbors = nb
 	
 	func matches(current_nbors: Dictionary):
-		for dir in current_nbors:
-			if nbors.has(dir) and nbors[dir] != current_nbors[dir]:
+		for dir in nbors:
+			if !current_nbors.has(dir) or nbors[dir] != current_nbors[dir]:
 				return false
 		return true
 
