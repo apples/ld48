@@ -134,10 +134,13 @@ class Rule:
 	var priority: int
 	var requirement: Req
 	
-	func _init(res: int, p: int, req):
+	func _init(res: int, p: int, req = null):
 		result = res
 		priority = p
 		requirement = req
 	
 	func matches(current_nbors: Dictionary):
-		return requirement.matches(current_nbors)
+		if requirement != null:
+			return requirement.matches(current_nbors)
+		else:
+			return true

@@ -222,6 +222,8 @@ func _process_alive(delta):
 					changetracker.cut_grass(target_pos)
 				TileType.STICKBUSH:
 					changetracker.cut_stickbush(target_pos)
+				TileType.TREETRUNK:
+					changetracker.cut_tree(target_pos)
 		
 		match facing:
 			DIR_N:

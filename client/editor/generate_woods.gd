@@ -239,9 +239,6 @@ func _generate_woods(start: Vector2, end: Vector2, rect_size_min: Vector2, rect_
 	var obst = get_scene().get_node("YSort/TileMapObstacles")
 	var canopy = get_scene().get_node("TileMapCanopy")
 	
-	assert(rect_size_max.x >= rect_size_min.x * 2 - 1)
-	assert(rect_size_max.y >= rect_size_min.y * 2 - 1)
-	
 	var size = end - start
 	
 	var automata = AutomataSystem.new(size, TileType.BOULDER)

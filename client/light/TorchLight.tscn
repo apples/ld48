@@ -11,6 +11,7 @@ shadow_enabled = true
 script = ExtResource( 2 )
 
 [node name="CanopyLight" type="Light2D" parent="."]
+enabled = false
 texture = ExtResource( 1 )
 color = Color( 1, 0.843137, 0, 1 )
-range_item_cull_mask = 2
+range_item_cull_mask = 6

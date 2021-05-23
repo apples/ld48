@@ -26,6 +26,8 @@ onready var torchholder = get_node(torchholder_path)
 var torch_scene = load("res://light/TorchLight.tscn")
 var torches = {}
 
+var last_tree_hit = null
+
 func cut_grass(pos, do_commit = true):
 	var did = false
 	if obstacle_tilemap.get_cellv(pos) == TileType.TALLGRASS:
@@ -46,6 +48,18 @@ func cut_stickbush(pos, do_commit = true):
 			Globals.resources[EventType.PLACE_LADDER] += 1
 	if did and do_commit:
 		_commit_event(EventType.CUT_STICKBUSH, pos, 1, false)
+	return did
+
+func cut_tree(pos, do_commit = true):
+	var did = false
+	if pos == last_tree_hit and obstacle_tilemap.get_cellv(pos) == TileType.TREETRUNK:
+		print("Cutting tree at " + str(pos))
+		did = true
+		obstacle_tilemap.set_cellv(pos, -1)
+	else:
+		last_tree_hit = pos
+	if did and do_commit:
+		_commit_event(EventType.CUT_TREE, pos, 1, false)
 	return did
 
 func grow_berrybush(pos, do_commit = true):
