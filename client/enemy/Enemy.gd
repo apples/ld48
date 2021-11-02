@@ -9,7 +9,7 @@ var player = null
 var move_speed = 50
 var dir = Vector2(0, 0)
 var facing_right = false
-var health = 1
+var health = 5
 
 enum EnemyType { FOX, WOLF }
 export(EnemyType) var type = EnemyType.FOX
@@ -18,6 +18,7 @@ var fox_sprites = load("res://enemy/fox.tres")
 var wolf_sprites = load("res://enemy/wolf.tres")
 
 var dead = false
+var stunned = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,10 +30,13 @@ func _ready():
 			$AnimatedSprite.frames = wolf_sprites
 	$AnimatedSprite.play("run")
 
-func get_hit():
+func get_hit(hitDir = Vector2(0, 0), stunDuration = 0):
 	if not dead:
 		if health > 0:
 			health -= 1
+			if stunDuration > 0:
+				stunned = true
+				$StunTimer.start()
 		if health <= 0:
 			dead = true
 			$DeadTimer.start()
@@ -44,7 +48,7 @@ func get_hit():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if not dead:
+	if not dead or stunned:#add stun movement vector, variable stun time, re-up stun duration when enemy hits wall?
 		var vec = player.position - position
 		if vec.length() < 16 * 5:
 			$AnimatedSprite.play()
@@ -76,3 +80,6 @@ func _on_DeadTimer_timeout():
 			dead = false
 			$CollisionPolygon2D.set_deferred("disabled", false)
 			$AnimatedSprite.rotation_degrees = 0
+
+func _on_StunTimer_timeout():
+	stunned = false

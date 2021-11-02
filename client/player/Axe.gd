@@ -25,7 +25,7 @@ func _on_AxeSprite_animation_finished():
 	hide()
 	$CollisionShape2D.disabled = true
 	$AxeSprite.stop()
-	cooldown = .5
+	cooldown = .25
 	swinging = false
 
 

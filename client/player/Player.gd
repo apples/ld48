@@ -19,7 +19,7 @@ var invuln = false
 var dead = false
 var sleeping = false
 
-var max_stamina = 100
+var max_stamina = 200
 var stamina = max_stamina
 var sprinting = false
 
@@ -60,7 +60,7 @@ func go_to_sleep():
 
 func get_hit():
 	if not dead and not invuln:
-		Globals.player_health -= 1
+		#Globals.player_health -= 1 #for testing, do not commit
 		assert(Globals.player_health >= 0)
 		if Globals.player_health == 0:
 			be_dead()
@@ -125,6 +125,8 @@ func _input(event):
 		sprinting = true
 	elif event.is_action_released("sprint"):
 		sprinting = false
+	elif event.is_action("attack"):
+		_attack(event)
 
 func _process_alive(delta):
 	
@@ -142,18 +144,14 @@ func _process_alive(delta):
 	
 	var move_speed = 0.0 if dir.length_squared() == 0 else 1.0
 	
-#	if Input.is_action_just_pressed("sprint") && stamina >= 5:
-#		sprinting = true
-#	elif Input.is_action_released("sprint"):
-#		sprinting = false
-		
+	
 	if sprinting && stamina > 0:
 		stamina -= 1
 		move_speed *= 2
 	else:
 		sprinting = false
 		if stamina <= max_stamina:
-			stamina += .5
+			stamina += .25
 	
 	# FACING
 	
@@ -205,36 +203,38 @@ func _process_alive(delta):
 	
 	# ATTACK
 	
-	if Input.is_action_just_pressed("attack") and not $Axe.swinging and $Axe.cooldown <= 0:
-		var target_poss = [obstacle_map.world_to_map(position)]
-		match facing:
-			DIR_S:
-				target_poss.append(target_poss[0] + Vector2(0, 1))
-			DIR_N:
-				target_poss.append(target_poss[0] + Vector2(0, -1))
-			DIR_W:
-				target_poss.append(target_poss[0] + Vector2(-1, 0))
-			DIR_E:
-				target_poss.append(target_poss[0] + Vector2(1, 0))
-		for target_pos in target_poss:
-			match obstacle_map.get_cellv(target_pos):
-				TileType.TALLGRASS:
-					changetracker.cut_grass(target_pos)
-				TileType.STICKBUSH:
-					changetracker.cut_stickbush(target_pos)
-				TileType.TREETRUNK:
-					changetracker.cut_tree(target_pos)
-		
-		match facing:
-			DIR_N:
-				$Axe.rotation_degrees = 180
-			DIR_S:
-				$Axe.rotation_degrees = 0
-			DIR_E:
-				$Axe.rotation_degrees = 180 + 90
-			DIR_W:
-				$Axe.rotation_degrees = 90
-		$Axe.swing()
+#	if Input.is_action_just_pressed("attack") and not $Axe.swinging and $Axe.cooldown <= 0 and stamina >= 25:
+#		stamina -= 25
+#		var target_poss = [obstacle_map.world_to_map(position)]
+##		match facing:
+##			DIR_S:
+##				target_poss.append(target_poss[0] + Vector2(0, 1))
+##			DIR_N:
+##				target_poss.append(target_poss[0] + Vector2(0, -1))
+##			DIR_W:
+##				target_poss.append(target_poss[0] + Vector2(-1, 0))
+##			DIR_E:
+##				target_poss.append(target_poss[0] + Vector2(1, 0))
+#		target_poss.append()
+#		for target_pos in target_poss:
+#			match obstacle_map.get_cellv(target_pos):
+#				TileType.TALLGRASS:
+#					changetracker.cut_grass(target_pos)
+#				TileType.STICKBUSH:
+#					changetracker.cut_stickbush(target_pos)
+#				TileType.TREETRUNK:
+#					changetracker.cut_tree(target_pos)
+#
+#		match facing:
+#			DIR_N:
+#				$Axe.rotation_degrees = 180
+#			DIR_S:
+#				$Axe.rotation_degrees = 0
+#			DIR_E:
+#				$Axe.rotation_degrees = 180 + 90
+#			DIR_W:
+#				$Axe.rotation_degrees = 90
+#		$Axe.swing()
 	
 	# CONSTRUCT
 	
@@ -279,7 +279,26 @@ func _on_MusicSleep_finished():
 func _on_InvulnTimer_timeout():
 	invuln = false
 
+func _attack(event):#now assuming mouse-only
+	if not $Axe.swinging and $Axe.cooldown <= 0 and stamina >= 25:
+		stamina -= 25
+		var mouse_dir = (event.position - Vector2(get_viewport_rect().size.x / 2, get_viewport_rect().size.y / 2))
+		mouse_dir = mouse_dir.normalized()
+		mouse_dir.y = -mouse_dir.y
 
+		var target_poss = [obstacle_map.world_to_map(position)]
+		target_poss.append(target_poss[0] + mouse_dir)
+		for target_pos in target_poss:
+			match obstacle_map.get_cellv(target_pos):
+				TileType.TALLGRASS:
+					changetracker.cut_grass(target_pos)
+				TileType.STICKBUSH:
+					changetracker.cut_stickbush(target_pos)
+				TileType.TREETRUNK:
+					changetracker.cut_tree(target_pos)
+
+		$Axe.rotation_degrees = fmod(270 - rad2deg(mouse_dir.angle()), 360)
+		$Axe.swing()
 
 func _on_SkytoneEffect_skytone_color(color):
 	$CanopyMask.color = color
